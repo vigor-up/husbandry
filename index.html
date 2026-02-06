@@ -83,8 +83,9 @@
 
         .logo-icon {
             background: white;
-            width: 60px;
-            height: 60px;
+            /* 【修改1】页眉logo尺寸从60px调整为80px */
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -411,8 +412,9 @@
         }
 
         .footer-logo-img {
-            width: 80px;
-            height: 80px;
+            /* 【修改2】页脚logo尺寸从80px调整为100px */
+            width: 100px;
+            height: 100px;
             background: white;
             border-radius: 50%;
             display: flex;
@@ -525,10 +527,16 @@
                 height: 180px;
             }
 
-            /* 響應式調整頁尾logo大小 */
+            /* 【修改3】移动端页眉logo适配：从80px调整为70px */
+            .logo-icon {
+                width: 70px;
+                height: 70px;
+            }
+
+            /* 【修改4】移动端页脚logo适配：从100px调整为80px（原60px） */
             .footer-logo-img {
-                width: 60px;
-                height: 60px;
+                width: 80px;
+                height: 80px;
             }
         }
 
