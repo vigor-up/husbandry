@@ -6,6 +6,8 @@
     <title>首池有限公司｜活力旺系列產品總覽 - 精準營養解決方案</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- 1. 引入簡繁轉換庫 -->
+    <script src="https://cdn.jsdelivr.net/npm/opencc-js@1.0.5/dist/opencc.min.js"></script>
     <style>
         :root {
             --primary-green: #2E7D32;
@@ -83,7 +85,6 @@
 
         .logo-icon {
             background: white;
-            /* 【修改1】页眉logo尺寸从60px调整为80px */
             width: 80px;
             height: 80px;
             border-radius: 50%;
@@ -91,11 +92,9 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            /* 新增：確保logo適配圓形容器 */
             overflow: hidden;
         }
 
-        /* 新增：logo圖片樣式 */
         .logo-icon img {
             width: 100%;
             height: 100%;
@@ -123,6 +122,32 @@
             max-width: 700px;
             margin: 0 auto 25px;
             line-height: 1.6;
+        }
+
+        /* 2. 簡繁切換按鈕樣式 */
+        .language-switcher-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .language-btn {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-family: 'Noto Sans TC', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .language-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
         }
 
         .stats-container {
@@ -220,7 +245,7 @@
             flex-direction: column;
             position: relative;
             border: 1px solid #e2e8f0;
-            cursor: pointer; /* 新增：整張卡片可點擊 */
+            cursor: pointer;
         }
 
         .product-card::before {
@@ -403,7 +428,6 @@
             margin-bottom: 40px;
         }
 
-        /* 新增：頁尾logo樣式 */
         .footer-logo {
             display: flex;
             align-items: center;
@@ -412,7 +436,6 @@
         }
 
         .footer-logo-img {
-            /* 【修改2】页脚logo尺寸从80px调整为100px */
             width: 100px;
             height: 100px;
             background: white;
@@ -477,30 +500,24 @@
             .container {
                 padding: 0 15px;
             }
-            
             .products-grid {
                 grid-template-columns: 1fr;
             }
-            
             .stats-container {
                 gap: 15px;
             }
-            
             .stat-item {
                 min-width: 140px;
                 padding: 15px 20px;
             }
-            
             .stat-value {
                 font-size: 1.8rem;
             }
-            
             .product-footer {
                 flex-direction: column;
                 gap: 15px;
                 align-items: stretch;
             }
-            
             .product-roi {
                 text-align: center;
             }
@@ -510,33 +527,30 @@
             header {
                 padding: 30px 0 60px;
             }
-            
             h1 {
                 font-size: 1.8rem;
             }
-            
             .company-name {
                 font-size: 1.5rem;
             }
-            
             .tagline {
                 font-size: 1rem;
             }
-            
             .product-image {
                 height: 180px;
             }
-
-            /* 【修改3】移动端页眉logo适配：从80px调整为70px */
             .logo-icon {
                 width: 70px;
                 height: 70px;
             }
-
-            /* 【修改4】移动端页脚logo适配：从100px调整为80px（原60px） */
             .footer-logo-img {
                 width: 80px;
                 height: 80px;
+            }
+            /* 移動端按鈕調整 */
+            .language-btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
             }
         }
 
@@ -564,30 +578,36 @@
             <div class="header-content">
                 <div class="logo-container">
                     <div class="logo-icon">
-                        <!-- 替換：原圖標替換為logo圖片，請將圖片路徑替換為你的實際logo路徑 -->
                         <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/5965503ba113471f91fba4037d7adae8.png~tplv-a9rns2rl98-image.png?lk3s=8e244e95&rcl=20260206205209107A8E1C5FD86910B9D3&rrcfp=dafada99&x-expires=2086606329&x-signature=pNRZ9%2BcHAWfgOs%2BqG8iexiNQ%2Fow%3D" alt="活力旺logo">
                     </div>
                 </div>
-                <h1>活力旺系列產品解決方案</h1>
-                <div class="company-name">首池有限公司</div>
-                <p class="tagline">精準營養 · 先進生物技術 · 永續農業</p>
+                <!-- 2. 添加簡繁切換按鈕 -->
+                <div class="language-switcher-container">
+                    <button id="convertBtn" class="language-btn">
+                        <i class="fas fa-language"></i> 切换到简体
+                    </button>
+                </div>
+                <!-- 3. 為所有需轉換的文本添加標記 -->
+                <h1 class="convert-target">活力旺系列產品解決方案</h1>
+                <div class="company-name convert-target">首池有限公司</div>
+                <p class="tagline convert-target">精準營養 · 先進生物技術 · 永續農業</p>
                 
                 <div class="stats-container">
                     <div class="stat-item fade-in" style="animation-delay: 0.1s;">
                         <span class="stat-value">2,104%</span>
-                        <span class="stat-label">最高投資報酬率</span>
+                        <span class="stat-label convert-target">最高投資報酬率</span>
                     </div>
                     <div class="stat-item fade-in" style="animation-delay: 0.2s;">
                         <span class="stat-value">8</span>
-                        <span class="stat-label">專業解決方案</span>
+                        <span class="stat-label convert-target">專業解決方案</span>
                     </div>
                     <div class="stat-item fade-in" style="animation-delay: 0.3s;">
                         <span class="stat-value">&lt;3天</span>
-                        <span class="stat-label">最快投資回收期</span>
+                        <span class="stat-label convert-target">最快投資回收期</span>
                     </div>
                     <div class="stat-item fade-in" style="animation-delay: 0.4s;">
                         <span class="stat-value">NTD 600/噸</span>
-                        <span class="stat-label">平均添加成本</span>
+                        <span class="stat-label convert-target">平均添加成本</span>
                     </div>
                 </div>
             </div>
@@ -598,8 +618,8 @@
     <main class="container">
         <!-- 產品方案區 -->
         <section class="section-title">
-            <h2>活力旺系列產品方案</h2>
-            <p>基於專利發酵平台與國際前沿代謝科學，針對不同畜禽品種的特定需求，提供精準營養解決方案</p>
+            <h2 class="convert-target">活力旺系列產品方案</h2>
+            <p class="convert-target">基於專利發酵平台與國際前沿代謝科學，針對不同畜禽品種的特定需求，提供精準營養解決方案</p>
         </section>
         
         <section class="products-grid">
@@ -607,7 +627,7 @@
             <div class="product-card fade-in">
                 <div class="product-image">
                     <img src="assets/boar.jpg" alt="種公豬精液品質提升">
-                    <div class="product-category">豬隻營養</div>
+                    <div class="product-category convert-target">豬隻營養</div>
                 </div>
                 <div class="product-content">
                     <div class="product-header">
@@ -615,22 +635,22 @@
                             <i class="fas fa-piggy-bank" style="color: white; font-size: 1.3rem;"></i>
                         </div>
                         <div>
-                            <h3>種公豬精液品質提升方案</h3>
-                            <div class="product-subtitle">約克夏/藍瑞斯/杜洛克等品種</div>
+                            <h3 class="convert-target">種公豬精液品質提升方案</h3>
+                            <div class="product-subtitle convert-target">約克夏/藍瑞斯/杜洛克等品種</div>
                         </div>
                     </div>
                     <ul class="product-benefits">
-                        <li><i class="fas fa-check"></i>精子畸形率降低7-10%</li>
-                        <li><i class="fas fa-check"></i>精液量提升15-20%</li>
-                        <li><i class="fas fa-check"></i>精子活力提升至85%以上</li>
-                        <li><i class="fas fa-check"></i>每頭年增淨利NTD 31,848</li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">精子畸形率降低7-10%</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">精液量提升15-20%</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">精子活力提升至85%以上</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">每頭年增淨利NTD 31,848</span></li>
                     </ul>
                     <div class="product-footer">
                         <div class="product-roi">
                             <span class="roi-value">2,764%</span>
-                            <span class="roi-label">投資報酬率</span>
+                            <span class="roi-label convert-target">投資報酬率</span>
                         </div>
-                        <a href="活力旺種公豬精液品質提升方案.html" class="btn-view">查看方案</a>
+                        <a href="活力旺種公豬精液品質提升方案.html" class="btn-view convert-target">查看方案</a>
                     </div>
                 </div>
             </div>
@@ -639,7 +659,7 @@
             <div class="product-card fade-in">
                 <div class="product-image">
                     <img src="assets/pregnant-sow.jpg" alt="懷孕母豬生產性能優化">
-                    <div class="product-category">豬隻營養</div>
+                    <div class="product-category convert-target">豬隻營養</div>
                 </div>
                 <div class="product-content">
                     <div class="product-header">
@@ -647,22 +667,22 @@
                             <i class="fas fa-female" style="color: white; font-size: 1.3rem;"></i>
                         </div>
                         <div>
-                            <h3>懷孕期母豬生產性能優化方案</h3>
-                            <div class="product-subtitle">提升產仔數與仔豬初生重</div>
+                            <h3 class="convert-target">懷孕期母豬生產性能優化方案</h3>
+                            <div class="product-subtitle convert-target">提升產仔數與仔豬初生重</div>
                         </div>
                     </div>
                     <ul class="product-benefits">
-                        <li><i class="fas fa-check"></i>平均窩產仔數提升0.8-1.2頭</li>
-                        <li><i class="fas fa-check"></i>仔豬初生重增加100-150克</li>
-                        <li><i class="fas fa-check"></i>減少流產與死胎發生率</li>
-                        <li><i class="fas fa-check"></i>優化母豬體況與健康度</li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">平均窩產仔數提升0.8-1.2頭</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">仔豬初生重增加100-150克</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">減少流產與死胎發生率</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">優化母豬體況與健康度</span></li>
                     </ul>
                     <div class="product-footer">
                         <div class="product-roi">
                             <span class="roi-value">1,850%</span>
-                            <span class="roi-label">投資報酬率</span>
+                            <span class="roi-label convert-target">投資報酬率</span>
                         </div>
-                        <a href="活力旺懷孕期母豬生產性能優化方案.html" class="btn-view">查看方案</a>
+                        <a href="活力旺懷孕期母豬生產性能優化方案.html" class="btn-view convert-target">查看方案</a>
                     </div>
                 </div>
             </div>
@@ -671,7 +691,7 @@
             <div class="product-card fade-in">
                 <div class="product-image">
                     <img src="assets/nursing-sow.jpg" alt="哺乳母豬性能提升">
-                    <div class="product-category">豬隻營養</div>
+                    <div class="product-category convert-target">豬隻營養</div>
                 </div>
                 <div class="product-content">
                     <div class="product-header">
@@ -679,22 +699,22 @@
                             <i class="fas fa-baby" style="color: white; font-size: 1.3rem;"></i>
                         </div>
                         <div>
-                            <h3>哺乳母豬性能提升方案</h3>
-                            <div class="product-subtitle">提升泌乳量與仔豬斷奶重</div>
+                            <h3 class="convert-target">哺乳母豬性能提升方案</h3>
+                            <div class="product-subtitle convert-target">提升泌乳量與仔豬斷奶重</div>
                         </div>
                     </div>
                     <ul class="product-benefits">
-                        <li><i class="fas fa-check"></i>泌乳量提升15-20%</li>
-                        <li><i class="fas fa-check"></i>仔豬21日齡斷奶重增加0.5-0.8kg</li>
-                        <li><i class="fas fa-check"></i>減少哺乳期體重損失</li>
-                        <li><i class="fas fa-check"></i>縮短斷奶至發情間隔</li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">泌乳量提升15-20%</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">仔豬21日齡斷奶重增加0.5-0.8kg</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">減少哺乳期體重損失</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">縮短斷奶至發情間隔</span></li>
                     </ul>
                     <div class="product-footer">
                         <div class="product-roi">
                             <span class="roi-value">2,150%</span>
-                            <span class="roi-label">投資報酬率</span>
+                            <span class="roi-label convert-target">投資報酬率</span>
                         </div>
-                        <a href="活力旺哺乳母豬性能提升方案.html" class="btn-view">查看方案</a>
+                        <a href="活力旺哺乳母豬性能提升方案.html" class="btn-view convert-target">查看方案</a>
                     </div>
                 </div>
             </div>
@@ -703,7 +723,7 @@
             <div class="product-card fade-in">
                 <div class="product-image">
                     <img src="assets/piglet-milk.jpg" alt="仔豬人工乳性能提升">
-                    <div class="product-category">豬隻營養</div>
+                    <div class="product-category convert-target">豬隻營養</div>
                 </div>
                 <div class="product-content">
                     <div class="product-header">
@@ -711,22 +731,22 @@
                             <i class="fas fa-wine-bottle" style="color: white; font-size: 1.3rem;"></i>
                         </div>
                         <div>
-                            <h3>仔豬人工乳性能提升方案</h3>
-                            <div class="product-subtitle">保育期仔豬專用配方</div>
+                            <h3 class="convert-target">仔豬人工乳性能提升方案</h3>
+                            <div class="product-subtitle convert-target">保育期仔豬專用配方</div>
                         </div>
                     </div>
                     <ul class="product-benefits">
-                        <li><i class="fas fa-check"></i>日增重提升50-70克/天</li>
-                        <li><i class="fas fa-check"></i>腹瀉率降低60-70%</li>
-                        <li><i class="fas fa-check"></i>飼料轉化率優化</li>
-                        <li><i class="fas fa-check"></i>每頭仔豬淨利增加NTD 197.94</li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">日增重提升50-70克/天</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">腹瀉率降低60-70%</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">飼料轉化率優化</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">每頭仔豬淨利增加NTD 197.94</span></li>
                     </ul>
                     <div class="product-footer">
                         <div class="product-roi">
                             <span class="roi-value">2,104%</span>
-                            <span class="roi-label">投資報酬率</span>
+                            <span class="roi-label convert-target">投資報酬率</span>
                         </div>
-                        <a href="活力旺仔豬人工乳性能提升方案.html" class="btn-view">查看方案</a>
+                        <a href="活力旺仔豬人工乳性能提升方案.html" class="btn-view convert-target">查看方案</a>
                     </div>
                 </div>
             </div>
@@ -735,7 +755,7 @@
             <div class="product-card fade-in">
                 <div class="product-image">
                     <img src="assets/breeding-chicken.jpg" alt="種雞性能提升">
-                    <div class="product-category">家禽營養</div>
+                    <div class="product-category convert-target">家禽營養</div>
                 </div>
                 <div class="product-content">
                     <div class="product-header">
@@ -743,22 +763,22 @@
                             <i class="fas fa-crow" style="color: white; font-size: 1.3rem;"></i>
                         </div>
                         <div>
-                            <h3>種雞性能提升方案</h3>
-                            <div class="product-subtitle">種公雞×種母雞雙效優化</div>
+                            <h3 class="convert-target">種雞性能提升方案</h3>
+                            <div class="product-subtitle convert-target">種公雞×種母雞雙效優化</div>
                         </div>
                     </div>
                     <ul class="product-benefits">
-                        <li><i class="fas fa-check"></i>受精率提升至92-95%</li>
-                        <li><i class="fas fa-check"></i>孵化率提升4-5%</li>
-                        <li><i class="fas fa-check"></i>健雛率提升至94-97%</li>
-                        <li><i class="fas fa-check"></i>千隻場年增淨利NTD 235,915</li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">受精率提升至92-95%</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">孵化率提升4-5%</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">健雛率提升至94-97%</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">千隻場年增淨利NTD 235,915</span></li>
                     </ul>
                     <div class="product-footer">
                         <div class="product-roi">
                             <span class="roi-value">919%</span>
-                            <span class="roi-label">投資報酬率</span>
+                            <span class="roi-label convert-target">投資報酬率</span>
                         </div>
-                        <a href="活力旺種雞性能提升方案.html" class="btn-view">查看方案</a>
+                        <a href="活力旺種雞性能提升方案.html" class="btn-view convert-target">查看方案</a>
                     </div>
                 </div>
             </div>
@@ -767,7 +787,7 @@
             <div class="product-card fade-in">
                 <div class="product-image">
                     <img src="assets/egg-chicken.jpg" alt="蛋雞性能提升">
-                    <div class="product-category">家禽營養</div>
+                    <div class="product-category convert-target">家禽營養</div>
                 </div>
                 <div class="product-content">
                     <div class="product-header">
@@ -775,22 +795,22 @@
                             <i class="fas fa-egg" style="color: white; font-size: 1.3rem;"></i>
                         </div>
                         <div>
-                            <h3>蛋雞性能提升方案</h3>
-                            <div class="product-subtitle">海蘭、羅曼等蛋雞品種專用</div>
+                            <h3 class="convert-target">蛋雞性能提升方案</h3>
+                            <div class="product-subtitle convert-target">海蘭、羅曼等蛋雞品種專用</div>
                         </div>
                     </div>
                     <ul class="product-benefits">
-                        <li><i class="fas fa-check"></i>產蛋率提升5-8%</li>
-                        <li><i class="fas fa-check"></i>蛋黃品質提升3-4級</li>
-                        <li><i class="fas fa-check"></i>暗斑蛋減少70-80%</li>
-                        <li><i class="fas fa-check"></i>每隻蛋雞淨利增加NTD 91.98</li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">產蛋率提升5-8%</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">蛋黃品質提升3-4級</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">暗斑蛋減少70-80%</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">每隻蛋雞淨利增加NTD 91.98</span></li>
                     </ul>
                     <div class="product-footer">
                         <div class="product-roi">
                             <span class="roi-value">576%</span>
-                            <span class="roi-label">投資報酬率</span>
+                            <span class="roi-label convert-target">投資報酬率</span>
                         </div>
-                        <a href="活力旺蛋雞性能提升方案.html" class="btn-view">查看方案</a>
+                        <a href="活力旺蛋雞性能提升方案.html" class="btn-view convert-target">查看方案</a>
                     </div>
                 </div>
             </div>
@@ -799,7 +819,7 @@
             <div class="product-card fade-in">
                 <div class="product-image">
                     <img src="assets/native-chicken.jpg" alt="土雞性能提升">
-                    <div class="product-category">家禽營養</div>
+                    <div class="product-category convert-target">家禽營養</div>
                 </div>
                 <div class="product-content">
                     <div class="product-header">
@@ -807,22 +827,22 @@
                             <i class="fas fa-drumstick-bite" style="color: white; font-size: 1.3rem;"></i>
                         </div>
                         <div>
-                            <h3>土雞性能提升方案</h3>
-                            <div class="product-subtitle">紅羽/黑羽土雞專用</div>
+                            <h3 class="convert-target">土雞性能提升方案</h3>
+                            <div class="product-subtitle convert-target">紅羽/黑羽土雞專用</div>
                         </div>
                     </div>
                     <ul class="product-benefits">
-                        <li><i class="fas fa-check"></i>增重效率提升5-8%</li>
-                        <li><i class="fas fa-check"></i>料肉比優化3-5%</li>
-                        <li><i class="fas fa-check"></i>成活率提升2-3%</li>
-                        <li><i class="fas fa-check"></i>每隻土雞淨利增加NTD 22.96</li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">增重效率提升5-8%</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">料肉比優化3-5%</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">成活率提升2-3%</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">每隻土雞淨利增加NTD 22.96</span></li>
                     </ul>
                     <div class="product-footer">
                         <div class="product-roi">
                             <span class="roi-value">310%</span>
-                            <span class="roi-label">投資報酬率</span>
+                            <span class="roi-label convert-target">投資報酬率</span>
                         </div>
-                        <a href="活力旺土雞性能提升方案.html" class="btn-view">查看方案</a>
+                        <a href="活力旺土雞性能提升方案.html" class="btn-view convert-target">查看方案</a>
                     </div>
                 </div>
             </div>
@@ -831,7 +851,7 @@
             <div class="product-card fade-in">
                 <div class="product-image">
                     <img src="assets/broiler-chicken.jpg" alt="白肉雞FCR性能提升">
-                    <div class="product-category">家禽營養</div>
+                    <div class="product-category convert-target">家禽營養</div>
                 </div>
                 <div class="product-content">
                     <div class="product-header">
@@ -839,22 +859,22 @@
                             <i class="fas fa-utensils" style="color: white; font-size: 1.3rem;"></i>
                         </div>
                         <div>
-                            <h3>白肉雞FCR性能提升方案</h3>
-                            <div class="product-subtitle">AA/Ross/Cobb等白羽肉雞</div>
+                            <h3 class="convert-target">白肉雞FCR性能提升方案</h3>
+                            <div class="product-subtitle convert-target">AA/Ross/Cobb等白羽肉雞</div>
                         </div>
                     </div>
                     <ul class="product-benefits">
-                        <li><i class="fas fa-check"></i>FCR優化8-12%</li>
-                        <li><i class="fas fa-check"></i>42天體重提升15-20%</li>
-                        <li><i class="fas fa-check"></i>胸肉比例提升5-7%</li>
-                        <li><i class="fas fa-check"></i>萬隻雞淨利增加NTD 334,250</li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">FCR優化8-12%</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">42天體重提升15-20%</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">胸肉比例提升5-7%</span></li>
+                        <li><i class="fas fa-check"></i><span class="convert-target">萬隻雞淨利增加NTD 334,250</span></li>
                     </ul>
                     <div class="product-footer">
                         <div class="product-roi">
                             <span class="roi-value">816%</span>
-                            <span class="roi-label">投資報酬率</span>
+                            <span class="roi-label convert-target">投資報酬率</span>
                         </div>
-                        <a href="活力旺白肉雞FCR性能提升方案.html" class="btn-view">查看方案</a>
+                        <a href="活力旺白肉雞FCR性能提升方案.html" class="btn-view convert-target">查看方案</a>
                     </div>
                 </div>
             </div>
@@ -865,94 +885,82 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <!-- 新增：頁尾logo區塊 -->
                 <div class="footer-section footer-logo">
                     <div class="footer-logo-img">
                         <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/5965503ba113471f91fba4037d7adae8.png~tplv-a9rns2rl98-image.png?lk3s=8e244e95&rcl=20260206205209107A8E1C5FD86910B9D3&rrcfp=dafada99&x-expires=2086606329&x-signature=pNRZ9%2BcHAWfgOs%2BqG8iexiNQ%2Fow%3D" alt="活力旺logo">
                     </div>
-                    <h3>活力旺</h3>
-                    <p style="opacity: 0.8; font-size: 0.9rem;">精準營養解決方案</p>
+                    <h3 class="convert-target">活力旺</h3>
+                    <p class="convert-target" style="opacity: 0.8; font-size: 0.9rem;">精準營養解決方案</p>
                 </div>
                 
                 <div class="footer-section">
-                    <h3>首池有限公司</h3>
-                    <p>精準營養 · 先進生物技術 · 永續農業</p>
-                    <p style="margin-top: 15px; font-size: 0.95rem; opacity: 0.8;">專注於畜禽精準營養解決方案的研發與應用</p>
+                    <h3 class="convert-target">首池有限公司</h3>
+                    <p class="convert-target">精準營養 · 先進生物技術 · 永續農業</p>
+                    <p class="convert-target" style="margin-top: 15px; font-size: 0.95rem; opacity: 0.8;">專注於畜禽精準營養解決方案的研發與應用</p>
                 </div>
                 
                 <div class="footer-section">
-                    <h3>產品方案</h3>
+                    <h3 class="convert-target">產品方案</h3>
                     <ul class="footer-links">
-                        <li><a href="活力旺種公豬精液品質提升方案.html"><i class="fas fa-chevron-right"></i> 種公豬精液品質提升</a></li>
-                        <li><a href="活力旺懷孕期母豬生產性能優化方案.html"><i class="fas fa-chevron-right"></i> 懷孕母豬性能優化</a></li>
-                        <li><a href="活力旺哺乳母豬性能提升方案.html"><i class="fas fa-chevron-right"></i> 哺乳母豬性能提升</a></li>
-                        <li><a href="活力旺仔豬人工乳性能提升方案.html"><i class="fas fa-chevron-right"></i> 仔豬人工乳方案</a></li>
+                        <li><a href="活力旺種公豬精液品質提升方案.html"><i class="fas fa-chevron-right"></i> <span class="convert-target">種公豬精液品質提升</span></a></li>
+                        <li><a href="活力旺懷孕期母豬生產性能優化方案.html"><i class="fas fa-chevron-right"></i> <span class="convert-target">懷孕母豬性能優化</span></a></li>
+                        <li><a href="活力旺哺乳母豬性能提升方案.html"><i class="fas fa-chevron-right"></i> <span class="convert-target">哺乳母豬性能提升</span></a></li>
+                        <li><a href="活力旺仔豬人工乳性能提升方案.html"><i class="fas fa-chevron-right"></i> <span class="convert-target">仔豬人工乳方案</span></a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
-                    <h3>家禽方案</h3>
+                    <h3 class="convert-target">家禽方案</h3>
                     <ul class="footer-links">
-                        <li><a href="活力旺種雞性能提升方案.html"><i class="fas fa-chevron-right"></i> 種雞性能提升</a></li>
-                        <li><a href="活力旺蛋雞性能提升方案.html"><i class="fas fa-chevron-right"></i> 蛋雞性能提升</a></li>
-                        <li><a href="活力旺土雞性能提升方案.html"><i class="fas fa-chevron-right"></i> 土雞性能提升</a></li>
-                        <li><a href="活力旺白肉雞FCR性能提升方案.html"><i class="fas fa-chevron-right"></i> 白肉雞FCR優化</a></li>
+                        <li><a href="活力旺種雞性能提升方案.html"><i class="fas fa-chevron-right"></i> <span class="convert-target">種雞性能提升</span></a></li>
+                        <li><a href="活力旺蛋雞性能提升方案.html"><i class="fas fa-chevron-right"></i> <span class="convert-target">蛋雞性能提升</span></a></li>
+                        <li><a href="活力旺土雞性能提升方案.html"><i class="fas fa-chevron-right"></i> <span class="convert-target">土雞性能提升</span></a></li>
+                        <li><a href="活力旺白肉雞FCR性能提升方案.html"><i class="fas fa-chevron-right"></i> <span class="convert-target">白肉雞FCR優化</span></a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
-                    <h3>聯絡我們</h3>
+                    <h3 class="convert-target">聯絡我們</h3>
                     <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-phone"></i> 技術專線:0913-866-080 </a></li>
-                        <li><a href="#"><i class="fas fa-envelope"></i> in1000318@gmail.com</a></li>
-                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> 台灣省嘉義市自強街195巷33之28號</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> <span class="convert-target">技術專線:0913-866-080</span></a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> <span class="convert-target">in1000318@gmail.com</span></a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> <span class="convert-target">台灣嘉義市自強街195巷33之28號</span></a></li>
                     </ul>
                 </div>
             </div>
             
             <div class="copyright">
-                <p>&copy; 2026 首池有限公司 版權所有 · 活力旺系列產品方案為商業機密，未經授權禁止轉載</p>
-                <p style="margin-top: 10px;">本網站數據基於行業平均與試驗結果，實際效益可能因管理條件而略有差異</p>
+                <p class="convert-target">&copy; 2026 首池有限公司 版權所有 · 活力旺系列產品方案為商業機密，未經授權禁止轉載</p>
+                <p class="convert-target" style="margin-top: 10px;">本網站數據基於行業平均與試驗結果，實際效益可能因管理條件而略有差異</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // 滾動動畫效果
+        // 滾動動畫效果 (你原有的代碼)
         document.addEventListener('DOMContentLoaded', function() {
-            // 添加淡入動畫
             const fadeElements = document.querySelectorAll('.fade-in');
-            
             const fadeInOnScroll = function() {
                 fadeElements.forEach(element => {
                     const elementTop = element.getBoundingClientRect().top;
                     const elementVisible = 150;
-                    
                     if (elementTop < window.innerHeight - elementVisible) {
                         element.style.opacity = "1";
                         element.style.transform = "translateY(0)";
                     }
                 });
             };
-            
-            // 初始設置
             fadeElements.forEach(element => {
                 element.style.opacity = "0";
                 element.style.transform = "translateY(30px)";
                 element.style.transition = "opacity 0.6s ease, transform 0.6s ease";
             });
-            
-            // 監聽滾動事件
             window.addEventListener('scroll', fadeInOnScroll);
-            
-            // 初始觸發一次
             fadeInOnScroll();
             
-            // 產品卡片點擊效果
             const productCards = document.querySelectorAll('.product-card');
             productCards.forEach(card => {
                 card.addEventListener('click', function(e) {
-                    // 如果不是點擊按鈕，則跳轉到詳情頁
                     if (!e.target.closest('.btn-view')) {
                         const link = this.querySelector('.btn-view');
                         if (link) {
@@ -962,13 +970,11 @@
                 });
             });
             
-            // 平滑滾動效果
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
                     const targetId = this.getAttribute('href');
                     if (targetId === '#') return;
-                    
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
                         window.scrollTo({
@@ -979,33 +985,95 @@
                 });
             });
         });
+
+        // ====== 4. 簡繁轉換核心功能 ======
+        document.addEventListener('DOMContentLoaded', function() {
+            const convertBtn = document.getElementById('convertBtn');
+            if (!convertBtn) return;
+            
+            // 初始化轉換器：繁體轉簡體
+            const converter = OpenCC.Converter('t2s');
+            // 狀態：true為簡體，false為繁體
+            let isSimplified = false;
+            // 存儲原始文本，用於「切回繁體」
+            const originalTextMap = new Map();
+            
+            // 1. 預先收集所有待轉換元素的原始文本
+            function collectOriginalText() {
+                document.querySelectorAll('.convert-target').forEach(el => {
+                    originalTextMap.set(el, el.textContent);
+                });
+            }
+            collectOriginalText();
+            
+            // 2. 執行轉換的核心函數
+            function performConversion() {
+                document.querySelectorAll('.convert-target').forEach(el => {
+                    const currentText = el.textContent;
+                    let newText;
+                    
+                    if (isSimplified) {
+                        // 切回繁體：從Map中取出原始文本
+                        newText = originalTextMap.get(el) || currentText;
+                    } else {
+                        // 轉為簡體：使用OpenCC轉換
+                        try {
+                            newText = converter(currentText);
+                        } catch (e) {
+                            console.error('轉換失敗:', e);
+                            newText = currentText;
+                        }
+                    }
+                    // 更新元素文本
+                    if (newText && newText !== currentText) {
+                        el.textContent = newText;
+                    }
+                });
+                
+                // 更新按鈕文字和狀態
+                updateButtonState();
+                // 保存用戶選擇
+                savePreference();
+            }
+            
+            // 3. 更新按鈕狀態
+            function updateButtonState() {
+                const icon = convertBtn.querySelector('i');
+                if (isSimplified) {
+                    convertBtn.innerHTML = '<i class="fas fa-language"></i> 切換到繁體';
+                    if (icon) icon.style.transform = 'rotate(360deg)';
+                } else {
+                    convertBtn.innerHTML = '<i class="fas fa-language"></i> 切換到簡體';
+                    if (icon) icon.style.transform = 'rotate(0deg)';
+                }
+                // 按鈕圖標旋轉動畫
+                if (icon) {
+                    icon.style.transition = 'transform 0.5s ease';
+                }
+            }
+            
+            // 4. 保存/讀取用戶偏好到本地存儲
+            function savePreference() {
+                localStorage.setItem('languagePreference', isSimplified ? 'simplified' : 'traditional');
+            }
+            function loadPreference() {
+                const saved = localStorage.getItem('languagePreference');
+                // 如果之前保存的是簡體，則自動切換一次
+                if (saved === 'simplified') {
+                    isSimplified = false; // 設置為false，讓performConversion可以觸發簡體轉換
+                    performConversion();
+                }
+            }
+            
+            // 5. 綁定按鈕點擊事件
+            convertBtn.addEventListener('click', function() {
+                isSimplified = !isSimplified;
+                performConversion();
+            });
+            
+            // 頁面加載時，讀取用戶之前的偏好設置
+            loadPreference();
+        });
     </script>
 </body>
 </html>
-<script>
-// 驗證圖片是否可載入
-function checkImagePath(src) {
-    const img = new Image();
-    img.onload = () => console.log(`✅ 圖片正常：${src}`);
-    img.onerror = () => console.error(`❌ 圖片錯誤：${src}（檔名/路徑錯誤）`);
-    img.src = src;
-}
-
-// 替換成你的圖片路徑
-checkImagePath("images/logo.png");
-checkImagePath("images/banner.jpg");
-
-// 驗證分頁連結（檢查檔案是否存在）
-function checkPageLink(href) {
-    fetch(href)
-        .then(res => {
-            if (res.ok) console.log(`✅ 分頁正常：${href}`);
-            else console.error(`❌ 分頁錯誤：${href}（狀態碼：${res.status}）`);
-        })
-        .catch(err => console.error(`❌ 分頁不存在：${href}`, err));
-}
-
-// 替換成你的分頁路徑
-checkPageLink("index.html");
-checkPageLink("page2.html");
-</script>
