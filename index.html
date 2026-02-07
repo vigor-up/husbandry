@@ -83,7 +83,7 @@
 
         .logo-icon {
             background: white;
-            /* 【修改1】页眉logo尺寸从60px调整为80px */
+            /* 【修改1】页眉logo尺寸：桌面端80px，已优化响应式适配 */
             width: 80px;
             height: 80px;
             border-radius: 50%;
@@ -91,15 +91,18 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            /* 新增：確保logo適配圓形容器 */
             overflow: hidden;
+            /* 新增：确保logo容器响应式缩放更顺滑 */
+            flex-shrink: 0;
         }
 
-        /* 新增：logo圖片樣式 */
+        /* logo圖片樣式（优化响应式适配） */
         .logo-icon img {
             width: 100%;
             height: 100%;
             object-fit: contain;
+            /* 新增：避免logo变形，保留专业比例 */
+            padding: 8px;
         }
 
         h1 {
@@ -220,7 +223,7 @@
             flex-direction: column;
             position: relative;
             border: 1px solid #e2e8f0;
-            cursor: pointer; /* 新增：整張卡片可點擊 */
+            cursor: pointer;
         }
 
         .product-card::before {
@@ -403,7 +406,7 @@
             margin-bottom: 40px;
         }
 
-        /* 新增：頁尾logo樣式 */
+        /* 頁尾logo樣式（优化响应式） */
         .footer-logo {
             display: flex;
             align-items: center;
@@ -412,7 +415,7 @@
         }
 
         .footer-logo-img {
-            /* 【修改2】页脚logo尺寸从80px调整为100px */
+            /* 【修改2】页脚logo尺寸：桌面端100px，优化响应式 */
             width: 100px;
             height: 100px;
             background: white;
@@ -423,12 +426,15 @@
             margin-bottom: 15px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            flex-shrink: 0;
         }
 
         .footer-logo-img img {
             width: 100%;
             height: 100%;
             object-fit: contain;
+            /* 新增：保留logo比例，增加内边距提升专业感 */
+            padding: 10px;
         }
 
         .footer-section h3 {
@@ -466,7 +472,7 @@
             color: rgba(255,255,255,0.6);
         }
 
-        /* 響應式設計 */
+        /* 響應式設計（优化logo适配） */
         @media (max-width: 1100px) {
             .products-grid {
                 grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -527,13 +533,13 @@
                 height: 180px;
             }
 
-            /* 【修改3】移动端页眉logo适配：从80px调整为70px */
+            /* 移动端页眉logo适配：70px，比例协调 */
             .logo-icon {
                 width: 70px;
                 height: 70px;
             }
 
-            /* 【修改4】移动端页脚logo适配：从100px调整为80px（原60px） */
+            /* 移动端页脚logo适配：80px，视觉平衡 */
             .footer-logo-img {
                 width: 80px;
                 height: 80px;
@@ -564,8 +570,8 @@
             <div class="header-content">
                 <div class="logo-container">
                     <div class="logo-icon">
-                        <!-- 替換：原圖標替換為logo圖片，請將圖片路徑替換為你的實際logo路徑 -->
-                        <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/5965503ba113471f91fba4037d7adae8.png~tplv-a9rns2rl98-image.png?lk3s=8e244e95&rcl=20260206205209107A8E1C5FD86910B9D3&rrcfp=dafada99&x-expires=2086606329&x-signature=pNRZ9%2BcHAWfgOs%2BqG8iexiNQ%2Fow%3D" alt="活力旺logo">
+                        <!-- 【核心修改1】替换为同文件夹下的logo路径，假设logo文件名为logo.png -->
+                        <img src="logo.png" alt="活力旺logo">
                     </div>
                 </div>
                 <h1>活力旺系列產品解決方案</h1>
@@ -865,10 +871,11 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <!-- 新增：頁尾logo區塊 -->
+                <!-- 頁尾logo區塊 -->
                 <div class="footer-section footer-logo">
                     <div class="footer-logo-img">
-                        <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/5965503ba113471f91fba4037d7adae8.png~tplv-a9rns2rl98-image.png?lk3s=8e244e95&rcl=20260206205209107A8E1C5FD86910B9D3&rrcfp=dafada99&x-expires=2086606329&x-signature=pNRZ9%2BcHAWfgOs%2BqG8iexiNQ%2Fow%3D" alt="活力旺logo">
+                        <!-- 【核心修改2】替换为同文件夹下的logo路径 -->
+                        <img src="logo.png" alt="活力旺logo">
                     </div>
                     <h3>活力旺</h3>
                     <p style="opacity: 0.8; font-size: 0.9rem;">精準營養解決方案</p>
@@ -980,32 +987,32 @@
             });
         });
     </script>
+    <script>
+        // 驗證圖片是否可載入（适配本地logo路径）
+        function checkImagePath(src) {
+            const img = new Image();
+            img.onload = () => console.log(`✅ 圖片正常：${src}`);
+            img.onerror = () => console.error(`❌ 圖片錯誤：${src}（請確認檔名/路徑正確）`);
+            img.src = src;
+        }
+
+        // 驗證本地logo路徑
+        checkImagePath("logo.png");
+        // 可按需驗證其他圖片
+        // checkImagePath("assets/boar.jpg");
+
+        // 驗證分頁連結
+        function checkPageLink(href) {
+            fetch(href)
+                .then(res => {
+                    if (res.ok) console.log(`✅ 分頁正常：${href}`);
+                    else console.error(`❌ 分頁錯誤：${href}（狀態碼：${res.status}）`);
+                })
+                .catch(err => console.error(`❌ 分頁不存在：${href}`, err));
+        }
+
+        // 驗證首頁和產品分頁
+        checkPageLink("index.html");
+    </script>
 </body>
 </html>
-<script>
-// 驗證圖片是否可載入
-function checkImagePath(src) {
-    const img = new Image();
-    img.onload = () => console.log(`✅ 圖片正常：${src}`);
-    img.onerror = () => console.error(`❌ 圖片錯誤：${src}（檔名/路徑錯誤）`);
-    img.src = src;
-}
-
-// 替換成你的圖片路徑
-checkImagePath("images/logo.png");
-checkImagePath("images/banner.jpg");
-
-// 驗證分頁連結（檢查檔案是否存在）
-function checkPageLink(href) {
-    fetch(href)
-        .then(res => {
-            if (res.ok) console.log(`✅ 分頁正常：${href}`);
-            else console.error(`❌ 分頁錯誤：${href}（狀態碼：${res.status}）`);
-        })
-        .catch(err => console.error(`❌ 分頁不存在：${href}`, err));
-}
-
-// 替換成你的分頁路徑
-checkPageLink("index.html");
-checkPageLink("page2.html");
-</script>
