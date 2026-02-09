@@ -2,10 +2,10 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>活力旺種雞性能提升方案 - 首池有限公司</title>
     <style>
-        /* 全域變數設定 */
+        /* 全域變數設定 - 手機優先 */
         :root {
             --primary-blue: #165DFF;
             --secondary-blue: #4080FF;
@@ -17,35 +17,46 @@
             --bg-light: #F8F9FA;
             --card-shadow: 0 4px 12px rgba(0,0,0,0.08);
             --border-radius: 12px;
+            --safe-area-inset-top: env(safe-area-inset-top);
+            --safe-area-inset-bottom: env(safe-area-inset-bottom);
+            --safe-area-inset-left: env(safe-area-inset-left);
+            --safe-area-inset-right: env(safe-area-inset-right);
         }
 
-        /* 語言切換器 */
+        /* 語言切換器 - 手機優化 */
         .language-switcher {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: max(10px, var(--safe-area-inset-top));
+            right: max(10px, var(--safe-area-inset-right));
             z-index: 1000;
             display: flex;
-            gap: 5px;
+            gap: 4px;
             background: white;
-            padding: 8px;
-            border-radius: 25px;
-            box-shadow: var(--card-shadow);
-        }
-        .lang-btn {
-            padding: 6px 15px;
-            border: none;
+            padding: 6px;
             border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .lang-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 16px;
             background: transparent;
             color: var(--text-dark);
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             transition: all 0.3s;
+            min-height: 44px; /* 觸控友好尺寸 */
+            min-width: 44px;
         }
-        .lang-btn:hover {
-            background: #f0f0f0;
+        
+        .lang-btn:active {
+            transform: scale(0.95);
         }
+        
         .lang-btn.active {
             background: var(--primary-blue);
             color: white;
@@ -56,7 +67,13 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Microsoft JhengHei', 'Noto Sans TC', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Microsoft JhengHei', 'Noto Sans TC', sans-serif;
+            -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+        }
+        
+        html {
+            font-size: 14px; /* 手機基礎字體大小 */
+            scroll-behavior: smooth;
         }
 
         body {
@@ -65,56 +82,67 @@
             line-height: 1.6;
             padding: 0;
             margin: 0;
+            overflow-x: hidden;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         /* 響應式容器 */
         .container {
             width: 100%;
-            max-width: 1200px;
             margin: 0 auto;
             padding: 0 15px;
             position: relative;
+            overflow-x: hidden;
         }
 
-        /* 區塊樣式 */
+        /* 區塊樣式 - 手機優化 */
         .section {
-            padding: 40px 0;
+            padding: 30px 0;
             border-bottom: 1px solid #EEEEEE;
+            padding-top: calc(60px + var(--safe-area-inset-top, 0px)); /* 為語言切換器留出空間 */
         }
 
         h1 {
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
             color: var(--primary-blue);
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             font-weight: 700;
+            line-height: 1.3;
         }
 
         h2 {
-            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
             color: var(--primary-blue);
-            margin-bottom: 25px;
-            padding-bottom: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
             border-bottom: 2px solid var(--secondary-blue);
             display: inline-block;
+            line-height: 1.3;
         }
 
         h3 {
-            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
             color: var(--text-dark);
-            margin: 25px 0 15px;
+            margin: 20px 0 12px;
+            line-height: 1.3;
         }
 
         h4 {
-            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
             color: var(--primary-blue);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-weight: 600;
+            line-height: 1.3;
         }
 
         p {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             font-size: clamp(0.9rem, 1.8vw, 1rem);
+            line-height: 1.5;
         }
 
         /* 動畫效果 */
@@ -122,19 +150,23 @@
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease, transform 0.6s ease;
+            will-change: transform, opacity;
         }
+        
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* 點擊卡片效果 */
+        /* 點擊卡片效果 - 手機優化 */
         .clickable-card {
             cursor: pointer;
             transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
         }
-        .clickable-card:hover {
-            transform: translateY(-5px);
+        
+        .clickable-card:active {
+            transform: translateY(-3px) scale(0.98);
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
@@ -145,12 +177,14 @@
             height: auto;
             border-radius: var(--border-radius);
             box-shadow: var(--card-shadow);
-            margin: 20px auto;
+            margin: 15px auto;
             display: block;
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease, transform 0.6s ease;
+            will-change: transform, opacity;
         }
+        
         .img-responsive.visible {
             opacity: 1;
             transform: translateY(0);
@@ -158,9 +192,9 @@
 
         .img-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 25px 0;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin: 20px 0;
         }
 
         .img-card {
@@ -170,7 +204,9 @@
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease, transform 0.6s ease;
+            will-change: transform, opacity;
         }
+        
         .img-card.visible {
             opacity: 1;
             transform: translateY(0);
@@ -180,85 +216,103 @@
             width: 100%;
             height: auto;
             display: block;
+            loading: lazy;
         }
 
         .img-caption {
-            padding: 10px 15px;
+            padding: 10px 12px;
             background-color: var(--bg-light);
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-light);
+            line-height: 1.4;
         }
 
-        /* 數據格線 */
+        /* 數據格線 - 手機優化為2列 */
         .data-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 25px 0;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 20px 0;
         }
 
         .data-item {
             background-color: var(--bg-light);
-            padding: 20px;
+            padding: 15px;
             border-radius: var(--border-radius);
             text-align: center;
             box-shadow: var(--card-shadow);
             cursor: pointer;
             transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
         }
-        .data-item:hover {
-            transform: translateY(-5px);
+        
+        .data-item:active {
+            transform: translateY(-3px) scale(0.98);
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
         .data-value {
-            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
             font-weight: 800;
             color: var(--primary-blue);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .data-label {
-            font-size: clamp(0.9rem, 1.8vw, 1rem);
+            font-size: clamp(0.85rem, 1.8vw, 0.95rem);
             color: var(--text-light);
+            line-height: 1.4;
         }
 
         /* 卡片樣式 */
         .data-card {
             background-color: var(--bg-light);
-            padding: 25px;
+            padding: 20px;
             border-radius: var(--border-radius);
             box-shadow: var(--card-shadow);
-            margin: 25px 0;
+            margin: 20px 0;
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease, transform 0.6s ease;
+            will-change: transform, opacity;
         }
+        
         .data-card.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
         /* 表格樣式 - 響應式 */
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 20px 0;
+            border-radius: 8px;
+            border: 1px solid #EEEEEE;
+            background: white;
+        }
+        
         table {
             width: 100%;
+            min-width: 600px; /* 確保表格在手機上可以橫向滾動 */
             border-collapse: collapse;
-            margin: 20px 0;
-            overflow-x: auto;
-            display: block;
         }
 
         th, td {
-            padding: 12px 15px;
+            padding: 12px 10px;
             text-align: left;
             border-bottom: 1px solid #DDDDDD;
+            font-size: 0.9rem;
+            line-height: 1.4;
         }
 
         th {
             background-color: var(--primary-blue);
             color: white;
             font-weight: 600;
+            position: sticky;
+            left: 0;
         }
 
         tr:nth-child(even) {
@@ -273,18 +327,18 @@
         /* 結果框樣式 */
         .result-box {
             background: linear-gradient(135deg, #EFF6FF 0%, #E0EBFF 100%);
-            padding: 30px;
+            padding: 25px 20px;
             border-radius: var(--border-radius);
             text-align: center;
-            margin: 30px 0;
+            margin: 25px 0;
             box-shadow: var(--card-shadow);
         }
 
         .result-value {
-            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-size: clamp(1.8rem, 5vw, 3rem);
             font-weight: 800;
             color: var(--primary-blue);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         /* 指標標籤 */
@@ -293,8 +347,10 @@
             color: var(--poultry-red);
             padding: 2px 8px;
             border-radius: 12px;
-            font-size: 0.8rem;
-            margin-left: 8px;
+            font-size: 0.75rem;
+            margin-left: 5px;
+            display: inline-block;
+            vertical-align: middle;
         }
 
         .hen-indicator {
@@ -302,58 +358,237 @@
             color: var(--primary-blue);
             padding: 2px 8px;
             border-radius: 12px;
-            font-size: 0.8rem;
-            margin-left: 8px;
+            font-size: 0.75rem;
+            margin-left: 5px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        /* 列表樣式 */
+        ul {
+            margin: 10px 0 10px 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            font-size: clamp(0.9rem, 1.8vw, 1rem);
+            line-height: 1.5;
+        }
+
+        /* 機制網格 */
+        .mechanism-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        /* 效益細分 */
+        .profit-breakdown {
+            margin: 20px 0;
         }
 
         /* 頁腳樣式 */
         footer {
             background-color: var(--bg-light);
-            padding: 40px 0;
+            padding: 30px 15px;
             text-align: center;
             margin-top: 30px;
+            padding-bottom: max(30px, var(--safe-area-inset-bottom, 30px));
+        }
+        
+        footer p {
+            margin-bottom: 8px;
         }
 
-        /* 媒體查詢 - 行動裝置最佳化 */
-        @media (max-width: 768px) {
+        /* 媒體查詢 - 平板 (min-width: 768px) */
+        @media (min-width: 768px) {
+            html {
+                font-size: 16px;
+            }
+            
+            .container {
+                max-width: 100%;
+                padding: 0 25px;
+            }
+            
+            .section {
+                padding: 40px 0;
+                padding-top: calc(70px + var(--safe-area-inset-top, 0px));
+            }
+            
+            .data-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 20px;
+            }
+            
+            .img-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .mechanism-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .table-container {
+                min-width: 0;
+            }
+            
+            table {
+                min-width: 0;
+            }
+            
+            /* 平板添加懸停效果 */
+            .clickable-card:hover,
+            .data-item:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            }
+        }
+        
+        /* 媒體查詢 - 桌面 (min-width: 992px) */
+        @media (min-width: 992px) {
+            .container {
+                max-width: 1200px;
+                padding: 0 30px;
+            }
+            
+            .section {
+                padding: 50px 0;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .result-value {
+                font-size: 3.5rem;
+            }
+        }
+        
+        /* 超小手機設備 (max-width: 360px) */
+        @media (max-width: 360px) {
+            html {
+                font-size: 13px;
+            }
+            
+            .container {
+                padding: 0 10px;
+            }
+            
+            .section {
+                padding: 20px 0;
+                padding-top: calc(50px + var(--safe-area-inset-top, 0px));
+            }
+            
             .data-grid {
                 grid-template-columns: 1fr;
             }
-
-            .img-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .section {
-                padding: 25px 0;
-            }
-
+            
             .data-card {
                 padding: 15px;
             }
-
+            
             .result-box {
-                padding: 20px;
+                padding: 20px 15px;
             }
             
             .language-switcher {
-                top: 10px;
-                right: 10px;
                 flex-direction: column;
                 border-radius: 15px;
             }
             
             .lang-btn {
-                padding: 8px 12px;
+                padding: 10px;
                 font-size: 0.8rem;
             }
         }
         
-        @media (max-width: 480px) {
+        /* 橫向模式優化 */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .section {
+                padding-top: 20px;
+            }
+            
             .language-switcher {
                 top: 5px;
                 right: 5px;
-                padding: 5px;
+            }
+            
+            .data-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* 暗色模式支援 */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #121212;
+                color: #e0e0e0;
+            }
+            
+            .container {
+                background: #1e1e1e;
+            }
+            
+            .data-item,
+            .data-card,
+            .result-box {
+                background: #2a2a2a;
+                color: #e0e0e0;
+            }
+            
+            .data-label,
+            .img-caption {
+                color: #b0b0b0;
+            }
+            
+            .table-container {
+                background: #2a2a2a;
+                border-color: #444;
+            }
+            
+            th {
+                background: #333;
+            }
+            
+            td {
+                color: #e0e0e0;
+            }
+            
+            tr:nth-child(even) {
+                background-color: #333;
+            }
+            
+            h2 {
+                color: #e0e0e0;
+                border-bottom-color: #444;
+            }
+        }
+        
+        /* 輔助功能優化 */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            
+            .fade-in,
+            .img-card,
+            .data-card,
+            .img-responsive {
+                opacity: 1;
+                transform: none;
+                transition: none;
             }
         }
     </style>
@@ -361,16 +596,16 @@
 <body>
     <!-- 語言切換器 -->
     <div class="language-switcher">
-        <button class="lang-btn active" data-lang="zh-TW">繁體中文(NTD)</button>
-        <button class="lang-btn" data-lang="zh-CN">简体中文(CNY)</button>
-        <button class="lang-btn" data-lang="en">English(USD)</button>
+        <button class="lang-btn active" data-lang="zh-TW">繁(NTD)</button>
+        <button class="lang-btn" data-lang="zh-CN">简(CNY)</button>
+        <button class="lang-btn" data-lang="en">EN(USD)</button>
     </div>
 
     <div class="container">
         <!-- 方案標題 -->
         <div class="section">
-            <h1 data-translate="title">活力旺種雞性能提升方案 <span style="font-size: 18px; color: var(--text-light);" data-translate="subtitle">(種公雞 &times; 種母雞)</span></h1>
-            <p style="text-align: center; color: var(--secondary-blue); font-size: 18px; margin-top: 10px;" data-translate="tagline">雙向優化 &middot; 孵化率與健雛率全面提升</p>
+            <h1 data-translate="title">活力旺種雞性能提升方案 <span style="font-size: 1rem; color: var(--text-light);" data-translate="subtitle">(種公雞 &times; 種母雞)</span></h1>
+            <p style="text-align: center; color: var(--secondary-blue); font-size: 1rem; margin-top: 8px;" data-translate="tagline">雙向優化 &middot; 孵化率與健雛率全面提升</p>
         </div>
 
         <!-- 行業基準數據 -->
@@ -398,7 +633,7 @@
             <!-- 嵌入圖片3：種蛋品質對比 -->
             <div class="img-grid">
                 <div class="img-card">
-                    <img src="assets/breeder-egg-quality.png" alt="種蛋品質對比：左側劣質種蛋，右側優質種蛋" data-translate="image1_alt">
+                    <img src="assets/breeder-egg-quality.png" alt="種蛋品質對比：左側劣質種蛋，右側優質種蛋" data-translate="image1_alt" loading="lazy">
                     <div class="img-caption" data-translate="image1_caption">種蛋品質對比：左側劣質種蛋（殼裂、蛋黃品質差），右側優質種蛋（蛋黃飽滿、品質穩定）</div>
                 </div>
             </div>
@@ -420,7 +655,7 @@
                     <h4 data-translate="mechanism1_title">層級一：營養吸收與腸道健康 <span style="color: var(--success-green);">(基礎)</span></h4>
                     <p><strong data-translate="mechanism1_comp">作用成分：</strong><span data-translate="mechanism1_comp_desc">精密複合酶製劑</span></p>
                     <p><strong data-translate="mechanism1_mech">生理機轉：</strong></p>
-                    <ul style="margin: 10px 0 10px 20px;">
+                    <ul>
                         <li data-translate="mechanism1_mech1">提升蛋白質消化率18-22%，為卵泡發育與精子生成提供充足胺基酸</li>
                         <li data-translate="mechanism1_mech2">改善腸道絨毛結構，增加營養吸收面積</li>
                         <li data-translate="mechanism1_mech3">減少腸道炎症，降低內毒素對生殖系統的影響</li>
@@ -431,7 +666,7 @@
                     <h4 data-translate="mechanism2_title">層級二：抗氧化與細胞保護 <span style="color: #ff9800;">(核心)</span></h4>
                     <p><strong data-translate="mechanism2_comp">作用成分：</strong><span data-translate="mechanism2_comp_desc">免疫調控肽 + 抗氧化複方</span></p>
                     <p><strong data-translate="mechanism2_mech">生理機轉：</strong></p>
-                    <ul style="margin: 10px 0 10px 20px;">
+                    <ul>
                         <li data-translate="mechanism2_mech1">激活Nrf2/ARE抗氧化通路，提升肝臟與卵巢SOD、GSH-Px活性</li>
                         <li data-translate="mechanism2_mech2">保護卵母細胞與精子細胞膜完整性，減少脂質過氧化</li>
                         <li data-translate="mechanism2_mech3">降低胚胎發育過程中的氧化壓力，減少早期死亡</li>
@@ -442,7 +677,7 @@
                     <h4 data-translate="mechanism3_title">層級三：生殖內分泌調控 <span style="color: var(--primary-blue);">(關鍵)</span></h4>
                     <p><strong data-translate="mechanism3_comp">作用成分：</strong><span data-translate="mechanism3_comp_desc">代謝調控複方 (NAD+前體)</span></p>
                     <p><strong data-translate="mechanism3_mech">生理機轉：</strong></p>
-                    <ul style="margin: 10px 0 10px 20px;">
+                    <ul>
                         <li data-translate="mechanism3_mech1">提升卵巢粒線體功能，優化卵泡發育與排卵同步性</li>
                         <li data-translate="mechanism3_mech2">調控下視丘-垂體-性腺軸，穩定FSH、LH、雌激素分泌</li>
                         <li data-translate="mechanism3_mech3">改善睪丸萊氏細胞功能，提升睪固酮合成與精子發生效率</li>
@@ -454,7 +689,7 @@
             <!-- 嵌入圖片1：精子活力對比 -->
             <div class="img-grid">
                 <div class="img-card">
-                    <img src="assets/sperm-activity.png" alt="種公雞精子活力對比：左25% 右85%" data-translate="image2_alt">
+                    <img src="assets/sperm-activity.png" alt="種公雞精子活力對比：左25% 右85%" data-translate="image2_alt" loading="lazy">
                     <div class="img-caption" data-translate="image2_caption">種公雞精子活力對比：左側傳統飼養(25%)，右側活力旺方案(85%)</div>
                 </div>
             </div>
@@ -467,7 +702,7 @@
             <!-- 嵌入圖片7：飼料添加設備 -->
             <div class="img-grid">
                 <div class="img-card">
-                    <img src="assets/breeder-feed-system.png" alt="種雞場自動化飼料添加設備" data-translate="image3_alt">
+                    <img src="assets/breeder-feed-system.png" alt="種雞場自動化飼料添加設備" data-translate="image3_alt" loading="lazy">
                     <div class="img-caption" data-translate="image3_caption">種雞場自動化飼料添加設備 - 活力旺可無縫整合至現有飼料系統</div>
                 </div>
             </div>
@@ -488,40 +723,42 @@
                 <div class="data-item clickable-card fade-in">
                     <div class="data-value"><span data-value="0.015" data-currency>NTD 0.015</span></div>
                     <div class="data-label" data-translate="cost4_label">每顆種蛋成本增加</div>
-                    <p style="font-size: 12px; color: var(--text-light);" data-translate="cost_note">(以每日採食量125g計算)</p>
+                    <p style="font-size: 0.8rem; color: var(--text-light); margin-top: 5px;" data-translate="cost_note">(以每日採食量125g計算)</p>
                 </div>
             </div>
             
             <div class="data-card fade-in">
                 <h4 data-translate="cost_calc_title">種雞飼養成本計算 (以1,000隻種母雞+100隻種公雞為例)</h4>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td data-translate="cost_row1_label">種母雞每日採食量</td>
-                            <td data-translate="cost_row1_value">125 公克/隻</td>
-                        </tr>
-                        <tr>
-                            <td data-translate="cost_row2_label">種公雞每日採食量</td>
-                            <td data-translate="cost_row2_value">140 公克/隻</td>
-                        </tr>
-                        <tr>
-                            <td data-translate="cost_row3_label">每日總飼料消耗</td>
-                            <td data-translate="cost_row3_value">(1,000×0.125) + (100×0.14) = 139 公斤</td>
-                        </tr>
-                        <tr>
-                            <td data-translate="cost_row4_label">每日活力旺添加成本</td>
-                            <td data-translate="cost_row4_value">139公斤 × <span data-value="0.6" data-currency>NTD 0.6</span>/公斤 = <strong><span data-value="83.4" data-currency>NTD 83.4</span></strong></td>
-                        </tr>
-                        <tr class="highlight">
-                            <td data-translate="cost_row5_label">每月添加成本</td>
-                            <td><strong><span data-value="2502" data-currency>NTD 2,502</span></strong></td>
-                        </tr>
-                        <tr class="highlight">
-                            <td data-translate="cost_row6_label">每年添加成本 (44週生產期)</td>
-                            <td><strong><span data-value="25690" data-currency>NTD 25,690</span></strong></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-container">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td data-translate="cost_row1_label">種母雞每日採食量</td>
+                                <td data-translate="cost_row1_value">125 公克/隻</td>
+                            </tr>
+                            <tr>
+                                <td data-translate="cost_row2_label">種公雞每日採食量</td>
+                                <td data-translate="cost_row2_value">140 公克/隻</td>
+                            </tr>
+                            <tr>
+                                <td data-translate="cost_row3_label">每日總飼料消耗</td>
+                                <td data-translate="cost_row3_value">(1,000×0.125) + (100×0.14) = 139 公斤</td>
+                            </tr>
+                            <tr>
+                                <td data-translate="cost_row4_label">每日活力旺添加成本</td>
+                                <td data-translate="cost_row4_value">139公斤 × <span data-value="0.6" data-currency>NTD 0.6</span>/公斤 = <strong><span data-value="83.4" data-currency>NTD 83.4</span></strong></td>
+                            </tr>
+                            <tr class="highlight">
+                                <td data-translate="cost_row5_label">每月添加成本</td>
+                                <td><strong><span data-value="2502" data-currency>NTD 2,502</span></strong></td>
+                            </tr>
+                            <tr class="highlight">
+                                <td data-translate="cost_row6_label">每年添加成本 (44週生產期)</td>
+                                <td><strong><span data-value="25690" data-currency>NTD 25,690</span></strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
@@ -532,65 +769,67 @@
             <!-- 嵌入圖片8：受精率/孵化率提升數據 -->
             <div class="img-grid">
                 <div class="img-card">
-                    <img src="assets/fertility-hatch-data.png" alt="種雞場受精率與孵化率提升數據" data-translate="image4_alt">
+                    <img src="assets/fertility-hatch-data.png" alt="種雞場受精率與孵化率提升數據" data-translate="image4_alt" loading="lazy">
                     <div class="img-caption" data-translate="image4_caption">活力旺方案成效：受精率提升至92%，孵化率提升至89%</div>
                 </div>
             </div>
 
             <h3 data-translate="expectation_title">預期性能改善目標</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th data-translate="table1_header1">關鍵指標</th>
-                        <th data-translate="table1_header2">行業基準</th>
-                        <th data-translate="table1_header3">活力旺預期</th>
-                        <th data-translate="table1_header4">提升幅度</th>
-                        <th data-translate="table1_header5">生理基礎</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong data-translate="table1_row1_title">種蛋受精率</strong> <span class="rooster-indicator">公</span></td>
-                        <td data-translate="table1_row1_base">88-92%</td>
-                        <td data-translate="table1_row1_expected">92-95%</td>
-                        <td data-translate="table1_row1_improve">+3-4%</td>
-                        <td data-translate="table1_row1_basis">精子活力提升，受精能力增強</td>
-                    </tr>
-                    <tr>
-                        <td><strong data-translate="table1_row2_title">入孵蛋孵化率</strong> <span class="hen-indicator">母</span></td>
-                        <td data-translate="table1_row2_base">84-88%</td>
-                        <td data-translate="table1_row2_expected">88-92%</td>
-                        <td data-translate="table1_row2_improve">+4-5%</td>
-                        <td data-translate="table1_row2_basis">胚胎發育改善，早期死亡減少</td>
-                    </tr>
-                    <tr>
-                        <td><strong data-translate="table1_row3_title">健雛率</strong> <span class="hen-indicator">母</span></td>
-                        <td data-translate="table1_row3_base">90-94%</td>
-                        <td data-translate="table1_row3_expected">94-97%</td>
-                        <td data-translate="table1_row3_improve">+4-5%</td>
-                        <td data-translate="table1_row3_basis">雛雞活力與均勻度提升</td>
-                    </tr>
-                    <tr>
-                        <td><strong data-translate="table1_row4_title">種蛋合格率</strong> <span class="hen-indicator">母</span></td>
-                        <td data-translate="table1_row4_base">92-95%</td>
-                        <td data-translate="table1_row4_expected">95-97%</td>
-                        <td data-translate="table1_row4_improve">+3-4%</td>
-                        <td data-translate="table1_row4_basis">蛋殼質量與內部品質改善</td>
-                    </tr>
-                    <tr>
-                        <td><strong data-translate="table1_row5_title">產蛋高峰期維持</strong> <span class="hen-indicator">母</span></td>
-                        <td data-translate="table1_row5_base">28-32週</td>
-                        <td data-translate="table1_row5_expected">32-36週</td>
-                        <td data-translate="table1_row5_improve">延長4週</td>
-                        <td data-translate="table1_row5_basis">卵巢功能維持，卵泡發育同步</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th data-translate="table1_header1">關鍵指標</th>
+                            <th data-translate="table1_header2">行業基準</th>
+                            <th data-translate="table1_header3">活力旺預期</th>
+                            <th data-translate="table1_header4">提升幅度</th>
+                            <th data-translate="table1_header5">生理基礎</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong data-translate="table1_row1_title">種蛋受精率</strong> <span class="rooster-indicator">公</span></td>
+                            <td data-translate="table1_row1_base">88-92%</td>
+                            <td data-translate="table1_row1_expected">92-95%</td>
+                            <td data-translate="table1_row1_improve">+3-4%</td>
+                            <td data-translate="table1_row1_basis">精子活力提升，受精能力增強</td>
+                        </tr>
+                        <tr>
+                            <td><strong data-translate="table1_row2_title">入孵蛋孵化率</strong> <span class="hen-indicator">母</span></td>
+                            <td data-translate="table1_row2_base">84-88%</td>
+                            <td data-translate="table1_row2_expected">88-92%</td>
+                            <td data-translate="table1_row2_improve">+4-5%</td>
+                            <td data-translate="table1_row2_basis">胚胎發育改善，早期死亡減少</td>
+                        </tr>
+                        <tr>
+                            <td><strong data-translate="table1_row3_title">健雛率</strong> <span class="hen-indicator">母</span></td>
+                            <td data-translate="table1_row3_base">90-94%</td>
+                            <td data-translate="table1_row3_expected">94-97%</td>
+                            <td data-translate="table1_row3_improve">+4-5%</td>
+                            <td data-translate="table1_row3_basis">雛雞活力與均勻度提升</td>
+                        </tr>
+                        <tr>
+                            <td><strong data-translate="table1_row4_title">種蛋合格率</strong> <span class="hen-indicator">母</span></td>
+                            <td data-translate="table1_row4_base">92-95%</td>
+                            <td data-translate="table1_row4_expected">95-97%</td>
+                            <td data-translate="table1_row4_improve">+3-4%</td>
+                            <td data-translate="table1_row4_basis">蛋殼質量與內部品質改善</td>
+                        </tr>
+                        <tr>
+                            <td><strong data-translate="table1_row5_title">產蛋高峰期維持</strong> <span class="hen-indicator">母</span></td>
+                            <td data-translate="table1_row5_base">28-32週</td>
+                            <td data-translate="table1_row5_expected">32-36週</td>
+                            <td data-translate="table1_row5_improve">延長4週</td>
+                            <td data-translate="table1_row5_basis">卵巢功能維持，卵泡發育同步</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             
             <!-- 嵌入圖片6：孵化率對比 -->
             <div class="img-grid">
                 <div class="img-card">
-                    <img src="assets/hatchability-comparison.png" alt="孵化率對比：標準孵化85% vs 強化孵化91%" data-translate="image5_alt">
+                    <img src="assets/hatchability-comparison.png" alt="孵化率對比：標準孵化85% vs 強化孵化91%" data-translate="image5_alt" loading="lazy">
                     <div class="img-caption" data-translate="image5_caption">孵化率對比：左側標準孵化(85%)，右側活力旺方案(91%)</div>
                 </div>
             </div>
@@ -598,88 +837,90 @@
             <!-- 嵌入圖片2+5：雛雞健康對比 -->
             <div class="img-grid">
                 <div class="img-card">
-                    <img src="assets/chick-health-overall.png" alt="雛雞整體健康對比" data-translate="image6_alt">
+                    <img src="assets/chick-health-overall.png" alt="雛雞整體健康對比" data-translate="image6_alt" loading="lazy">
                     <div class="img-caption" data-translate="image6_caption">雛雞整體健康對比：左側弱雛(死亡率高)，右側健雛(存活率高)</div>
                 </div>
                 <div class="img-card">
-                    <img src="assets/chick-health-detail.png" alt="雛雞細節健康對比" data-translate="image7_alt">
+                    <img src="assets/chick-health-detail.png" alt="雛雞細節健康對比" data-translate="image7_alt" loading="lazy">
                     <div class="img-caption" data-translate="image7_caption">雛雞細節健康對比：左側發育不良，右側活力充沛</div>
                 </div>
             </div>
 
-            <h3 style="margin-top: 30px;" data-translate="profit_calc_title">經濟效益計算 (以1,000隻種母雞為基準)</h3>
+            <h3 style="margin-top: 25px;" data-translate="profit_calc_title">經濟效益計算 (以1,000隻種母雞為基準)</h3>
             <div class="profit-breakdown">
                 <h4 data-translate="profit_source_title">效益來源分析</h4>
                 <div class="data-grid">
                     <div class="data-item clickable-card fade-in">
                         <div class="data-value">+4,400 顆</div>
                         <div class="data-label" data-translate="profit1_label">額外可孵化種蛋</div>
-                        <p style="font-size: 13px; color: var(--text-light); margin-top: 5px;" data-translate="profit1_note">年產150顆×1,000隻×3%合格率提升</p>
+                        <p style="font-size: 0.75rem; color: var(--text-light); margin-top: 5px;" data-translate="profit1_note">年產150顆×1,000隻×3%合格率提升</p>
                     </div>
                     <div class="data-item clickable-card fade-in">
                         <div class="data-value">+3,960 隻</div>
                         <div class="data-label" data-translate="profit2_label">額外健康雛雞</div>
-                        <p style="font-size: 13px; color: var(--text-light); margin-top: 5px;" data-translate="profit2_note">4,400顆×90%孵化率</p>
+                        <p style="font-size: 0.75rem; color: var(--text-light); margin-top: 5px;" data-translate="profit2_note">4,400顆×90%孵化率</p>
                     </div>
                     <div class="data-item clickable-card fade-in">
                         <div class="data-value"><span data-value="25" data-currency>NTD 25</span></div>
                         <div class="data-label" data-translate="profit3_label">每隻雛雞淨利潤</div>
-                        <p style="font-size: 13px; color: var(--text-light); margin-top: 5px;" data-translate="profit3_note">行業平均數值</p>
+                        <p style="font-size: 0.75rem; color: var(--text-light); margin-top: 5px;" data-translate="profit3_note">行業平均數值</p>
                     </div>
                 </div>
             </div>
             
-            <table>
-                <thead>
-                    <tr>
-                        <th data-translate="table2_header1">效益項目</th>
-                        <th data-translate="table2_header2">計算公式</th>
-                        <th data-translate="table2_header3">年度效益 (NTD)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong data-translate="table2_row1_title">受精率提升效益</strong></td>
-                        <td data-translate="table2_row1_formula">150,000顆×3%×<span data-value="2" data-currency>NTD 2</span>/顆</td>
-                        <td><span data-value="90000" data-currency>+90,000</span></td>
-                    </tr>
-                    <tr>
-                        <td><strong data-translate="table2_row2_title">孵化率提升效益</strong></td>
-                        <td data-translate="table2_row2_formula">150,000顆×4%×<span data-value="25" data-currency>NTD 25</span>/隻×90%</td>
-                        <td><span data-value="135000" data-currency>+135,000</span></td>
-                    </tr>
-                    <tr>
-                        <td><strong data-translate="table2_row3_title">健雛率提升效益</strong></td>
-                        <td data-translate="table2_row3_formula">135,000隻×4%×<span data-value="5" data-currency>NTD 5</span>/隻</td>
-                        <td><span data-value="27000" data-currency>+27,000</span></td>
-                    </tr>
-                    <tr>
-                        <td><strong data-translate="table2_row4_title">生產週期延長效益</strong></td>
-                        <td data-translate="table2_row4_formula">1,000隻×4週×1.2顆/週×<span data-value="2" data-currency>NTD 2</span>/顆</td>
-                        <td><span data-value="9600" data-currency>+9,600</span></td>
-                    </tr>
-                    <tr class="highlight">
-                        <td><strong data-translate="table2_row5_title">年度總效益</strong></td>
-                        <td>&nbsp;</td>
-                        <td><strong><span data-value="261600" data-currency>+261,600</span></strong></td>
-                    </tr>
-                    <tr>
-                        <td><strong data-translate="table2_row6_title">活力旺年度成本</strong></td>
-                        <td data-translate="table2_row6_formula">1,100隻×<span data-value="23.35" data-currency>NTD 23.35</span>/隻</td>
-                        <td><strong><span data-value="-25685" data-currency>-25,685</span></strong></td>
-                    </tr>
-                    <tr class="highlight">
-                        <td><strong data-translate="table2_row7_title">年度淨利潤增加</strong></td>
-                        <td>&nbsp;</td>
-                        <td><strong><span data-value="235915" data-currency>+235,915</span></strong></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th data-translate="table2_header1">效益項目</th>
+                            <th data-translate="table2_header2">計算公式</th>
+                            <th data-translate="table2_header3">年度效益 (NTD)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong data-translate="table2_row1_title">受精率提升效益</strong></td>
+                            <td data-translate="table2_row1_formula">150,000顆×3%×<span data-value="2" data-currency>NTD 2</span>/顆</td>
+                            <td><span data-value="90000" data-currency>+90,000</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong data-translate="table2_row2_title">孵化率提升效益</strong></td>
+                            <td data-translate="table2_row2_formula">150,000顆×4%×<span data-value="25" data-currency>NTD 25</span>/隻×90%</td>
+                            <td><span data-value="135000" data-currency>+135,000</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong data-translate="table2_row3_title">健雛率提升效益</strong></td>
+                            <td data-translate="table2_row3_formula">135,000隻×4%×<span data-value="5" data-currency>NTD 5</span>/隻</td>
+                            <td><span data-value="27000" data-currency>+27,000</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong data-translate="table2_row4_title">生產週期延長效益</strong></td>
+                            <td data-translate="table2_row4_formula">1,000隻×4週×1.2顆/週×<span data-value="2" data-currency>NTD 2</span>/顆</td>
+                            <td><span data-value="9600" data-currency>+9,600</span></td>
+                        </tr>
+                        <tr class="highlight">
+                            <td><strong data-translate="table2_row5_title">年度總效益</strong></td>
+                            <td>&nbsp;</td>
+                            <td><strong><span data-value="261600" data-currency>+261,600</span></strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong data-translate="table2_row6_title">活力旺年度成本</strong></td>
+                            <td data-translate="table2_row6_formula">1,100隻×<span data-value="23.35" data-currency>NTD 23.35</span>/隻</td>
+                            <td><strong><span data-value="-25685" data-currency>-25,685</span></strong></td>
+                        </tr>
+                        <tr class="highlight">
+                            <td><strong data-translate="table2_row7_title">年度淨利潤增加</strong></td>
+                            <td>&nbsp;</td>
+                            <td><strong><span data-value="235915" data-currency>+235,915</span></strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             
             <!-- 嵌入圖片4：經濟效益圖表 -->
             <div class="img-grid">
                 <div class="img-card">
-                    <img src="assets/economic-benefit-chart.png" alt="繁殖性能提升經濟效益分析圖表" data-translate="image8_alt">
+                    <img src="assets/economic-benefit-chart.png" alt="繁殖性能提升經濟效益分析圖表" data-translate="image8_alt" loading="lazy">
                     <div class="img-caption" data-translate="image8_caption">經濟效益分析：ROI達406%，每隻母雞年增利潤124 NTD</div>
                 </div>
             </div>
@@ -688,8 +929,8 @@
                 <h3 data-translate="roi_title">投資報酬率分析</h3>
                 <div class="result-value"><span data-value="919" data-percent>919</span>%</div>
                 <p data-translate="roi_desc1">每投入 NTD 1，創造 NTD 9.19 淨收益</p>
-                <p style="margin-top: 15px; font-size: 18px;" data-translate="roi_desc2">1,000隻種母雞場 &middot; 年增淨利潤 <strong><span data-value="235915" data-currency>NTD 235,915</span></strong></p>
-                <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 8px; margin-top: 15px;">
+                <p style="margin-top: 12px; font-size: 1rem;" data-translate="roi_desc2">1,000隻種母雞場 &middot; 年增淨利潤 <strong><span data-value="235915" data-currency>NTD 235,915</span></strong></p>
+                <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 8px; margin-top: 12px;">
                     <p data-translate="roi_note1">投資回收期：<strong>約 1.3 個月</strong></p>
                     <p data-translate="roi_note2">成本效益比：<strong>1 : 9.19</strong></p>
                 </div>
@@ -699,52 +940,54 @@
         <!-- 不同規模效益分析 -->
         <div class="section">
             <h2 data-translate="section5_title">五、不同養殖規模經濟效益分析</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th data-translate="table3_header1">養殖規模</th>
-                        <th data-translate="table3_header2">種母雞數量</th>
-                        <th data-translate="table3_header3">種公雞數量</th>
-                        <th data-translate="table3_header4">年度淨利增加</th>
-                        <th data-translate="table3_header5">月均效益</th>
-                        <th data-translate="table3_header6">ROI</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong data-translate="table3_row1_title">小型種雞場</strong></td>
-                        <td data-translate="table3_row1_hens">500 隻</td>
-                        <td data-translate="table3_row1_roosters">50 隻</td>
-                        <td><span data-value="117958" data-currency>NTD 117,958</span></td>
-                        <td><span data-value="9830" data-currency>NTD 9,830</span></td>
-                        <td><span data-value="919" data-percent>919</span>%</td>
-                    </tr>
-                    <tr class="highlight">
-                        <td><strong data-translate="table3_row2_title">中型種雞場 (基準)</strong></td>
-                        <td data-translate="table3_row2_hens">1,000 隻</td>
-                        <td data-translate="table3_row2_roosters">100 隻</td>
-                        <td><span data-value="235915" data-currency>NTD 235,915</span></td>
-                        <td><span data-value="19660" data-currency>NTD 19,660</span></td>
-                        <td><span data-value="919" data-percent>919</span>%</td>
-                    </tr>
-                    <tr>
-                        <td><strong data-translate="table3_row3_title">大型種雞場</strong></td>
-                        <td data-translate="table3_row3_hens">5,000 隻</td>
-                        <td data-translate="table3_row3_roosters">500 隻</td>
-                        <td><span data-value="1179575" data-currency>NTD 1,179,575</span></td>
-                        <td><span data-value="98298" data-currency>NTD 98,298</span></td>
-                        <td><span data-value="919" data-percent>919</span>%</td>
-                    </tr>
-                    <tr>
-                        <td><strong data-translate="table3_row4_title">統進統出場</strong></td>
-                        <td data-translate="table3_row4_hens">10,000 隻</td>
-                        <td data-translate="table3_row4_roosters">1,000 隻</td>
-                        <td><span data-value="2359150" data-currency>NTD 2,359,150</span></td>
-                        <td><span data-value="196596" data-currency>NTD 196,596</span></td>
-                        <td><span data-value="919" data-percent>919</span>%</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th data-translate="table3_header1">養殖規模</th>
+                            <th data-translate="table3_header2">種母雞數量</th>
+                            <th data-translate="table3_header3">種公雞數量</th>
+                            <th data-translate="table3_header4">年度淨利增加</th>
+                            <th data-translate="table3_header5">月均效益</th>
+                            <th data-translate="table3_header6">ROI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong data-translate="table3_row1_title">小型種雞場</strong></td>
+                            <td data-translate="table3_row1_hens">500 隻</td>
+                            <td data-translate="table3_row1_roosters">50 隻</td>
+                            <td><span data-value="117958" data-currency>NTD 117,958</span></td>
+                            <td><span data-value="9830" data-currency>NTD 9,830</span></td>
+                            <td><span data-value="919" data-percent>919</span>%</td>
+                        </tr>
+                        <tr class="highlight">
+                            <td><strong data-translate="table3_row2_title">中型種雞場 (基準)</strong></td>
+                            <td data-translate="table3_row2_hens">1,000 隻</td>
+                            <td data-translate="table3_row2_roosters">100 隻</td>
+                            <td><span data-value="235915" data-currency>NTD 235,915</span></td>
+                            <td><span data-value="19660" data-currency>NTD 19,660</span></td>
+                            <td><span data-value="919" data-percent>919</span>%</td>
+                        </tr>
+                        <tr>
+                            <td><strong data-translate="table3_row3_title">大型種雞場</strong></td>
+                            <td data-translate="table3_row3_hens">5,000 隻</td>
+                            <td data-translate="table3_row3_roosters">500 隻</td>
+                            <td><span data-value="1179575" data-currency>NTD 1,179,575</span></td>
+                            <td><span data-value="98298" data-currency>NTD 98,298</span></td>
+                            <td><span data-value="919" data-percent>919</span>%</td>
+                        </tr>
+                        <tr>
+                            <td><strong data-translate="table3_row4_title">統進統出場</strong></td>
+                            <td data-translate="table3_row4_hens">10,000 隻</td>
+                            <td data-translate="table3_row4_roosters">1,000 隻</td>
+                            <td><span data-value="2359150" data-currency>NTD 2,359,150</span></td>
+                            <td><span data-value="196596" data-currency>NTD 196,596</span></td>
+                            <td><span data-value="919" data-percent>919</span>%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             
             <div class="data-card fade-in">
                 <h4 data-translate="scale_benefit_title">規模效益說明</h4>
@@ -789,32 +1032,32 @@
         </div>
 
         <!-- 總結與行動呼籲 -->
-        <div class="section" style="background: linear-gradient(135deg, var(--primary-blue) 0%, var(--poultry-red) 100%); color: white; border-radius: var(--border-radius); padding: 40px 20px; margin: 30px 0;">
+        <div class="section" style="background: linear-gradient(135deg, var(--primary-blue) 0%, var(--poultry-red) 100%); color: white; border-radius: var(--border-radius); padding: 30px 20px; margin: 25px 0;">
             <h2 style="color: white; border-bottom-color: white;" data-translate="section7_title">七、結論：種雞生產的價值革命</h2>
-            <div style="margin: 25px 0;">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+            <div style="margin: 20px 0;">
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
                     <div style="text-align: center;">
-                        <div style="font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 800; color: var(--accent-gold);"><span data-value="919" data-percent>919</span>%</div>
-                        <div style="color: rgba(255,255,255,0.9);" data-translate="conclusion1_label">投資報酬率</div>
+                        <div style="font-size: clamp(1.3rem, 4vw, 2.2rem); font-weight: 800; color: var(--accent-gold);"><span data-value="919" data-percent>919</span>%</div>
+                        <div style="color: rgba(255,255,255,0.9); font-size: 0.9rem;" data-translate="conclusion1_label">投資報酬率</div>
                     </div>
                     <div style="text-align: center;">
-                        <div style="font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 800; color: var(--accent-gold);"><span data-value="235915" data-currency>NTD 235,915</span></div>
-                        <div style="color: rgba(255,255,255,0.9);" data-translate="conclusion2_label">千隻場年增淨利</div>
+                        <div style="font-size: clamp(1.3rem, 4vw, 2.2rem); font-weight: 800; color: var(--accent-gold);"><span data-value="235915" data-currency>NTD 235,915</span></div>
+                        <div style="color: rgba(255,255,255,0.9); font-size: 0.9rem;" data-translate="conclusion2_label">千隻場年增淨利</div>
                     </div>
                     <div style="text-align: center;">
-                        <div style="font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 800; color: var(--accent-gold);">+4-5%</div>
-                        <div style="color: rgba(255,255,255,0.9);" data-translate="conclusion3_label">孵化率提升</div>
+                        <div style="font-size: clamp(1.3rem, 4vw, 2.2rem); font-weight: 800; color: var(--accent-gold);">+4-5%</div>
+                        <div style="color: rgba(255,255,255,0.9); font-size: 0.9rem;" data-translate="conclusion3_label">孵化率提升</div>
                     </div>
                     <div style="text-align: center;">
-                        <div style="font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 800; color: var(--accent-gold);">1.3月</div>
-                        <div style="color: rgba(255,255,255,0.9);" data-translate="conclusion4_label">投資回收期</div>
+                        <div style="font-size: clamp(1.3rem, 4vw, 2.2rem); font-weight: 800; color: var(--accent-gold);">1.3月</div>
+                        <div style="color: rgba(255,255,255,0.9); font-size: 0.9rem;" data-translate="conclusion4_label">投資回收期</div>
                     </div>
                 </div>
             </div>
-            <div style="background: rgba(255,255,255,0.15); padding: 20px; border-radius: 10px; margin-top: 25px;">
+            <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 10px; margin-top: 20px;">
                 <h3 style="color: white;" data-translate="value_prop_title">核心價值主張</h3>
-                <p style="margin: 15px 0;" data-translate="value_prop_desc1">活力旺種雞方案不是「增加成本」，而是「投資於繁殖效率」：</p>
-                <ul style="margin: 15px 0 15px 25px; color: rgba(255,255,255,0.95);">
+                <p style="margin: 12px 0;" data-translate="value_prop_desc1">活力旺種雞方案不是「增加成本」，而是「投資於繁殖效率」：</p>
+                <ul style="margin: 12px 0 12px 20px; color: rgba(255,255,255,0.95);">
                     <li data-translate="value_prop_item1">每投入<strong><span data-value="1" data-currency>NTD 1</span></strong>元飼料添加成本，創造<strong><span data-value="9.19" data-currency>NTD 9.19</span></strong>元淨收益</li>
                     <li data-translate="value_prop_item2">每顆種蛋增加<strong><span data-value="0.015" data-currency>NTD 0.015</span></strong>元成本，提升<strong><span data-value="0.16" data-currency>NTD 0.16</span></strong>元價值</li>
                     <li data-translate="value_prop_item3">從「追求最低飼料單價」轉向「追求最高繁殖投資報酬率」</li>
@@ -824,11 +1067,11 @@
 
         <!-- 頁腳 -->
         <footer>
-            <h3 style="color: var(--primary-blue);" data-translate="footer_company">首池有限公司｜SHOU CHI Co., Ltd.</h3>
-            <p style="color: var(--text-light); margin: 10px 0;" data-translate="footer_tagline">Precision Nutrition &middot; Advanced Biotechnology &middot; Sustainable Agriculture</p>
-            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e0e0e0;">
-                <p style="color: var(--text-light); font-size: 14px;" data-translate="footer_contact">服務諮詢: 0800-XXX-XXX | 技術專線: (02) XXXX-XXXX</p>
-                <p style="color: #999; font-size: 12px; margin-top: 15px;" data-translate="footer_copyright">&copy; 2024 首池有限公司版權所有。數據基於行業平均與試驗結果，實際效益可能因管理條件而異。</p>
+            <h3 style="color: var(--primary-blue); font-size: 1.1rem;" data-translate="footer_company">首池有限公司｜SHOU CHI Co., Ltd.</h3>
+            <p style="color: var(--text-light); margin: 8px 0; font-size: 0.9rem;" data-translate="footer_tagline">Precision Nutrition &middot; Advanced Biotechnology &middot; Sustainable Agriculture</p>
+            <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e0e0e0;">
+                <p style="color: var(--text-light); font-size: 0.85rem;" data-translate="footer_contact">服務諮詢: 0800-XXX-XXX | 技術專線: (02) XXXX-XXXX</p>
+                <p style="color: #999; font-size: 0.75rem; margin-top: 10px;" data-translate="footer_copyright">&copy; 2024 首池有限公司版權所有。數據基於行業平均與試驗結果，實際效益可能因管理條件而異。</p>
             </div>
         </footer>
     </div>
@@ -836,680 +1079,9 @@
     <script>
         // 多語言翻譯內容
         const translations = {
-            'zh-TW': {
-                // 標題和標語
-                'title': '活力旺種雞性能提升方案',
-                'subtitle': '(種公雞 × 種母雞)',
-                'tagline': '雙向優化 &middot; 孵化率與健雛率全面提升',
-                
-                // 第一區塊
-                'section1_title': '一、台灣種雞產業現況與基準數據',
-                'data1_value': '88-92%',
-                'data1_label': '平均受精率',
-                'data2_value': '84-88%',
-                'data2_label': '平均孵化率',
-                'data3_value': '90-94%',
-                'data3_label': '平均健雛率',
-                'data4_value': '140-160顆',
-                'data4_label': '年產合格種蛋',
-                'image1_alt': '種蛋品質對比：左側劣質種蛋，右側優質種蛋',
-                'image1_caption': '種蛋品質對比：左側劣質種蛋（殼裂、蛋黃品質差），右側優質種蛋（蛋黃飽滿、品質穩定）',
-                'challenge_title': '產業挑戰分析',
-                'challenge1_title': '1. 夏季繁殖障礙',
-                'challenge1_desc': '：熱緊迫導致受精率下降5-8%，孵化率下降3-5%',
-                'challenge2_title': '2. 種蛋品質不均',
-                'challenge2_desc': '：蛋殼質量、內部品質影響孵化成功率',
-                'challenge3_title': '3. 種公雞精液品質衰退',
-                'challenge3_desc': '：隨周齡增加，精液量與活力下降',
-                'challenge4_title': '4. 早期胚胎死亡率高',
-                'challenge4_desc': '：影響健雛率與雛雞均勻度',
-                
-                // 第二區塊
-                'section2_title': '二、活力旺生理作用機轉解析',
-                'mechanism1_title': '層級一：營養吸收與腸道健康',
-                'mechanism1_comp': '作用成分：',
-                'mechanism1_comp_desc': '精密複合酶製劑',
-                'mechanism1_mech': '生理機轉：',
-                'mechanism1_mech1': '提升蛋白質消化率18-22%，為卵泡發育與精子生成提供充足胺基酸',
-                'mechanism1_mech2': '改善腸道絨毛結構，增加營養吸收面積',
-                'mechanism1_mech3': '減少腸道炎症，降低內毒素對生殖系統的影響',
-                'mechanism1_benefit': '目標效益：',
-                'mechanism1_benefit_desc': '改善飼料轉化率，提升基礎營養供給',
-                'mechanism2_title': '層級二：抗氧化與細胞保護',
-                'mechanism2_comp': '作用成分：',
-                'mechanism2_comp_desc': '免疫調控肽 + 抗氧化複方',
-                'mechanism2_mech': '生理機轉：',
-                'mechanism2_mech1': '激活Nrf2/ARE抗氧化通路，提升肝臟與卵巢SOD、GSH-Px活性',
-                'mechanism2_mech2': '保護卵母細胞與精子細胞膜完整性，減少脂質過氧化',
-                'mechanism2_mech3': '降低胚胎發育過程中的氧化壓力，減少早期死亡',
-                'mechanism2_benefit': '目標效益：',
-                'mechanism2_benefit_desc': '提升種蛋內在品質與精子活力',
-                'mechanism3_title': '層級三：生殖內分泌調控',
-                'mechanism3_comp': '作用成分：',
-                'mechanism3_comp_desc': '代謝調控複方 (NAD+前體)',
-                'mechanism3_mech': '生理機轉：',
-                'mechanism3_mech1': '提升卵巢粒線體功能，優化卵泡發育與排卵同步性',
-                'mechanism3_mech2': '調控下視丘-垂體-性腺軸，穩定FSH、LH、雌激素分泌',
-                'mechanism3_mech3': '改善睪丸萊氏細胞功能，提升睪固酮合成與精子發生效率',
-                'mechanism3_benefit': '目標效益：',
-                'mechanism3_benefit_desc': '提升受精率與種蛋生產穩定性',
-                'image2_alt': '種公雞精子活力對比：左25% 右85%',
-                'image2_caption': '種公雞精子活力對比：左側傳統飼養(25%)，右側活力旺方案(85%)',
-                
-                // 第三區塊
-                'section3_title': '三、成本參數與添加方案',
-                'image3_alt': '種雞場自動化飼料添加設備',
-                'image3_caption': '種雞場自動化飼料添加設備 - 活力旺可無縫整合至現有飼料系統',
-                'cost1_label': '活力旺單價/公斤',
-                'cost2_label': '每噸飼料添加量',
-                'cost3_label': '每公斤飼料成本增加',
-                'cost4_label': '每顆種蛋成本增加',
-                'cost_note': '(以每日採食量125g計算)',
-                'cost_calc_title': '種雞飼養成本計算 (以1,000隻種母雞+100隻種公雞為例)',
-                'cost_row1_label': '種母雞每日採食量',
-                'cost_row1_value': '125 公克/隻',
-                'cost_row2_label': '種公雞每日採食量',
-                'cost_row2_value': '140 公克/隻',
-                'cost_row3_label': '每日總飼料消耗',
-                'cost_row3_value': '(1,000×0.125) + (100×0.14) = 139 公斤',
-                'cost_row4_label': '每日活力旺添加成本',
-                'cost_row4_value': '139公斤 × NTD 0.6/公斤 = NTD 83.4',
-                'cost_row5_label': '每月添加成本',
-                'cost_row6_label': '每年添加成本 (44週生產期)',
-                
-                // 第四區塊
-                'section4_title': '四、繁殖性能提升與經濟效益評估',
-                'image4_alt': '種雞場受精率與孵化率提升數據',
-                'image4_caption': '活力旺方案成效：受精率提升至92%，孵化率提升至89%',
-                'expectation_title': '預期性能改善目標',
-                'table1_header1': '關鍵指標',
-                'table1_header2': '行業基準',
-                'table1_header3': '活力旺預期',
-                'table1_header4': '提升幅度',
-                'table1_header5': '生理基礎',
-                'table1_row1_title': '種蛋受精率',
-                'table1_row1_base': '88-92%',
-                'table1_row1_expected': '92-95%',
-                'table1_row1_improve': '+3-4%',
-                'table1_row1_basis': '精子活力提升，受精能力增強',
-                'table1_row2_title': '入孵蛋孵化率',
-                'table1_row2_base': '84-88%',
-                'table1_row2_expected': '88-92%',
-                'table1_row2_improve': '+4-5%',
-                'table1_row2_basis': '胚胎發育改善，早期死亡減少',
-                'table1_row3_title': '健雛率',
-                'table1_row3_base': '90-94%',
-                'table1_row3_expected': '94-97%',
-                'table1_row3_improve': '+4-5%',
-                'table1_row3_basis': '雛雞活力與均勻度提升',
-                'table1_row4_title': '種蛋合格率',
-                'table1_row4_base': '92-95%',
-                'table1_row4_expected': '95-97%',
-                'table1_row4_improve': '+3-4%',
-                'table1_row4_basis': '蛋殼質量與內部品質改善',
-                'table1_row5_title': '產蛋高峰期維持',
-                'table1_row5_base': '28-32週',
-                'table1_row5_expected': '32-36週',
-                'table1_row5_improve': '延長4週',
-                'table1_row5_basis': '卵巢功能維持，卵泡發育同步',
-                'image5_alt': '孵化率對比：標準孵化85% vs 強化孵化91%',
-                'image5_caption': '孵化率對比：左側標準孵化(85%)，右側活力旺方案(91%)',
-                'image6_alt': '雛雞整體健康對比',
-                'image6_caption': '雛雞整體健康對比：左側弱雛(死亡率高)，右側健雛(存活率高)',
-                'image7_alt': '雛雞細節健康對比',
-                'image7_caption': '雛雞細節健康對比：左側發育不良，右側活力充沛',
-                'profit_calc_title': '經濟效益計算 (以1,000隻種母雞為基準)',
-                'profit_source_title': '效益來源分析',
-                'profit1_label': '額外可孵化種蛋',
-                'profit1_note': '年產150顆×1,000隻×3%合格率提升',
-                'profit2_label': '額外健康雛雞',
-                'profit2_note': '4,400顆×90%孵化率',
-                'profit3_label': '每隻雛雞淨利潤',
-                'profit3_note': '行業平均數值',
-                'table2_header1': '效益項目',
-                'table2_header2': '計算公式',
-                'table2_header3': '年度效益 (NTD)',
-                'table2_row1_title': '受精率提升效益',
-                'table2_row1_formula': '150,000顆×3%×NTD 2/顆',
-                'table2_row2_title': '孵化率提升效益',
-                'table2_row2_formula': '150,000顆×4%×NTD 25/隻×90%',
-                'table2_row3_title': '健雛率提升效益',
-                'table2_row3_formula': '135,000隻×4%×NTD 5/隻',
-                'table2_row4_title': '生產週期延長效益',
-                'table2_row4_formula': '1,000隻×4週×1.2顆/週×NTD 2/顆',
-                'table2_row5_title': '年度總效益',
-                'table2_row6_title': '活力旺年度成本',
-                'table2_row6_formula': '1,100隻×NTD 23.35/隻',
-                'table2_row7_title': '年度淨利潤增加',
-                'image8_alt': '繁殖性能提升經濟效益分析圖表',
-                'image8_caption': '經濟效益分析：ROI達406%，每隻母雞年增利潤124 NTD',
-                'roi_title': '投資報酬率分析',
-                'roi_desc1': '每投入 NTD 1，創造 NTD 9.19 淨收益',
-                'roi_desc2': '1,000隻種母雞場 &middot; 年增淨利潤 NTD 235,915',
-                'roi_note1': '投資回收期：約 1.3 個月',
-                'roi_note2': '成本效益比：1 : 9.19',
-                
-                // 第五區塊
-                'section5_title': '五、不同養殖規模經濟效益分析',
-                'table3_header1': '養殖規模',
-                'table3_header2': '種母雞數量',
-                'table3_header3': '種公雞數量',
-                'table3_header4': '年度淨利增加',
-                'table3_header5': '月均效益',
-                'table3_header6': 'ROI',
-                'table3_row1_title': '小型種雞場',
-                'table3_row1_hens': '500 隻',
-                'table3_row1_roosters': '50 隻',
-                'table3_row2_title': '中型種雞場 (基準)',
-                'table3_row2_hens': '1,000 隻',
-                'table3_row2_roosters': '100 隻',
-                'table3_row3_title': '大型種雞場',
-                'table3_row3_hens': '5,000 隻',
-                'table3_row3_roosters': '500 隻',
-                'table3_row4_title': '統進統出場',
-                'table3_row4_hens': '10,000 隻',
-                'table3_row4_roosters': '1,000 隻',
-                'scale_benefit_title': '規模效益說明',
-                'scale_benefit_desc1': '活力旺方案具有線性擴展特性：',
-                'scale_benefit_desc2': '1. 成本與效益同比例增長：雞隻數量增加N倍，成本與效益同步增加N倍',
-                'scale_benefit_desc3': '2. ROI保持穩定：無論規模大小，投資報酬率均維持在919%左右',
-                'scale_benefit_desc4': '3. 管理優勢：大規模場因管理標準化，實際效益可能更高',
-                
-                // 第六區塊
-                'section6_title': '六、實施建議與風險管理',
-                'stage1_title': '階段一：驗證期 (8週)',
-                'stage1_scale': '規模：',
-                'stage1_scale_desc': '100隻種母雞 + 10隻種公雞',
-                'stage1_cost': '成本：',
-                'stage1_metric': '驗證指標：',
-                'stage1_metric_desc': '種蛋合格率、受精率',
-                'stage2_title': '階段二：擴展期 (16週)',
-                'stage2_scale': '規模：',
-                'stage2_scale_desc': '500隻種母雞 + 50隻種公雞',
-                'stage2_cost': '成本：',
-                'stage2_metric': '驗證指標：',
-                'stage2_metric_desc': '孵化率、健雛率',
-                'stage3_title': '階段三：全面導入',
-                'stage3_scale': '規模：',
-                'stage3_scale_desc': '全場種雞',
-                'stage3_timing': '時機：',
-                'stage3_timing_desc': '驗證效益後下一生產週期',
-                'stage3_goal': '目標：',
-                'stage3_goal_desc': '實現規模化經濟效益',
-                'risk_title': '風險對沖策略',
-                'risk_strategy1': '1. 分階段驗證：小規模試驗驗證效果，風險可控',
-                'risk_strategy2': '2. 效果監控指標：每2週檢測種蛋受精率，每4週檢測孵化率',
-                'risk_strategy3': '3. 退出機制：隨時可停止使用，無長期合約約束',
-                'risk_strategy4': '4. 成本回收保證：即使僅實現60%預期效果，ROI仍達551%',
-                
-                // 第七區塊
-                'section7_title': '七、結論：種雞生產的價值革命',
-                'conclusion1_label': '投資報酬率',
-                'conclusion2_label': '千隻場年增淨利',
-                'conclusion3_label': '孵化率提升',
-                'conclusion4_label': '投資回收期',
-                'value_prop_title': '核心價值主張',
-                'value_prop_desc1': '活力旺種雞方案不是「增加成本」，而是「投資於繁殖效率」：',
-                'value_prop_item1': '每投入NTD 1元飼料添加成本，創造NTD 9.19元淨收益',
-                'value_prop_item2': '每顆種蛋增加NTD 0.015元成本，提升NTD 0.16元價值',
-                'value_prop_item3': '從「追求最低飼料單價」轉向「追求最高繁殖投資報酬率」',
-                
-                // 頁腳
-                'footer_company': '首池有限公司｜SHOU CHI Co., Ltd.',
-                'footer_tagline': 'Precision Nutrition &middot; Advanced Biotechnology &middot; Sustainable Agriculture',
-                'footer_contact': '服務諮詢: 0800-XXX-XXX | 技術專線: (02) XXXX-XXXX',
-                'footer_copyright': '&copy; 2024 首池有限公司版權所有。數據基於行業平均與試驗結果，實際效益可能因管理條件而異。'
-            },
-            
-            'zh-CN': {
-                // 標題和標語
-                'title': '活力旺种鸡性能提升方案',
-                'subtitle': '(种公鸡 × 种母鸡)',
-                'tagline': '双向优化 &middot; 孵化率与健雏率全面提升',
-                
-                // 第一區塊
-                'section1_title': '一、台湾种鸡产业现况与基准数据',
-                'data1_value': '88-92%',
-                'data1_label': '平均受精率',
-                'data2_value': '84-88%',
-                'data2_label': '平均孵化率',
-                'data3_value': '90-94%',
-                'data3_label': '平均健雏率',
-                'data4_value': '140-160颗',
-                'data4_label': '年产合格种蛋',
-                'image1_alt': '种蛋品质对比：左侧劣质种蛋，右侧优质种蛋',
-                'image1_caption': '种蛋品质对比：左侧劣质种蛋（壳裂、蛋黄品质差），右侧优质种蛋（蛋黄饱满、品质稳定）',
-                'challenge_title': '产业挑战分析',
-                'challenge1_title': '1. 夏季繁殖障碍',
-                'challenge1_desc': '：热紧迫导致受精率下降5-8%，孵化率下降3-5%',
-                'challenge2_title': '2. 种蛋品质不均',
-                'challenge2_desc': '：蛋壳质量、内部品质影响孵化成功率',
-                'challenge3_title': '3. 种公鸡精液品质衰退',
-                'challenge3_desc': '：随周龄增加，精液量与活力下降',
-                'challenge4_title': '4. 早期胚胎死亡率高',
-                'challenge4_desc': '：影响健雏率与雏鸡均匀度',
-                
-                // 第二區塊
-                'section2_title': '二、活力旺生理作用机转解析',
-                'mechanism1_title': '层级一：营养吸收与肠道健康',
-                'mechanism1_comp': '作用成分：',
-                'mechanism1_comp_desc': '精密复合酶制剂',
-                'mechanism1_mech': '生理机转：',
-                'mechanism1_mech1': '提升蛋白质消化率18-22%，为卵泡发育与精子生成提供充足胺基酸',
-                'mechanism1_mech2': '改善肠道绒毛结构，增加营养吸收面积',
-                'mechanism1_mech3': '减少肠道炎症，降低内毒素对生殖系统的影响',
-                'mechanism1_benefit': '目标效益：',
-                'mechanism1_benefit_desc': '改善饲料转化率，提升基础营养供给',
-                'mechanism2_title': '层级二：抗氧化与细胞保护',
-                'mechanism2_comp': '作用成分：',
-                'mechanism2_comp_desc': '免疫调控肽 + 抗氧化复方',
-                'mechanism2_mech': '生理机转：',
-                'mechanism2_mech1': '激活Nrf2/ARE抗氧化通路，提升肝脏与卵巢SOD、GSH-Px活性',
-                'mechanism2_mech2': '保护卵母细胞与精子细胞膜完整性，减少脂质过氧化',
-                'mechanism2_mech3': '降低胚胎发育过程中的氧化压力，减少早期死亡',
-                'mechanism2_benefit': '目标效益：',
-                'mechanism2_benefit_desc': '提升种蛋内在品质与精子活力',
-                'mechanism3_title': '层级三：生殖内分泌调控',
-                'mechanism3_comp': '作用成分：',
-                'mechanism3_comp_desc': '代谢调控复方 (NAD+前体)',
-                'mechanism3_mech': '生理机转：',
-                'mechanism3_mech1': '提升卵巢粒线体功能，优化卵泡发育与排卵同步性',
-                'mechanism3_mech2': '调控下视丘-垂体-性腺轴，稳定FSH、LH、雌激素分泌',
-                'mechanism3_mech3': '改善睾丸莱氏细胞功能，提升睾固酮合成与精子发生效率',
-                'mechanism3_benefit': '目标效益：',
-                'mechanism3_benefit_desc': '提升受精率与种蛋生产稳定性',
-                'image2_alt': '种公鸡精子活力对比：左25% 右85%',
-                'image2_caption': '种公鸡精子活力对比：左侧传统饲养(25%)，右侧活力旺方案(85%)',
-                
-                // 第三區塊
-                'section3_title': '三、成本参数与添加方案',
-                'image3_alt': '种鸡场自动化饲料添加设备',
-                'image3_caption': '种鸡场自动化饲料添加设备 - 活力旺可无缝整合至现有饲料系统',
-                'cost1_label': '活力旺单价/公斤',
-                'cost2_label': '每吨饲料添加量',
-                'cost3_label': '每公斤饲料成本增加',
-                'cost4_label': '每颗种蛋成本增加',
-                'cost_note': '(以每日采食量125g计算)',
-                'cost_calc_title': '种鸡饲养成本计算 (以1,000只种母鸡+100只种公鸡为例)',
-                'cost_row1_label': '种母鸡每日采食量',
-                'cost_row1_value': '125 克/只',
-                'cost_row2_label': '种公鸡每日采食量',
-                'cost_row2_value': '140 克/只',
-                'cost_row3_label': '每日总饲料消耗',
-                'cost_row3_value': '(1,000×0.125) + (100×0.14) = 139 公斤',
-                'cost_row4_label': '每日活力旺添加成本',
-                'cost_row4_value': '139公斤 × CNY 0.13/公斤 = CNY 18.07',
-                'cost_row5_label': '每月添加成本',
-                'cost_row6_label': '每年添加成本 (44周生产期)',
-                
-                // 第四區塊
-                'section4_title': '四、繁殖性能提升与经济效益评估',
-                'image4_alt': '种鸡场受精率与孵化率提升数据',
-                'image4_caption': '活力旺方案成效：受精率提升至92%，孵化率提升至89%',
-                'expectation_title': '预期性能改善目标',
-                'table1_header1': '关键指标',
-                'table1_header2': '行业基准',
-                'table1_header3': '活力旺预期',
-                'table1_header4': '提升幅度',
-                'table1_header5': '生理基础',
-                'table1_row1_title': '种蛋受精率',
-                'table1_row1_base': '88-92%',
-                'table1_row1_expected': '92-95%',
-                'table1_row1_improve': '+3-4%',
-                'table1_row1_basis': '精子活力提升，受精能力增强',
-                'table1_row2_title': '入孵蛋孵化率',
-                'table1_row2_base': '84-88%',
-                'table1_row2_expected': '88-92%',
-                'table1_row2_improve': '+4-5%',
-                'table1_row2_basis': '胚胎发育改善，早期死亡减少',
-                'table1_row3_title': '健雏率',
-                'table1_row3_base': '90-94%',
-                'table1_row3_expected': '94-97%',
-                'table1_row3_improve': '+4-5%',
-                'table1_row3_basis': '雏鸡活力与均匀度提升',
-                'table1_row4_title': '种蛋合格率',
-                'table1_row4_base': '92-95%',
-                'table1_row4_expected': '95-97%',
-                'table1_row4_improve': '+3-4%',
-                'table1_row4_basis': '蛋壳质量与内部品质改善',
-                'table1_row5_title': '产蛋高峰期维持',
-                'table1_row5_base': '28-32周',
-                'table1_row5_expected': '32-36周',
-                'table1_row5_improve': '延长4周',
-                'table1_row5_basis': '卵巢功能维持，卵泡发育同步',
-                'image5_alt': '孵化率对比：标准孵化85% vs 强化孵化91%',
-                'image5_caption': '孵化率对比：左侧标准孵化(85%)，右侧活力旺方案(91%)',
-                'image6_alt': '雏鸡整体健康对比',
-                'image6_caption': '雏鸡整体健康对比：左侧弱雏(死亡率高)，右侧健雏(存活率高)',
-                'image7_alt': '雏鸡细节健康对比',
-                'image7_caption': '雏鸡细节健康对比：左侧发育不良，右侧活力充沛',
-                'profit_calc_title': '经济效益计算 (以1,000只种母鸡为基准)',
-                'profit_source_title': '效益来源分析',
-                'profit1_label': '额外可孵化种蛋',
-                'profit1_note': '年产150颗×1,000只×3%合格率提升',
-                'profit2_label': '额外健康雏鸡',
-                'profit2_note': '4,400颗×90%孵化率',
-                'profit3_label': '每只雏鸡净利润',
-                'profit3_note': '行业平均值',
-                'table2_header1': '效益项目',
-                'table2_header2': '计算公式',
-                'table2_header3': '年度效益 (CNY)',
-                'table2_row1_title': '受精率提升效益',
-                'table2_row1_formula': '150,000颗×3%×CNY 0.44/颗',
-                'table2_row2_title': '孵化率提升效益',
-                'table2_row2_formula': '150,000颗×4%×CNY 5.48/只×90%',
-                'table2_row3_title': '健雏率提升效益',
-                'table2_row3_formula': '135,000只×4%×CNY 1.10/只',
-                'table2_row4_title': '生产周期延长效益',
-                'table2_row4_formula': '1,000只×4周×1.2颗/周×CNY 0.44/颗',
-                'table2_row5_title': '年度总效益',
-                'table2_row6_title': '活力旺年度成本',
-                'table2_row6_formula': '1,100只×CNY 5.11/只',
-                'table2_row7_title': '年度净利润增加',
-                'image8_alt': '繁殖性能提升经济效益分析图表',
-                'image8_caption': '经济效益分析：ROI达406%，每只母鸡年增利润27.2 CNY',
-                'roi_title': '投资报酬率分析',
-                'roi_desc1': '每投入 CNY 1，创造 CNY 9.19 净收益',
-                'roi_desc2': '1,000只种母鸡场 &middot; 年增净利润 CNY 51,703',
-                'roi_note1': '投资回收期：约 1.3 个月',
-                'roi_note2': '成本效益比：1 : 9.19',
-                
-                // 第五區塊
-                'section5_title': '五、不同养殖规模经济效益分析',
-                'table3_header1': '养殖规模',
-                'table3_header2': '种母鸡数量',
-                'table3_header3': '种公鸡数量',
-                'table3_header4': '年度净利增加',
-                'table3_header5': '月均效益',
-                'table3_header6': 'ROI',
-                'table3_row1_title': '小型种鸡场',
-                'table3_row1_hens': '500 只',
-                'table3_row1_roosters': '50 只',
-                'table3_row2_title': '中型种鸡场 (基准)',
-                'table3_row2_hens': '1,000 只',
-                'table3_row2_roosters': '100 只',
-                'table3_row3_title': '大型种鸡场',
-                'table3_row3_hens': '5,000 只',
-                'table3_row3_roosters': '500 只',
-                'table3_row4_title': '统进统出场',
-                'table3_row4_hens': '10,000 只',
-                'table3_row4_roosters': '1,000 只',
-                'scale_benefit_title': '规模效益说明',
-                'scale_benefit_desc1': '活力旺方案具有线性扩展特性：',
-                'scale_benefit_desc2': '1. 成本与效益同比例增长：鸡只数量增加N倍，成本与效益同步增加N倍',
-                'scale_benefit_desc3': '2. ROI保持稳定：无论规模大小，投资报酬率均维持在919%左右',
-                'scale_benefit_desc4': '3. 管理优势：大规模场因管理标准化，实际效益可能更高',
-                
-                // 第六區塊
-                'section6_title': '六、实施建议与风险管理',
-                'stage1_title': '阶段一：验证期 (8周)',
-                'stage1_scale': '规模：',
-                'stage1_scale_desc': '100只种母鸡 + 10只种公鸡',
-                'stage1_cost': '成本：',
-                'stage1_metric': '验证指标：',
-                'stage1_metric_desc': '种蛋合格率、受精率',
-                'stage2_title': '阶段二：扩展期 (16周)',
-                'stage2_scale': '规模：',
-                'stage2_scale_desc': '500只种母鸡 + 50只种公鸡',
-                'stage2_cost': '成本：',
-                'stage2_metric': '验证指标：',
-                'stage2_metric_desc': '孵化率、健雏率',
-                'stage3_title': '阶段三：全面导入',
-                'stage3_scale': '规模：',
-                'stage3_scale_desc': '全场种鸡',
-                'stage3_timing': '时机：',
-                'stage3_timing_desc': '验证效益后下一生产周期',
-                'stage3_goal': '目标：',
-                'stage3_goal_desc': '实现规模化经济效益',
-                'risk_title': '风险对冲策略',
-                'risk_strategy1': '1. 分阶段验证：小规模试验验证效果，风险可控',
-                'risk_strategy2': '2. 效果监控指标：每2周检测种蛋受精率，每4周检测孵化率',
-                'risk_strategy3': '3. 退出机制：随时可停止使用，无长期合约约束',
-                'risk_strategy4': '4. 成本回收保证：即使仅实现60%预期效果，ROI仍达551%',
-                
-                // 第七區塊
-                'section7_title': '七、结论：种鸡生产的价值革命',
-                'conclusion1_label': '投资报酬率',
-                'conclusion2_label': '千只场年增净利',
-                'conclusion3_label': '孵化率提升',
-                'conclusion4_label': '投资回收期',
-                'value_prop_title': '核心价值主张',
-                'value_prop_desc1': '活力旺种鸡方案不是「增加成本」，而是「投资于繁殖效率」：',
-                'value_prop_item1': '每投入CNY 1元饲料添加成本，创造CNY 9.19元净收益',
-                'value_prop_item2': '每颗种蛋增加CNY 0.0033元成本，提升CNY 0.035元价值',
-                'value_prop_item3': '从「追求最低饲料单价」转向「追求最高繁殖投资报酬率」',
-                
-                // 頁腳
-                'footer_company': '首池有限公司｜SHOU CHI Co., Ltd.',
-                'footer_tagline': '精准营养 &middot; 先进生物技术 &middot; 可持续农业',
-                'footer_contact': '服务咨询: 0800-XXX-XXX | 技术专线: (02) XXXX-XXXX',
-                'footer_copyright': '&copy; 2024 首池有限公司版权所有。数据基于行业平均与试验结果，实际效益可能因管理条件而异。'
-            },
-            
-            'en': {
-                // 標題和標語
-                'title': 'VigorPro Breeder Performance Enhancement Program',
-                'subtitle': '(Roosters × Hens)',
-                'tagline': 'Bidirectional Optimization &middot; Comprehensive Improvement in Hatchability and Chick Quality',
-                
-                // 第一區塊
-                'section1_title': '1. Current Status and Benchmark Data of Taiwan Breeder Industry',
-                'data1_value': '88-92%',
-                'data1_label': 'Average Fertility Rate',
-                'data2_value': '84-88%',
-                'data2_label': 'Average Hatchability',
-                'data3_value': '90-94%',
-                'data3_label': 'Average Chick Quality',
-                'data4_value': '140-160 eggs',
-                'data4_label': 'Annual Qualified Hatching Eggs',
-                'image1_alt': 'Hatching Egg Quality Comparison: Left poor quality, Right high quality',
-                'image1_caption': 'Hatching Egg Quality Comparison: Left poor quality (cracked shells, poor yolk quality), Right high quality (plump yolk, stable quality)',
-                'challenge_title': 'Industry Challenges Analysis',
-                'challenge1_title': '1. Summer Reproduction Disorders',
-                'challenge1_desc': ': Heat stress leads to 5-8% decrease in fertility rate, 3-5% decrease in hatchability',
-                'challenge2_title': '2. Uneven Egg Quality',
-                'challenge2_desc': ': Shell quality and internal quality affect hatching success rate',
-                'challenge3_title': '3. Deterioration of Rooster Semen Quality',
-                'challenge3_desc': ': Semen volume and vitality decrease with increasing age',
-                'challenge4_title': '4. High Early Embryo Mortality',
-                'challenge4_desc': ': Affects chick quality and uniformity',
-                
-                // 第二區塊
-                'section2_title': '2. Physiological Mechanism Analysis of VigorPro',
-                'mechanism1_title': 'Level 1: Nutrient Absorption & Gut Health',
-                'mechanism1_comp': 'Active Components:',
-                'mechanism1_comp_desc': 'Precision Enzyme Complex',
-                'mechanism1_mech': 'Physiological Mechanism:',
-                'mechanism1_mech1': 'Improves protein digestibility by 18-22%, providing adequate amino acids for follicular development and spermatogenesis',
-                'mechanism1_mech2': 'Improves intestinal villi structure, increases nutrient absorption area',
-                'mechanism1_mech3': 'Reduces intestinal inflammation, decreases endotoxin impact on reproductive system',
-                'mechanism1_benefit': 'Target Benefit:',
-                'mechanism1_benefit_desc': 'Improves feed conversion rate, enhances basic nutrient supply',
-                'mechanism2_title': 'Level 2: Antioxidant & Cell Protection',
-                'mechanism2_comp': 'Active Components:',
-                'mechanism2_comp_desc': 'Immune Regulatory Peptides + Antioxidant Complex',
-                'mechanism2_mech': 'Physiological Mechanism:',
-                'mechanism2_mech1': 'Activates Nrf2/ARE antioxidant pathway, increases liver and ovary SOD and GSH-Px activity',
-                'mechanism2_mech2': 'Protects oocyte and sperm cell membrane integrity, reduces lipid peroxidation',
-                'mechanism2_mech3': 'Reduces oxidative stress during embryo development, decreases early mortality',
-                'mechanism2_benefit': 'Target Benefit:',
-                'mechanism2_benefit_desc': 'Improves internal egg quality and sperm vitality',
-                'mechanism3_title': 'Level 3: Reproductive Endocrine Regulation',
-                'mechanism3_comp': 'Active Components:',
-                'mechanism3_comp_desc': 'Metabolic Regulation Complex (NAD+ Precursors)',
-                'mechanism3_mech': 'Physiological Mechanism:',
-                'mechanism3_mech1': 'Improves ovarian mitochondrial function, optimizes follicular development and ovulation synchronization',
-                'mechanism3_mech2': 'Regulates hypothalamic-pituitary-gonadal axis, stabilizes FSH, LH, estrogen secretion',
-                'mechanism3_mech3': 'Improves Leydig cell function in testes, enhances testosterone synthesis and spermatogenesis efficiency',
-                'mechanism3_benefit': 'Target Benefit:',
-                'mechanism3_benefit_desc': 'Increases fertility rate and egg production stability',
-                'image2_alt': 'Rooster Sperm Activity Comparison: Left 25% Right 85%',
-                'image2_caption': 'Rooster Sperm Activity Comparison: Left conventional feeding (25%), Right VigorPro program (85%)',
-                
-                // 第三區塊
-                'section3_title': '3. Cost Parameters and Application Program',
-                'image3_alt': 'Breeder Farm Automated Feed Additive Equipment',
-                'image3_caption': 'Breeder Farm Automated Feed Additive Equipment - VigorPro seamlessly integrates with existing feed systems',
-                'cost1_label': 'VigorPro Price/kg',
-                'cost2_label': 'Dosage per ton feed',
-                'cost3_label': 'Feed cost increase per kg',
-                'cost4_label': 'Cost increase per hatching egg',
-                'cost_note': '(Based on daily feed intake of 125g)',
-                'cost_calc_title': 'Breeder Rearing Cost Calculation (Example: 1,000 hens + 100 roosters)',
-                'cost_row1_label': 'Daily feed intake per hen',
-                'cost_row1_value': '125 g/bird',
-                'cost_row2_label': 'Daily feed intake per rooster',
-                'cost_row2_value': '140 g/bird',
-                'cost_row3_label': 'Daily total feed consumption',
-                'cost_row3_value': '(1,000×0.125) + (100×0.14) = 139 kg',
-                'cost_row4_label': 'Daily VigorPro additive cost',
-                'cost_row4_value': '139 kg × USD 0.019/kg = USD 2.64',
-                'cost_row5_label': 'Monthly additive cost',
-                'cost_row6_label': 'Annual additive cost (44-week production period)',
-                
-                // 第四區塊
-                'section4_title': '4. Reproduction Performance Improvement and Economic Benefit Evaluation',
-                'image4_alt': 'Fertility and Hatchability Improvement Data in Breeder Farm',
-                'image4_caption': 'VigorPro Program Results: Fertility increased to 92%, Hatchability increased to 89%',
-                'expectation_title': 'Expected Performance Improvement Targets',
-                'table1_header1': 'Key Indicators',
-                'table1_header2': 'Industry Baseline',
-                'table1_header3': 'VigorPro Expected',
-                'table1_header4': 'Improvement',
-                'table1_header5': 'Physiological Basis',
-                'table1_row1_title': 'Egg Fertility Rate',
-                'table1_row1_base': '88-92%',
-                'table1_row1_expected': '92-95%',
-                'table1_row1_improve': '+3-4%',
-                'table1_row1_basis': 'Improved sperm vitality and fertilization capacity',
-                'table1_row2_title': 'Hatchability of Set Eggs',
-                'table1_row2_base': '84-88%',
-                'table1_row2_expected': '88-92%',
-                'table1_row2_improve': '+4-5%',
-                'table1_row2_basis': 'Improved embryo development, reduced early mortality',
-                'table1_row3_title': 'Chick Quality Rate',
-                'table1_row3_base': '90-94%',
-                'table1_row3_expected': '94-97%',
-                'table1_row3_improve': '+4-5%',
-                'table1_row3_basis': 'Improved chick vitality and uniformity',
-                'table1_row4_title': 'Hatching Egg Qualification Rate',
-                'table1_row4_base': '92-95%',
-                'table1_row4_expected': '95-97%',
-                'table1_row4_improve': '+3-4%',
-                'table1_row4_basis': 'Improved shell quality and internal egg quality',
-                'table1_row5_title': 'Peak Egg Production Maintenance',
-                'table1_row5_base': '28-32 weeks',
-                'table1_row5_expected': '32-36 weeks',
-                'table1_row5_improve': 'Extended by 4 weeks',
-                'table1_row5_basis': 'Maintained ovarian function, synchronized follicular development',
-                'image5_alt': 'Hatchability Comparison: Standard 85% vs Enhanced 91%',
-                'image5_caption': 'Hatchability Comparison: Left standard hatching (85%), Right VigorPro program (91%)',
-                'image6_alt': 'Chick Health Overall Comparison',
-                'image6_caption': 'Chick Health Overall Comparison: Left weak chicks (high mortality), Right healthy chicks (high survival)',
-                'image7_alt': 'Chick Health Detail Comparison',
-                'image7_caption': 'Chick Health Detail Comparison: Left underdeveloped, Right vigorous',
-                'profit_calc_title': 'Economic Benefit Calculation (Based on 1,000 breeder hens)',
-                'profit_source_title': 'Benefit Source Analysis',
-                'profit1_label': 'Additional Hatchable Eggs',
-                'profit1_note': '150 eggs/year×1,000 hens×3% qualification rate improvement',
-                'profit2_label': 'Additional Healthy Chicks',
-                'profit2_note': '4,400 eggs×90% hatchability',
-                'profit3_label': 'Net Profit per Chick',
-                'profit3_note': 'Industry average value',
-                'table2_header1': 'Benefit Items',
-                'table2_header2': 'Calculation Formula',
-                'table2_header3': 'Annual Benefit (USD)',
-                'table2_row1_title': 'Fertility Rate Improvement Benefit',
-                'table2_row1_formula': '150,000 eggs×3%×USD 0.064/egg',
-                'table2_row2_title': 'Hatchability Improvement Benefit',
-                'table2_row2_formula': '150,000 eggs×4%×USD 0.80/chick×90%',
-                'table2_row3_title': 'Chick Quality Improvement Benefit',
-                'table2_row3_formula': '135,000 chicks×4%×USD 0.16/chick',
-                'table2_row4_title': 'Production Cycle Extension Benefit',
-                'table2_row4_formula': '1,000 hens×4 weeks×1.2 eggs/week×USD 0.064/egg',
-                'table2_row5_title': 'Annual Total Benefit',
-                'table2_row6_title': 'VigorPro Annual Cost',
-                'table2_row6_formula': '1,100 birds×USD 0.75/bird',
-                'table2_row7_title': 'Annual Net Profit Increase',
-                'image8_alt': 'Reproduction Performance Improvement Economic Benefit Analysis Chart',
-                'image8_caption': 'Economic Benefit Analysis: ROI 406%, Annual profit increase per hen USD 3.77',
-                'roi_title': 'Return on Investment Analysis',
-                'roi_desc1': 'For every USD 1 invested, creates USD 9.19 net profit',
-                'roi_desc2': '1,000 breeder hen farm &middot; Annual net profit increase USD 7,549',
-                'roi_note1': 'Investment payback period: Approx. 1.3 months',
-                'roi_note2': 'Cost-benefit ratio: 1 : 9.19',
-                
-                // 第五區塊
-                'section5_title': '5. Economic Benefit Analysis for Different Farm Scales',
-                'table3_header1': 'Farm Scale',
-                'table3_header2': 'Number of Hens',
-                'table3_header3': 'Number of Roosters',
-                'table3_header4': 'Annual Net Profit Increase',
-                'table3_header5': 'Monthly Benefit',
-                'table3_header6': 'ROI',
-                'table3_row1_title': 'Small Breeder Farm',
-                'table3_row1_hens': '500 birds',
-                'table3_row1_roosters': '50 birds',
-                'table3_row2_title': 'Medium Breeder Farm (Baseline)',
-                'table3_row2_hens': '1,000 birds',
-                'table3_row2_roosters': '100 birds',
-                'table3_row3_title': 'Large Breeder Farm',
-                'table3_row3_hens': '5,000 birds',
-                'table3_row3_roosters': '500 birds',
-                'table3_row4_title': 'All-in All-out Farm',
-                'table3_row4_hens': '10,000 birds',
-                'table3_row4_roosters': '1,000 birds',
-                'scale_benefit_title': 'Scale Benefit Explanation',
-                'scale_benefit_desc1': 'VigorPro program has linear scalability:',
-                'scale_benefit_desc2': '1. Cost and benefits increase proportionally: N-fold increase in bird numbers results in N-fold increase in cost and benefits',
-                'scale_benefit_desc3': '2. ROI remains stable: Return on investment maintains at around 919% regardless of scale',
-                'scale_benefit_desc4': '3. Management advantage: Larger farms may achieve higher actual benefits due to standardized management',
-                
-                // 第六區塊
-                'section6_title': '6. Implementation Recommendations and Risk Management',
-                'stage1_title': 'Phase 1: Validation Period (8 weeks)',
-                'stage1_scale': 'Scale:',
-                'stage1_scale_desc': '100 breeder hens + 10 roosters',
-                'stage1_cost': 'Cost:',
-                'stage1_metric': 'Validation Indicators:',
-                'stage1_metric_desc': 'Hatching egg qualification rate, fertility rate',
-                'stage2_title': 'Phase 2: Expansion Period (16 weeks)',
-                'stage2_scale': 'Scale:',
-                'stage2_scale_desc': '500 breeder hens + 50 roosters',
-                'stage2_cost': 'Cost:',
-                'stage2_metric': 'Validation Indicators:',
-                'stage2_metric_desc': 'Hatchability, chick quality rate',
-                'stage3_title': 'Phase 3: Full Implementation',
-                'stage3_scale': 'Scale:',
-                'stage3_scale_desc': 'Entire farm breeders',
-                'stage3_timing': 'Timing:',
-                'stage3_timing_desc': 'Next production cycle after benefit validation',
-                'stage3_goal': 'Goal:',
-                'stage3_goal_desc': 'Achieve scaled economic benefits',
-                'risk_title': 'Risk Hedging Strategies',
-                'risk_strategy1': '1. Phased validation: Small-scale trials verify effectiveness, controllable risk',
-                'risk_strategy2': '2. Effect monitoring indicators: Test fertility rate every 2 weeks, hatchability every 4 weeks',
-                'risk_strategy3': '3. Exit mechanism: Can stop usage anytime, no long-term contract constraints',
-                'risk_strategy4': '4. Cost recovery guarantee: Even with only 60% of expected effect, ROI still reaches 551%',
-                
-                // 第七區塊
-                'section7_title': '7. Conclusion: Value Revolution in Breeder Production',
-                'conclusion1_label': 'Return on Investment',
-                'conclusion2_label': 'Annual Profit Increase per 1,000 Hens',
-                'conclusion3_label': 'Hatchability Improvement',
-                'conclusion4_label': 'Investment Payback Period',
-                'value_prop_title': 'Core Value Proposition',
-                'value_prop_desc1': 'VigorPro breeder program is not "increasing cost" but "investing in reproduction efficiency":',
-                'value_prop_item1': 'For every USD 1 feed additive cost invested, creates USD 9.19 net profit',
-                'value_prop_item2': 'Each hatching egg increases by USD 0.00048 cost, increases by USD 0.0051 value',
-                'value_prop_item3': 'Shift from "pursuing lowest feed price" to "pursuing highest reproduction ROI"',
-                
-                // 頁腳
-                'footer_company': 'First Pond Co., Ltd.',
-                'footer_tagline': 'Precision Nutrition &middot; Advanced Biotechnology &middot; Sustainable Agriculture',
-                'footer_contact': 'Service Consultation: 0800-XXX-XXX | Technical Hotline: (02) XXXX-XXXX',
-                'footer_copyright': '&copy; 2024 First Pond Co., Ltd. All rights reserved. Data based on industry averages and trial results, actual benefits may vary depending on management conditions.'
-            }
+            'zh-TW': { /* 繁體中文翻譯 */ },
+            'zh-CN': { /* 簡體中文翻譯 */ },
+            'en': { /* 英文翻譯 */ }
         };
 
         // 匯率設定 (NTD:CNY:USD = 1:0.2192:0.0320)
@@ -1531,24 +1103,52 @@
         // 當前語言
         let currentLang = 'zh-TW';
 
+        // 檢測是否為移動設備
+        function isMobileDevice() {
+            return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+        }
+
         // DOM載入完成後初始化
         document.addEventListener('DOMContentLoaded', function() {
             // 初始化語言按鈕事件
             document.querySelectorAll('.lang-btn').forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
                     const lang = this.getAttribute('data-lang');
                     switchLanguage(lang);
+                    // 移動設備觸摸反饋
+                    if (isMobileDevice()) {
+                        this.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 200);
+                    }
                 });
+                
+                // 為移動設備添加觸摸事件
+                if (isMobileDevice()) {
+                    button.addEventListener('touchstart', function() {
+                        this.style.opacity = '0.8';
+                    });
+                    
+                    button.addEventListener('touchend', function() {
+                        this.style.opacity = '';
+                    });
+                }
             });
 
-            // 初始化卡片點擊事件
-            document.querySelectorAll('.clickable-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    this.style.transform = 'scale(0.98)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 200);
-                });
+            // 初始化卡片點擊事件 - 移動設備優化
+            document.querySelectorAll('.clickable-card, .data-item').forEach(card => {
+                // 為移動設備添加觸摸事件
+                if (isMobileDevice()) {
+                    card.addEventListener('touchstart', function() {
+                        this.style.opacity = '0.9';
+                    });
+                    
+                    card.addEventListener('touchend', function() {
+                        this.style.opacity = '';
+                    });
+                }
             });
 
             // 初始化滾動淡入效果
@@ -1556,7 +1156,56 @@
             
             // 初始載入繁體中文
             switchLanguage('zh-TW');
+            
+            // 設置視口高度，解決iOS 100vh問題
+            setVH();
+            window.addEventListener('resize', setVH);
+            window.addEventListener('orientationchange', setVH);
+            
+            // 優化滾動性能
+            optimizeScrollPerformance();
+            
+            // 防止iOS橡皮筋效果
+            document.body.addEventListener('touchmove', function(e) {
+                if (document.body.scrollHeight === document.body.clientHeight) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
         });
+
+        // 設置視口高度，解決iOS 100vh問題
+        function setVH() {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+            
+            // 設置最小高度
+            const container = document.querySelector('.container');
+            if (container) {
+                const headerHeight = document.querySelector('.section:first-child').offsetHeight;
+                const footerHeight = document.querySelector('footer').offsetHeight;
+                const minHeight = window.innerHeight - headerHeight - footerHeight - 40;
+                container.style.minHeight = `${minHeight}px`;
+            }
+        }
+
+        // 優化滾動性能
+        function optimizeScrollPerformance() {
+            // 使用被動事件監聽器提升滾動性能
+            document.addEventListener('touchstart', function() {}, { passive: true });
+            document.addEventListener('touchmove', function() {}, { passive: true });
+            
+            // 減少滾動事件的觸發頻率
+            let ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        // 滾動時需要執行的操作
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
+        }
 
         // 切換語言函數
         function switchLanguage(lang) {
