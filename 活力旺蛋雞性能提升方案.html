@@ -31,6 +31,37 @@
             max-width: 1200px;
             margin: 0 auto;
         }
+        /* 語言切換器 */
+        .language-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 5px;
+            background: white;
+            padding: 8px;
+            border-radius: 25px;
+            box-shadow: var(--shadow);
+        }
+        .lang-btn {
+            padding: 6px 15px;
+            border: none;
+            border-radius: 20px;
+            background: transparent;
+            color: var(--dark);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .lang-btn:hover {
+            background: #f0f0f0;
+        }
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+        }
         /* 響應式容器 */
         .container {
             width: 100%;
@@ -39,6 +70,7 @@
             padding: 30px;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
+            position: relative;
         }
         /* 表頭樣式 */
         header {
@@ -112,10 +144,12 @@
             border-radius: var(--border-radius);
             border-left: 4px solid var(--primary);
             box-shadow: var(--shadow);
-            transition: transform 0.3s;
+            transition: all 0.3s;
+            cursor: pointer;
         }
         .egg-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
         .egg-card h4 {
             font-size: 1.2rem;
@@ -180,10 +214,12 @@
             border-radius: var(--border-radius);
             border-left: 4px solid var(--danger);
             box-shadow: var(--shadow);
-            transition: transform 0.3s;
+            transition: all 0.3s;
+            cursor: pointer;
         }
         .quality-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
         .quality-card h4 {
             font-size: 1.2rem;
@@ -203,6 +239,12 @@
             border-radius: var(--border-radius);
             border-left: 4px solid var(--success);
             box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
         .benefit-card h4 {
             font-size: 1.2rem;
@@ -305,6 +347,13 @@
             border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .egg-image-container.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         .egg-image-container img {
             width: 100%;
@@ -325,6 +374,13 @@
             border-radius: var(--border-radius);
             margin: 30px 0;
             border-left: 4px solid var(--secondary);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
+        }
+        .peak-mechanism.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         .peak-mechanism h3 {
             color: var(--secondary);
@@ -345,6 +401,28 @@
             position: absolute;
             left: 0;
             top: 0;
+        }
+        /* 滾動淡入效果 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* 貨幣轉換指示 */
+        .currency-indicator {
+            display: inline-block;
+            background: var(--warning);
+            color: var(--dark);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 5px;
+            vertical-align: middle;
         }
         /* 頁腳 */
         footer {
@@ -376,6 +454,16 @@
                 width: 100%;
                 text-align: center;
             }
+            .language-switcher {
+                top: 10px;
+                right: 10px;
+                flex-direction: column;
+                border-radius: 15px;
+            }
+            .lang-btn {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
         }
         @media (max-width: 480px) {
             .company-info h1 {
@@ -395,303 +483,1016 @@
     </style>
 </head>
 <body>
+    <!-- 語言切換器 -->
+    <div class="language-switcher">
+        <button class="lang-btn active" data-lang="zh-TW">繁體中文(NTD)</button>
+        <button class="lang-btn" data-lang="zh-CN">简体中文(CNY)</button>
+        <button class="lang-btn" data-lang="en">English(USD)</button>
+    </div>
+
     <div class="container">
         <!-- 封面抬頭 - 蛋雞主題 -->
         <header>
             <div class="company-info">
-                <h1>活力旺蛋雞性能提升方案 TDS</h1>
-                <p>產蛋率提升・蛋黃品質優化・暗斑蛋減少・產卵發炎降低</p>
-                <div class="tagline">Egg Production Enhancement &middot; Yolk Quality Improvement &middot; Shell Strength Optimization</div>
-                <div class="highlight-badge">🥚 產蛋率提升5-8%｜蛋黃品質提升3-4級｜暗斑蛋減少70-80%</div>
+                <h1 data-translate="title">活力旺蛋雞性能提升方案 TDS</h1>
+                <p data-translate="subtitle">產蛋率提升・蛋黃品質優化・暗斑蛋減少・產卵發炎降低</p>
+                <div class="tagline" data-translate="tagline">Egg Production Enhancement &middot; Yolk Quality Improvement &middot; Shell Strength Optimization</div>
+                <div class="highlight-badge" data-translate="highlight">🥚 產蛋率提升5-8%｜蛋黃品質提升3-4級｜暗斑蛋減少70-80%</div>
                 <div class="feature-badges">
-                    <div class="feature-badge">成本：NTD 600/公斤</div>
-                    <div class="feature-badge">添加量：1公斤/噸飼料</div>
-                    <div class="feature-badge">發炎指數降低40%</div>
-                    <div class="feature-badge">投資報酬率：580%</div>
+                    <!-- 修正：這裡的內容會由JavaScript動態填充 -->
+                    <div class="feature-badge" id="feature1">成本：NTD <span data-value="600" data-currency>600</span>/公斤</div>
+                    <div class="feature-badge" id="feature2" data-translate="feature2">添加量：1公斤/噸飼料</div>
+                    <div class="feature-badge" id="feature3" data-translate="feature3">發炎指數降低40%</div>
+                    <div class="feature-badge" id="feature4">投資報酬率：<span data-value="580" data-percent>580</span>%</div>
                 </div>
             </div>
         </header>
 
         <!-- 產蛋率提升專區 -->
         <section class="egg-production-section">
-            <h2 style="color: #d35400;">🥚 產蛋率提升專區｜高產穩定持久</h2>
-            <p style="font-size: 18px; margin-bottom: 20px; font-weight: 600;">專為蛋雞設計的營養調控方案，顯著提升產蛋率，延長產蛋高峰，改善蛋品品質，創造更高經濟價值。</p>
+            <h2 style="color: #d35400;" data-translate="section1_title">🥚 產蛋率提升專區｜高產穩定持久</h2>
+            <p style="font-size: 18px; margin-bottom: 20px; font-weight: 600;" data-translate="section1_desc">專為蛋雞設計的營養調控方案，顯著提升產蛋率，延長產蛋高峰，改善蛋品品質，創造更高經濟價值。</p>
             
             <div class="egg-grid">
-                <div class="egg-card">
-                    <h4>產蛋率提升</h4>
-                    <div class="egg-metric">+5-8%</div>
-                    <p>營養精準調控延長產蛋高峰，提升整體產蛋效率</p>
-                    <p><strong>實測數據：</strong>產蛋率從92%提升至97-98%高峰</p>
+                <div class="egg-card fade-in">
+                    <h4 data-translate="egg_card1_title">產蛋率提升</h4>
+                    <div class="egg-metric" data-translate="egg_card1_metric">+5-8%</div>
+                    <p data-translate="egg_card1_desc1">營養精準調控延長產蛋高峰，提升整體產蛋效率</p>
+                    <p><strong data-translate="egg_card1_data_label">實測數據：</strong><span data-translate="egg_card1_data">產蛋率從92%提升至97-98%高峰</span></p>
                 </div>
-                <div class="egg-card">
-                    <h4>產蛋高峰期延長</h4>
-                    <div class="egg-metric">+4-6週</div>
-                    <p>維持90%以上產蛋率時間延長，提升總產蛋數</p>
-                    <p><strong>實測數據：</strong>產蛋高峰期從32週延長至36-38週</p>
+                <div class="egg-card fade-in">
+                    <h4 data-translate="egg_card2_title">產蛋高峰期延長</h4>
+                    <div class="egg-metric" data-translate="egg_card2_metric">+4-6週</div>
+                    <p data-translate="egg_card2_desc1">維持90%以上產蛋率時間延長，提升總產蛋數</p>
+                    <p><strong data-translate="egg_card2_data_label">實測數據：</strong><span data-translate="egg_card2_data">產蛋高峰期從32週延長至36-38週</span></p>
                 </div>
-                <div class="egg-card">
-                    <h4>飼料效率優化</h4>
-                    <div class="egg-metric">FCR -8-12%</div>
-                    <p>提升營養吸收效率，每公斤蛋飼料成本降低</p>
-                    <p><strong>實測數據：</strong>料蛋比從2.2:1優化至2.0-2.1:1</p>
+                <div class="egg-card fade-in">
+                    <h4 data-translate="egg_card3_title">飼料效率優化</h4>
+                    <div class="egg-metric" data-translate="egg_card3_metric">FCR -8-12%</div>
+                    <p data-translate="egg_card3_desc1">提升營養吸收效率，每公斤蛋飼料成本降低</p>
+                    <p><strong data-translate="egg_card3_data_label">實測數據：</strong><span data-translate="egg_card3_data">料蛋比從2.2:1優化至2.0-2.1:1</span></p>
                 </div>
-                <div class="egg-card">
-                    <h4>產蛋持續性改善</h4>
-                    <div class="egg-metric">淘汰率 -15%</div>
-                    <p>改善後期產蛋表現，降低過早淘汰比例</p>
-                    <p><strong>實測數據：</strong>72週齡產蛋率從78%提升至82-84%</p>
+                <div class="egg-card fade-in">
+                    <h4 data-translate="egg_card4_title">產蛋持續性改善</h4>
+                    <div class="egg-metric" data-translate="egg_card4_metric">淘汰率 -15%</div>
+                    <p data-translate="egg_card4_desc1">改善後期產蛋表現，降低過早淘汰比例</p>
+                    <p><strong data-translate="egg_card4_data_label">實測數據：</strong><span data-translate="egg_card4_data">72週齡產蛋率從78%提升至82-84%</span></p>
                 </div>
             </div>
 
             <!-- 產蛋高峰延長機制補充 -->
             <div class="peak-mechanism">
-                <h3>📈 延長產蛋高峰期核心作用機制</h3>
+                <h3 data-translate="peak_mechanism_title">📈 延長產蛋高峰期核心作用機制</h3>
                 <ul class="mechanism-list">
-                    <li>調節下丘腦-垂體-卵巢軸 (HPO軸)，維持促卵泡素(FSH)與黃體生成素(LH)穩定分泌，延緩卵巢功能衰退</li>
-                    <li>提升卵母細胞成熟率，減少空殼蛋/無殼蛋發生率，維持穩定排卵節律</li>
-                    <li>抗氧化成分清除體內自由基，降低卵巢細胞氧化損傷，延長產蛋功能壽命</li>
-                    <li>改善能量代謝，提升肝臟脂質運輸能力，確保產蛋所需營養供給不間斷</li>
-                    <li>調控生殖激素分泌節律，維持90%以上產蛋率的時間窗口延長4-6週</li>
+                    <li data-translate="mechanism1">調節下丘腦-垂體-卵巢軸 (HPO軸)，維持促卵泡素(FSH)與黃體生成素(LH)穩定分泌，延緩卵巢功能衰退</li>
+                    <li data-translate="mechanism2">提升卵母細胞成熟率，減少空殼蛋/無殼蛋發生率，維持穩定排卵節律</li>
+                    <li data-translate="mechanism3">抗氧化成分清除體內自由基，降低卵巢細胞氧化損傷，延長產蛋功能壽命</li>
+                    <li data-translate="mechanism4">改善能量代謝，提升肝臟脂質運輸能力，確保產蛋所需營養供給不間斷</li>
+                    <li data-translate="mechanism5">調控生殖激素分泌節律，維持90%以上產蛋率的時間窗口延長4-6週</li>
                 </ul>
             </div>
 
             <!-- 產蛋率提升示意圖 (E6) -->
             <div class="egg-image-container">
-                <img src="https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/97b309e6a7914f1abc497526251168b7.png~tplv-a9rns2rl98-24:720:720.png?lk3s=8e244e95&rcl=202602022316005E35519F039BDA40860C&rrcfp=8a172a1a&x-expires=1770650160&x-signature=hJK5JZtNTFaIXFFaW%2B30PMxVBYY%3D" alt="產蛋率提升與高峰期延長示意圖">
-                <p class="image-caption">圖1：活力旺方案產蛋率提升與高峰期延長對比 (92% → 97-98%，高峰期延長4-6週)</p>
+                <img src="assets/egg-production-chart.png" alt="產蛋率提升與高峰期延長示意圖" data-translate="image1_alt">
+                <p class="image-caption" data-translate="image1_caption">圖1：活力旺方案產蛋率提升與高峰期延長對比 (92% → 97-98%，高峰期延長4-6週)</p>
             </div>
         </section>
 
         <!-- 產品規格 -->
         <section>
-            <h2>產品規格與添加參數</h2>
+            <h2 data-translate="specs_title">產品規格與添加參數</h2>
             <div class="specs-grid">
                 <div class="spec-card">
-                    <span class="label">每噸飼料添加量</span>
+                    <span class="label" data-translate="spec1_label">每噸飼料添加量</span>
                     <span class="value">1</span>
-                    <span class="unit">公斤/噸</span>
+                    <span class="unit" data-translate="spec1_unit">公斤/噸</span>
                 </div>
                 <div class="spec-card">
-                    <span class="label">產品單價</span>
-                    <span class="value">600</span>
-                    <span class="unit">NTD/公斤</span>
+                    <span class="label" data-translate="spec2_label">產品單價</span>
+                    <span class="value"><span data-value="600" data-currency>600</span></span>
+                    <span class="unit" data-translate="spec2_unit">NTD/公斤</span>
                 </div>
                 <div class="spec-card">
-                    <span class="label">每噸飼料成本增加</span>
-                    <span class="value">600</span>
-                    <span class="unit">NTD/噸</span>
+                    <span class="label" data-translate="spec3_label">每噸飼料成本增加</span>
+                    <span class="value"><span data-value="600" data-currency>600</span></span>
+                    <span class="unit" data-translate="spec3_unit">NTD/噸</span>
                 </div>
                 <div class="spec-card">
-                    <span class="label">蛋雞日採食量</span>
+                    <span class="label" data-translate="spec4_label">蛋雞日採食量</span>
                     <span class="value">0.115</span>
-                    <span class="unit">公斤/隻/天</span>
+                    <span class="unit" data-translate="spec4_unit">公斤/隻/天</span>
                 </div>
                 <div class="spec-card">
-                    <span class="label">每隻雞日成本增加</span>
-                    <span class="value">0.069</span>
-                    <span class="unit">NTD/隻/天</span>
+                    <span class="label" data-translate="spec5_label">每隻雞日成本增加</span>
+                    <span class="value"><span data-value="0.069" data-currency>0.069</span></span>
+                    <span class="unit" data-translate="spec5_unit">NTD/隻/天</span>
                 </div>
                 <div class="spec-card">
-                    <span class="label">適用階段</span>
-                    <span class="value" style="color: var(--primary); font-size: 20px;">產蛋全程</span>
-                    <span class="unit">18-72週齡</span>
+                    <span class="label" data-translate="spec6_label">適用階段</span>
+                    <span class="value" style="color: var(--primary); font-size: 20px;" data-translate="spec6_value">產蛋全程</span>
+                    <span class="unit" data-translate="spec6_unit">18-72週齡</span>
                 </div>
             </div>
-            <div style="background: #fff8e1; padding: 18px; border-radius: 10px; margin-top: 20px; border-left: 4px solid var(--primary);">
-                <p><strong>使用方法：</strong>每噸蛋雞全價飼料均勻添加活力旺蛋雞專用配方1公斤，從產蛋開始全程使用，無需調整現有飼養管理流程。</p>
+            <div style="background: #fff8e1; padding: 18px; border-radius: 10px; margin-top: 20px; border-left: 4px solid var(--primary);" class="fade-in">
+                <p><strong data-translate="usage_label">使用方法：</strong><span data-translate="usage_desc">每噸蛋雞全價飼料均勻添加活力旺蛋雞專用配方1公斤，從產蛋開始全程使用，無需調整現有飼養管理流程。</span></p>
             </div>
 
             <!-- 產品添加示意圖 (E1) -->
             <div class="egg-image-container">
-                <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/dfa6eb78e3ad4f87b4e58933f68e3841.png~tplv-a9rns2rl98-24:720:720.png?lk3s=8e244e95&rcl=202602022316005E35519F039BDA40860C&rrcfp=8a172a1a&x-expires=1770650160&x-signature=br0W10eXS3zWCXuPd%2BTUEqHRhPc%3D" alt="現代化蛋雞場添加活力旺飼料示意圖">
-                <p class="image-caption">圖2：現代化蛋雞場自動化飼料添加系統 (活力旺專用添加模組)</p>
+                <img src="assets/feed-system.png" alt="現代化蛋雞場添加活力旺飼料示意圖" data-translate="image2_alt">
+                <p class="image-caption" data-translate="image2_caption">圖2：現代化蛋雞場自動化飼料添加系統 (活力旺專用添加模組)</p>
             </div>
         </section>
 
         <!-- 蛋品品質提升專區 -->
         <section class="egg-quality-section">
-            <h2 style="color: #c0392b;">⭐ 蛋品品質提升專區｜內外品質全面優化</h2>
-            <p style="font-size: 18px; margin-bottom: 20px; font-weight: 600;">全面改善蛋品內外品質，提升蛋黃顏色、蛋殼強度，大幅減少暗斑蛋，創造市場差異化競爭優勢。</p>
+            <h2 style="color: #c0392b;" data-translate="section2_title">⭐ 蛋品品質提升專區｜內外品質全面優化</h2>
+            <p style="font-size: 18px; margin-bottom: 20px; font-weight: 600;" data-translate="section2_desc">全面改善蛋品內外品質，提升蛋黃顏色、蛋殼強度，大幅減少暗斑蛋，創造市場差異化競爭優勢。</p>
             
             <div class="quality-grid">
-                <div class="quality-card">
-                    <h4>蛋黃品質提升</h4>
-                    <div style="font-size: 32px; font-weight: bold; color: #e74c3c; margin: 10px 0;">+3-4級</div>
-                    <p>天然色素沉積提升蛋黃顏色，胡蘿蔔素含量增加</p>
-                    <p><strong>實測數據：</strong>羅氏比色計從8級提升至11-12級</p>
-                    <p><strong>作用機制：</strong>促進類胡蘿蔔素吸收與沉積，提升卵黃腺色素結合能力</p>
+                <div class="quality-card fade-in">
+                    <h4 data-translate="quality_card1_title">蛋黃品質提升</h4>
+                    <div style="font-size: 32px; font-weight: bold; color: #e74c3c; margin: 10px 0;" data-translate="quality_card1_metric">+3-4級</div>
+                    <p data-translate="quality_card1_desc1">天然色素沉積提升蛋黃顏色，胡蘿蔔素含量增加</p>
+                    <p><strong data-translate="quality_card1_data_label">實測數據：</strong><span data-translate="quality_card1_data">羅氏比色計從8級提升至11-12級</span></p>
+                    <p><strong data-translate="quality_card1_mechanism_label">作用機制：</strong><span data-translate="quality_card1_mechanism">促進類胡蘿蔔素吸收與沉積，提升卵黃腺色素結合能力</span></p>
                 </div>
-                <div class="quality-card">
-                    <h4>暗斑蛋減少</h4>
-                    <div style="font-size: 32px; font-weight: bold; color: #e74c3c; margin: 10px 0;">-70-80%</div>
-                    <p>改善蛋殼腺功能，減少鈣質沉積異常</p>
-                    <p><strong>實測數據：</strong>暗斑蛋比例從15%降低至3-5%</p>
-                    <p><strong>作用機制：</strong>調節蛋殼腺碳酸酐酶活性，優化鈣質晶體排列結構</p>
+                <div class="quality-card fade-in">
+                    <h4 data-translate="quality_card2_title">暗斑蛋減少</h4>
+                    <div style="font-size: 32px; font-weight: bold; color: #e74c3c; margin: 10px 0;" data-translate="quality_card2_metric">-70-80%</div>
+                    <p data-translate="quality_card2_desc1">改善蛋殼腺功能，減少鈣質沉積異常</p>
+                    <p><strong data-translate="quality_card2_data_label">實測數據：</strong><span data-translate="quality_card2_data">暗斑蛋比例從15%降低至3-5%</span></p>
+                    <p><strong data-translate="quality_card2_mechanism_label">作用機制：</strong><span data-translate="quality_card2_mechanism">調節蛋殼腺碳酸酐酶活性，優化鈣質晶體排列結構</span></p>
                 </div>
-                <div class="quality-card">
-                    <h4>蛋殼強度提升</h4>
-                    <div style="font-size: 32px; font-weight: bold; color: #e74c3c; margin: 10px 0;">+25-30%</div>
-                    <p>優化鈣磷代謝，提升蛋殼厚度與均勻度</p>
-                    <p><strong>實測數據：</strong>蛋殼厚度從0.33mm提升至0.40-0.42mm</p>
-                    <p><strong>作用機制：</strong>提升維生素D3活化效率，促進小腸鈣吸收與蛋殼腺沉積</p>
+                <div class="quality-card fade-in">
+                    <h4 data-translate="quality_card3_title">蛋殼強度提升</h4>
+                    <div style="font-size: 32px; font-weight: bold; color: #e74c3c; margin: 10px 0;" data-translate="quality_card3_metric">+25-30%</div>
+                    <p data-translate="quality_card3_desc1">優化鈣磷代謝，提升蛋殼厚度與均勻度</p>
+                    <p><strong data-translate="quality_card3_data_label">實測數據：</strong><span data-translate="quality_card3_data">蛋殼厚度從0.33mm提升至0.40-0.42mm</span></p>
+                    <p><strong data-translate="quality_card3_mechanism_label">作用機制：</strong><span data-translate="quality_card3_mechanism">提升維生素D3活化效率，促進小腸鈣吸收與蛋殼腺沉積</span></p>
                 </div>
-                <div class="quality-card">
-                    <h4>哈氏單位提升</h4>
-                    <div style="font-size: 32px; font-weight: bold; color: #e74c3c; margin: 10px 0;">+15-20</div>
-                    <p>蛋白濃稠度改善，提升蛋品新鮮度與保存性</p>
-                    <p><strong>實測數據：</strong>哈氏單位從80提升至95-100</p>
-                    <p><strong>作用機制：</strong>維持卵白蛋白合成效率，減少蛋白水分流失</p>
+                <div class="quality-card fade-in">
+                    <h4 data-translate="quality_card4_title">哈氏單位提升</h4>
+                    <div style="font-size: 32px; font-weight: bold; color: #e74c3c; margin: 10px 0;" data-translate="quality_card4_metric">+15-20</div>
+                    <p data-translate="quality_card4_desc1">蛋白濃稠度改善，提升蛋品新鮮度與保存性</p>
+                    <p><strong data-translate="quality_card4_data_label">實測數據：</strong><span data-translate="quality_card4_data">哈氏單位從80提升至95-100</span></p>
+                    <p><strong data-translate="quality_card4_mechanism_label">作用機制：</strong><span data-translate="quality_card4_mechanism">維持卵白蛋白合成效率，減少蛋白水分流失</span></p>
                 </div>
             </div>
 
             <!-- 蛋品品質對比圖 (E5) -->
             <div class="egg-image-container">
-                <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/ae40919dfeb64016a1624bd424b3de88.png~tplv-a9rns2rl98-24:720:720.png?lk3s=8e244e95&rcl=202602022316005E35519F039BDA40860C&rrcfp=8a172a1a&x-expires=1770650160&x-signature=Gcw30AsUGkVDK%2BKFeDeUhnjvjAU%3D" alt="蛋黃品質對比圖">
-                <p class="image-caption">圖3：蛋黃品質對比 (左：傳統蛋黃8級｜右：活力旺優化蛋黃11-12級，提升3-4級)</p>
+                <img src="assets/yolk-quality.png" alt="蛋黃品質對比圖" data-translate="image3_alt">
+                <p class="image-caption" data-translate="image3_caption">圖3：蛋黃品質對比 (左：傳統蛋黃8級｜右：活力旺優化蛋黃11-12級，提升3-4級)</p>
             </div>
 
             <!-- 暗斑蛋減少示意圖 (E4) -->
             <div class="egg-image-container">
-                <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/fb201dacec6641909c4d99862e3e61e1.png~tplv-a9rns2rl98-24:720:720.png?lk3s=8e244e95&rcl=202602022316005E35519F039BDA40860C&rrcfp=8a172a1a&x-expires=1770650160&x-signature=l5S9hhllctKMwRQy1xhN1yWfGOw%3D" alt="暗斑蛋減少示意圖">
-                <p class="image-caption">圖4：暗斑蛋比例減少 (傳統15% → 過渡8% → 優化3-5%，降幅70-80%)</p>
+                <img src="assets/shell-spots.png" alt="暗斑蛋減少示意圖" data-translate="image4_alt">
+                <p class="image-caption" data-translate="image4_caption">圖4：暗斑蛋比例減少 (傳統15% → 過渡8% → 優化3-5%，降幅70-80%)</p>
             </div>
         </section>
 
         <!-- 健康度提升專區 -->
         <section>
-            <h2>🩺 健康度提升專區｜產卵發炎降低與免疫力增強</h2>
+            <h2 data-translate="section3_title">🩺 健康度提升專區｜產卵發炎降低與免疫力增強</h2>
             <div class="benefits-grid">
-                <div class="benefit-card">
-                    <h4>產卵發炎降低</h4>
-                    <span class="benefit-metric">-40-50%</span>
-                    <p>抗炎成分降低輸卵管炎症發生率，改善產蛋舒適度</p>
-                    <p><strong>作用機制：</strong>抑制COX-2炎症通路，調節前列腺素水平，減少輸卵管黏膜充血水腫</p>
+                <div class="benefit-card fade-in">
+                    <h4 data-translate="benefit_card1_title">產卵發炎降低</h4>
+                    <span class="benefit-metric" data-translate="benefit_card1_metric">-40-50%</span>
+                    <p data-translate="benefit_card1_desc1">抗炎成分降低輸卵管炎症發生率，改善產蛋舒適度</p>
+                    <p><strong data-translate="benefit_card1_mechanism_label">作用機制：</strong><span data-translate="benefit_card1_mechanism">抑制COX-2炎症通路，調節前列腺素水平，減少輸卵管黏膜充血水腫</span></p>
                 </div>
-                <div class="benefit-card">
-                    <h4>免疫力提升</h4>
-                    <span class="benefit-metric">+30-40%</span>
-                    <p>免疫調節成分提升抗體水平，降低疾病發生率</p>
-                    <p><strong>作用機制：</strong>促進IgA分泌，強化黏膜免疫屏障，提升巨噬細胞吞噬能力</p>
+                <div class="benefit-card fade-in">
+                    <h4 data-translate="benefit_card2_title">免疫力提升</h4>
+                    <span class="benefit-metric" data-translate="benefit_card2_metric">+30-40%</span>
+                    <p data-translate="benefit_card2_desc1">免疫調節成分提升抗體水平，降低疾病發生率</p>
+                    <p><strong data-translate="benefit_card2_mechanism_label">作用機制：</strong><span data-translate="benefit_card2_mechanism">促進IgA分泌，強化黏膜免疫屏障，提升巨噬細胞吞噬能力</span></p>
                 </div>
-                <div class="benefit-card">
-                    <h4>肝臟健康改善</h4>
-                    <span class="benefit-metric">脂肪肝 -60%</span>
-                    <p>改善脂質代謝，減少脂肪肝發生，延長產蛋壽命</p>
-                    <p><strong>作用機制：</strong>促進脂肪酸氧化，抑制脂肪合成，提升肝臟脂蛋白合成與運輸能力</p>
+                <div class="benefit-card fade-in">
+                    <h4 data-translate="benefit_card3_title">肝臟健康改善</h4>
+                    <span class="benefit-metric" data-translate="benefit_card3_metric">脂肪肝 -60%</span>
+                    <p data-translate="benefit_card3_desc1">改善脂質代謝，減少脂肪肝發生，延長產蛋壽命</p>
+                    <p><strong data-translate="benefit_card3_mechanism_label">作用機制：</strong><span data-translate="benefit_card3_mechanism">促進脂肪酸氧化，抑制脂肪合成，提升肝臟脂蛋白合成與運輸能力</span></p>
                 </div>
-                <div class="benefit-card">
-                    <h4>骨骼強度提升</h4>
-                    <span class="benefit-metric">骨密度 +20%</span>
-                    <p>優化鈣磷吸收與代謝，減少產蛋疲勞症發生</p>
-                    <p><strong>作用機制：</strong>維生素D代謝調控，改善鈣質沉積，提升骨鈣素合成效率</p>
+                <div class="benefit-card fade-in">
+                    <h4 data-translate="benefit_card4_title">骨骼強度提升</h4>
+                    <span class="benefit-metric" data-translate="benefit_card4_metric">骨密度 +20%</span>
+                    <p data-translate="benefit_card4_desc1">優化鈣磷吸收與代謝，減少產蛋疲勞症發生</p>
+                    <p><strong data-translate="benefit_card4_mechanism_label">作用機制：</strong><span data-translate="benefit_card4_mechanism">維生素D代謝調控，改善鈣質沉積，提升骨鈣素合成效率</span></p>
                 </div>
             </div>
 
             <!-- 健康度示意圖 (E3) -->
             <div class="egg-image-container">
-                <img src="https://p3-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/7d73f8277d9e45449a4dd21d1b9521fb.png~tplv-a9rns2rl98-24:720:720.png?lk3s=8e244e95&rcl=202602022316005E35519F039BDA40860C&rrcfp=8a172a1a&x-expires=1770650160&x-signature=5gHSOAJnmIxRYu1cGLZ1H%2FJ9NAA%3D" alt="蛋雞健康改善圖">
-                <p class="image-caption">圖5：蛋雞健康指標改善 (輸卵管發炎-40-50%｜脂肪肝-60%｜骨密度+20%｜免疫力+30-40%)</p>
+                <img src="assets/health-improvement.png" alt="蛋雞健康改善圖" data-translate="image5_alt">
+                <p class="image-caption" data-translate="image5_caption">圖5：蛋雞健康指標改善 (輸卵管發炎-40-50%｜脂肪肝-60%｜骨密度+20%｜免疫力+30-40%)</p>
             </div>
         </section>
 
         <!-- 經濟效益分析 -->
         <section>
-            <h2>💰 經濟效益分析｜每隻蛋雞淨利提升</h2>
-            <div style="background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%); padding: 20px; border-radius: 10px; margin-bottom: 25px; border-left: 4px solid var(--primary);">
-                <p><strong>計算基準：</strong>蛋雞產蛋期40週(280天)｜產蛋率92%&rarr;97%｜料蛋比2.2&rarr;2.05｜蛋價6元/顆｜每隻雞日採食量115克｜添加成本0.069元/天</p>
+            <h2 data-translate="section4_title">💰 經濟效益分析｜每隻蛋雞淨利提升</h2>
+            <div style="background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%); padding: 20px; border-radius: 10px; margin-bottom: 25px; border-left: 4px solid var(--primary);" class="fade-in">
+                <p><strong data-translate="calc_basis_label">計算基準：</strong><span data-translate="calc_basis">蛋雞產蛋期40週(280天)｜產蛋率92%→97%｜料蛋比2.2→2.05｜蛋價6元/顆｜每隻雞日採食量115克｜添加成本0.069元/天</span></p>
             </div>
-            <div class="economic-card">
+            <div class="economic-card fade-in">
                 <table class="profit-table">
                     <thead>
                         <tr>
-                            <th>效益項目</th>
-                            <th>改善幅度</th>
-                            <th>每隻蛋雞經濟價值(NTD)</th>
+                            <th data-translate="table_header1">效益項目</th>
+                            <th data-translate="table_header2">改善幅度</th>
+                            <th data-translate="table_header3">每隻蛋雞經濟價值(NTD)</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>產蛋率提升收益(+5%)</td>
-                            <td>+5%產蛋率</td>
-                            <td>+33.60</td>
+                            <td data-translate="row1_col1">產蛋率提升收益(+5%)</td>
+                            <td data-translate="row1_col2">+5%產蛋率</td>
+                            <td><span data-value="33.60" data-currency>33.60</span></td>
                         </tr>
                         <tr>
-                            <td>飼料效率優化(FCR -7%)</td>
-                            <td>料蛋比2.2&rarr;2.05</td>
-                            <td>+18.90</td>
+                            <td data-translate="row2_col1">飼料效率優化(FCR -7%)</td>
+                            <td data-translate="row2_col2">料蛋比2.2→2.05</td>
+                            <td><span data-value="18.90" data-currency>18.90</span></td>
                         </tr>
                         <tr>
-                            <td>蛋品品質溢價</td>
-                            <td>價格+15%</td>
-                            <td>+37.80</td>
+                            <td data-translate="row3_col1">蛋品品質溢價</td>
+                            <td data-translate="row3_col2">價格+15%</td>
+                            <td><span data-value="37.80" data-currency>37.80</span></td>
                         </tr>
                         <tr>
-                            <td>暗斑蛋減少收益</td>
-                            <td>-75%次級蛋</td>
-                            <td>+12.60</td>
+                            <td data-translate="row4_col1">暗斑蛋減少收益</td>
+                            <td data-translate="row4_col2">-75%次級蛋</td>
+                            <td><span data-value="12.60" data-currency>12.60</span></td>
                         </tr>
                         <tr>
-                            <td>健康度提升減少損失</td>
-                            <td>死亡率-2%</td>
-                            <td>+8.40</td>
+                            <td data-translate="row5_col1">健康度提升減少損失</td>
+                            <td data-translate="row5_col2">死亡率-2%</td>
+                            <td><span data-value="8.40" data-currency>8.40</span></td>
                         </tr>
                         <tr style="background: #ffeaa7; font-weight: bold;">
-                            <td><strong>總效益增加</strong></td>
-                            <td>&mdash;</td>
-                            <td><strong>+111.30</strong></td>
+                            <td data-translate="row6_col1"><strong>總效益增加</strong></td>
+                            <td>—</td>
+                            <td><strong><span data-value="111.30" data-currency>111.30</span></strong></td>
                         </tr>
                         <tr>
-                            <td>飼料添加成本增加</td>
-                            <td>0.069元/天&times;280天</td>
-                            <td>-19.32</td>
+                            <td data-translate="row7_col1">飼料添加成本增加</td>
+                            <td data-translate="row7_col2">0.069元/天×280天</td>
+                            <td><span data-value="-19.32" data-currency>-19.32</span></td>
                         </tr>
                         <tr style="background: linear-gradient(135deg, var(--primary) 0%, #d35400 100%); color: white; font-weight: bold;">
-                            <td>每隻蛋雞淨利潤增加</td>
-                            <td>&mdash;</td>
-                            <td>+91.98</td>
+                            <td data-translate="row8_col1">每隻蛋雞淨利潤增加</td>
+                            <td>—</td>
+                            <td><span data-value="91.98" data-currency>91.98</span></td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="roi-badge">
-                    <div>每隻蛋雞投資報酬率 (ROI)</div>
-                    <div class="roi-value">576%</div>
-                    <div style="font-size: 16px;">產蛋期每投入1元，創造6.76元淨收益｜投資回收期 &lt;15天</div>
+                    <div data-translate="roi_title">每隻蛋雞投資報酬率 (ROI)</div>
+                    <div class="roi-value"><span data-value="576" data-percent>576</span>%</div>
+                    <div style="font-size: 16px;" data-translate="roi_desc">產蛋期每投入1元，創造6.76元淨收益｜投資回收期 &lt;15天</div>
                 </div>
             </div>
-            <div style="background: #fff8e1; padding: 18px; border-radius: 10px; margin-top: 20px; border-left: 4px solid var(--secondary);">
-                <p><strong>萬隻蛋雞場年度效益：</strong>每批蛋雞淨利增加919,800元｜年更新1.5批次總計增加1,379,700元｜飼料添加總成本僅增加193,200元</p>
+            <div style="background: #fff8e1; padding: 18px; border-radius: 10px; margin-top: 20px; border-left: 4px solid var(--secondary);" class="fade-in">
+                <p><strong data-translate="large_scale_label">萬隻蛋雞場年度效益：</strong><span data-translate="large_scale">每批蛋雞淨利增加<span data-value="919800" data-currency>919,800</span>元｜年更新1.5批次總計增加<span data-value="1379700" data-currency>1,379,700</span>元｜飼料添加總成本僅增加<span data-value="193200" data-currency>193,200</span>元</span></p>
             </div>
 
             <!-- 經濟效益示意圖 (E2) -->
             <div class="egg-image-container">
-                <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/4d29d2376d674b13bbdfddf04be7c5d3.png~tplv-a9rns2rl98-24:720:720.png?lk3s=8e244e95&rcl=202602022316005E35519F039BDA40860C&rrcfp=8a172a1a&x-expires=1770650160&x-signature=q2ShKr%2BHzhUZTjHle%2Fx0OBAVLaM%3D" alt="蛋雞經濟效益計算圖">
-                <p class="image-caption">圖6：蛋雞場經濟效益計算 (ROI 580%｜每隻淨利+45.2元)</p>
+                <img src="assets/roi-chart.png" alt="蛋雞經濟效益計算圖" data-translate="image6_alt">
+                <p class="image-caption" data-translate="image6_caption">圖6：蛋雞場經濟效益計算 (ROI 580%｜每隻淨利+45.2元)</p>
             </div>
         </section>
 
         <!-- CTA行動區塊 -->
         <section class="cta-section">
-            <h2 style="color: white; border-bottom-color: var(--secondary);">🚀 立即啟動蛋雞性能提升方案</h2>
-            <div class="big-number">+91.98</div>
-            <p>每隻蛋雞淨利潤增加(NTD)</p>
-            <div class="big-number">576%</div>
-            <p>投資報酬率(ROI)</p>
-            <div style="background: rgba(241, 196, 15, 0.2); padding: 12px 25px; border-radius: 25px; display: inline-block; margin: 15px 0; font-weight: bold;">🥚 產蛋率提升5-8%｜⭐ 蛋黃品質提升3-4級｜🩺 發炎降低40-50%</div>
+            <h2 style="color: white; border-bottom-color: var(--secondary);" data-translate="cta_title">🚀 立即啟動蛋雞性能提升方案</h2>
+            <div class="big-number"><span data-value="91.98" data-currency>91.98</span></div>
+            <p data-translate="cta_subtitle1">每隻蛋雞淨利潤增加(NTD)</p>
+            <div class="big-number"><span data-value="576" data-percent>576</span>%</div>
+            <p data-translate="cta_subtitle2">投資報酬率(ROI)</p>
+            <div style="background: rgba(241, 196, 15, 0.2); padding: 12px 25px; border-radius: 25px; display: inline-block; margin: 15px 0; font-weight: bold;" data-translate="cta_bullets">🥚 產蛋率提升5-8%｜⭐ 蛋黃品質提升3-4級｜🩺 發炎降低40-50%</div>
             <div class="cta-buttons">
-                <a class="btn btn-primary" href="#">📞 獲取蛋雞專案技術諮詢</a>
-                <a class="btn btn-secondary" href="#">📋 免費索取蛋雞試用方案</a>
+                <a class="btn btn-primary" href="#" data-translate="cta_btn1">📞 獲取蛋雞專案技術諮詢</a>
+                <a class="btn btn-secondary" href="#" data-translate="cta_btn2">📋 免費索取蛋雞試用方案</a>
             </div>
         </section>
 
         <!-- 頁腳 -->
-        <footer style="background: var(--dark); color: rgba(255, 255, 255, 0.85); padding: 30px; border-radius: var(--border-radius); margin-top: 25px; text-align: center;">
+        <footer>
             <div style="max-width: 800px; margin: 0 auto;">
-                <p><strong>首池有限公司</strong>｜蛋雞性能優化 &times; 蛋品品質提升 &times; 健康養殖解決方案</p>
-                <p>本技術資料表數據基於海蘭、羅曼等蛋雞品種實測結果，實際效果因管理條件略有差異</p>
-                <div style="margin-top: 15px; opacity: 0.8; font-size: 14px; padding-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.1);">&copy; 2026 首池有限公司 版權所有｜蛋雞優化技術為商業機密，未經授權禁止轉載</div>
+                <p><strong data-translate="footer_company">首池有限公司</strong>｜<span data-translate="footer_tagline">蛋雞性能優化 × 蛋品品質提升 × 健康養殖解決方案</span></p>
+                <p data-translate="footer_disclaimer">本技術資料表數據基於海蘭、羅曼等蛋雞品種實測結果，實際效果因管理條件略有差異</p>
+                <div style="margin-top: 15px; opacity: 0.8; font-size: 14px; padding-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.1);" data-translate="footer_copyright">&copy; 2026 首池有限公司 版權所有｜蛋雞優化技術為商業機密，未經授權禁止轉載</div>
             </div>
         </footer>
     </div>
+
+    <script>
+        // 多語言翻譯內容
+        const translations = {
+            'zh-TW': {
+                // 標題和標語
+                'title': '活力旺蛋雞性能提升方案 TDS',
+                'subtitle': '產蛋率提升・蛋黃品質優化・暗斑蛋減少・產卵發炎降低',
+                'tagline': 'Egg Production Enhancement &middot; Yolk Quality Improvement &middot; Shell Strength Optimization',
+                'highlight': '🥚 產蛋率提升5-8%｜蛋黃品質提升3-4級｜暗斑蛋減少70-80%',
+                'feature2': '添加量：1公斤/噸飼料',
+                'feature3': '發炎指數降低40%',
+                
+                // 產蛋率提升專區
+                'section1_title': '🥚 產蛋率提升專區｜高產穩定持久',
+                'section1_desc': '專為蛋雞設計的營養調控方案，顯著提升產蛋率，延長產蛋高峰，改善蛋品品質，創造更高經濟價值。',
+                'egg_card1_title': '產蛋率提升',
+                'egg_card1_metric': '+5-8%',
+                'egg_card1_desc1': '營養精準調控延長產蛋高峰，提升整體產蛋效率',
+                'egg_card1_data_label': '實測數據：',
+                'egg_card1_data': '產蛋率從92%提升至97-98%高峰',
+                'egg_card2_title': '產蛋高峰期延長',
+                'egg_card2_metric': '+4-6週',
+                'egg_card2_desc1': '維持90%以上產蛋率時間延長，提升總產蛋數',
+                'egg_card2_data_label': '實測數據：',
+                'egg_card2_data': '產蛋高峰期從32週延長至36-38週',
+                'egg_card3_title': '飼料效率優化',
+                'egg_card3_metric': 'FCR -8-12%',
+                'egg_card3_desc1': '提升營養吸收效率，每公斤蛋飼料成本降低',
+                'egg_card3_data_label': '實測數據：',
+                'egg_card3_data': '料蛋比從2.2:1優化至2.0-2.1:1',
+                'egg_card4_title': '產蛋持續性改善',
+                'egg_card4_metric': '淘汰率 -15%',
+                'egg_card4_desc1': '改善後期產蛋表現，降低過早淘汰比例',
+                'egg_card4_data_label': '實測數據：',
+                'egg_card4_data': '72週齡產蛋率從78%提升至82-84%',
+                
+                // 產蛋高峰機制
+                'peak_mechanism_title': '📈 延長產蛋高峰期核心作用機制',
+                'mechanism1': '調節下丘腦-垂體-卵巢軸 (HPO軸)，維持促卵泡素(FSH)與黃體生成素(LH)穩定分泌，延緩卵巢功能衰退',
+                'mechanism2': '提升卵母細胞成熟率，減少空殼蛋/無殼蛋發生率，維持穩定排卵節律',
+                'mechanism3': '抗氧化成分清除體內自由基，降低卵巢細胞氧化損傷，延長產蛋功能壽命',
+                'mechanism4': '改善能量代謝，提升肝臟脂質運輸能力，確保產蛋所需營養供給不間斷',
+                'mechanism5': '調控生殖激素分泌節律，維持90%以上產蛋率的時間窗口延長4-6週',
+                
+                // 圖片說明
+                'image1_alt': '產蛋率提升與高峰期延長示意圖',
+                'image1_caption': '圖1：活力旺方案產蛋率提升與高峰期延長對比 (92% → 97-98%，高峰期延長4-6週)',
+                
+                // 產品規格
+                'specs_title': '產品規格與添加參數',
+                'spec1_label': '每噸飼料添加量',
+                'spec1_unit': '公斤/噸',
+                'spec2_label': '產品單價',
+                'spec2_unit': 'NTD/公斤',
+                'spec3_label': '每噸飼料成本增加',
+                'spec3_unit': 'NTD/噸',
+                'spec4_label': '蛋雞日採食量',
+                'spec4_unit': '公斤/隻/天',
+                'spec5_label': '每隻雞日成本增加',
+                'spec5_unit': 'NTD/隻/天',
+                'spec6_label': '適用階段',
+                'spec6_value': '產蛋全程',
+                'spec6_unit': '18-72週齡',
+                'usage_label': '使用方法：',
+                'usage_desc': '每噸蛋雞全價飼料均勻添加活力旺蛋雞專用配方1公斤，從產蛋開始全程使用，無需調整現有飼養管理流程。',
+                'image2_alt': '現代化蛋雞場添加活力旺飼料示意圖',
+                'image2_caption': '圖2：現代化蛋雞場自動化飼料添加系統 (活力旺專用添加模組)',
+                
+                // 蛋品品質提升專區
+                'section2_title': '⭐ 蛋品品質提升專區｜內外品質全面優化',
+                'section2_desc': '全面改善蛋品內外品質，提升蛋黃顏色、蛋殼強度，大幅減少暗斑蛋，創造市場差異化競爭優勢。',
+                'quality_card1_title': '蛋黃品質提升',
+                'quality_card1_metric': '+3-4級',
+                'quality_card1_desc1': '天然色素沉積提升蛋黃顏色，胡蘿蔔素含量增加',
+                'quality_card1_data_label': '實測數據：',
+                'quality_card1_data': '羅氏比色計從8級提升至11-12級',
+                'quality_card1_mechanism_label': '作用機制：',
+                'quality_card1_mechanism': '促進類胡蘿蔔素吸收與沉積，提升卵黃腺色素結合能力',
+                'quality_card2_title': '暗斑蛋減少',
+                'quality_card2_metric': '-70-80%',
+                'quality_card2_desc1': '改善蛋殼腺功能，減少鈣質沉積異常',
+                'quality_card2_data_label': '實測數據：',
+                'quality_card2_data': '暗斑蛋比例從15%降低至3-5%',
+                'quality_card2_mechanism_label': '作用機制：',
+                'quality_card2_mechanism': '調節蛋殼腺碳酸酐酶活性，優化鈣質晶體排列結構',
+                'quality_card3_title': '蛋殼強度提升',
+                'quality_card3_metric': '+25-30%',
+                'quality_card3_desc1': '優化鈣磷代謝，提升蛋殼厚度與均勻度',
+                'quality_card3_data_label': '實測數據：',
+                'quality_card3_data': '蛋殼厚度從0.33mm提升至0.40-0.42mm',
+                'quality_card3_mechanism_label': '作用機制：',
+                'quality_card3_mechanism': '提升維生素D3活化效率，促進小腸鈣吸收與蛋殼腺沉積',
+                'quality_card4_title': '哈氏單位提升',
+                'quality_card4_metric': '+15-20',
+                'quality_card4_desc1': '蛋白濃稠度改善，提升蛋品新鮮度與保存性',
+                'quality_card4_data_label': '實測數據：',
+                'quality_card4_data': '哈氏單位從80提升至95-100',
+                'quality_card4_mechanism_label': '作用機制：',
+                'quality_card4_mechanism': '維持卵白蛋白合成效率，減少蛋白水分流失',
+                'image3_alt': '蛋黃品質對比圖',
+                'image3_caption': '圖3：蛋黃品質對比 (左：傳統蛋黃8級｜右：活力旺優化蛋黃11-12級，提升3-4級)',
+                'image4_alt': '暗斑蛋減少示意圖',
+                'image4_caption': '圖4：暗斑蛋比例減少 (傳統15% → 過渡8% → 優化3-5%，降幅70-80%)',
+                
+                // 健康度提升專區
+                'section3_title': '🩺 健康度提升專區｜產卵發炎降低與免疫力增強',
+                'benefit_card1_title': '產卵發炎降低',
+                'benefit_card1_metric': '-40-50%',
+                'benefit_card1_desc1': '抗炎成分降低輸卵管炎症發生率，改善產蛋舒適度',
+                'benefit_card1_mechanism_label': '作用機制：',
+                'benefit_card1_mechanism': '抑制COX-2炎症通路，調節前列腺素水平，減少輸卵管黏膜充血水腫',
+                'benefit_card2_title': '免疫力提升',
+                'benefit_card2_metric': '+30-40%',
+                'benefit_card2_desc1': '免疫調節成分提升抗體水平，降低疾病發生率',
+                'benefit_card2_mechanism_label': '作用機制：',
+                'benefit_card2_mechanism': '促進IgA分泌，強化黏膜免疫屏障，提升巨噬細胞吞噬能力',
+                'benefit_card3_title': '肝臟健康改善',
+                'benefit_card3_metric': '脂肪肝 -60%',
+                'benefit_card3_desc1': '改善脂質代謝，減少脂肪肝發生，延長產蛋壽命',
+                'benefit_card3_mechanism_label': '作用機制：',
+                'benefit_card3_mechanism': '促進脂肪酸氧化，抑制脂肪合成，提升肝臟脂蛋白合成與運輸能力',
+                'benefit_card4_title': '骨骼強度提升',
+                'benefit_card4_metric': '骨密度 +20%',
+                'benefit_card4_desc1': '優化鈣磷吸收與代謝，減少產蛋疲勞症發生',
+                'benefit_card4_mechanism_label': '作用機制：',
+                'benefit_card4_mechanism': '維生素D代謝調控，改善鈣質沉積，提升骨鈣素合成效率',
+                'image5_alt': '蛋雞健康改善圖',
+                'image5_caption': '圖5：蛋雞健康指標改善 (輸卵管發炎-40-50%｜脂肪肝-60%｜骨密度+20%｜免疫力+30-40%)',
+                
+                // 經濟效益分析
+                'section4_title': '💰 經濟效益分析｜每隻蛋雞淨利提升',
+                'calc_basis_label': '計算基準：',
+                'calc_basis': '蛋雞產蛋期40週(280天)｜產蛋率92%→97%｜料蛋比2.2→2.05｜蛋價6元/顆｜每隻雞日採食量115克｜添加成本0.069元/天',
+                'table_header1': '效益項目',
+                'table_header2': '改善幅度',
+                'table_header3': '每隻蛋雞經濟價值(NTD)',
+                'row1_col1': '產蛋率提升收益(+5%)',
+                'row1_col2': '+5%產蛋率',
+                'row2_col1': '飼料效率優化(FCR -7%)',
+                'row2_col2': '料蛋比2.2→2.05',
+                'row3_col1': '蛋品品質溢價',
+                'row3_col2': '價格+15%',
+                'row4_col1': '暗斑蛋減少收益',
+                'row4_col2': '-75%次級蛋',
+                'row5_col1': '健康度提升減少損失',
+                'row5_col2': '死亡率-2%',
+                'row6_col1': '總效益增加',
+                'row7_col1': '飼料添加成本增加',
+                'row7_col2': '0.069元/天×280天',
+                'row8_col1': '每隻蛋雞淨利潤增加',
+                'roi_title': '每隻蛋雞投資報酬率 (ROI)',
+                'roi_desc': '產蛋期每投入1元，創造6.76元淨收益｜投資回收期 <15天',
+                'large_scale_label': '萬隻蛋雞場年度效益：',
+                'large_scale': '每批蛋雞淨利增加<span data-value="919800" data-currency>919,800</span>元｜年更新1.5批次總計增加<span data-value="1379700" data-currency>1,379,700</span>元｜飼料添加總成本僅增加<span data-value="193200" data-currency>193,200</span>元',
+                'image6_alt': '蛋雞經濟效益計算圖',
+                'image6_caption': '圖6：蛋雞場經濟效益計算 (ROI 580%｜每隻淨利+45.2元)',
+                
+                // CTA區塊
+                'cta_title': '🚀 立即啟動蛋雞性能提升方案',
+                'cta_subtitle1': '每隻蛋雞淨利潤增加(NTD)',
+                'cta_subtitle2': '投資報酬率(ROI)',
+                'cta_bullets': '🥚 產蛋率提升5-8%｜⭐ 蛋黃品質提升3-4級｜🩺 發炎降低40-50%',
+                'cta_btn1': '📞 獲取蛋雞專案技術諮詢',
+                'cta_btn2': '📋 免費索取蛋雞試用方案',
+                
+                // 頁腳
+                'footer_company': '首池有限公司',
+                'footer_tagline': '蛋雞性能優化 × 蛋品品質提升 × 健康養殖解決方案',
+                'footer_disclaimer': '本技術資料表數據基於海蘭、羅曼等蛋雞品種實測結果，實際效果因管理條件略有差異',
+                'footer_copyright': '&copy; 2026 首池有限公司 版權所有｜蛋雞優化技術為商業機密，未經授權禁止轉載'
+            },
+            
+            'zh-CN': {
+                // 標題和標語
+                'title': '活力旺蛋鸡性能提升方案 TDS',
+                'subtitle': '产蛋率提升・蛋黄品质优化・暗斑蛋减少・产卵发炎降低',
+                'tagline': 'Egg Production Enhancement &middot; Yolk Quality Improvement &middot; Shell Strength Optimization',
+                'highlight': '🥚 产蛋率提升5-8%｜蛋黄品质提升3-4级｜暗斑蛋减少70-80%',
+                'feature2': '添加量：1公斤/吨饲料',
+                'feature3': '发炎指数降低40%',
+                
+                // 產蛋率提升專區
+                'section1_title': '🥚 产蛋率提升专区｜高产稳定持久',
+                'section1_desc': '专为蛋鸡设计的营养调控方案，显著提升产蛋率，延长产蛋高峰，改善蛋品品质，创造更高经济价值。',
+                'egg_card1_title': '产蛋率提升',
+                'egg_card1_metric': '+5-8%',
+                'egg_card1_desc1': '营养精准调控延长产蛋高峰，提升整体产蛋效率',
+                'egg_card1_data_label': '实测数据：',
+                'egg_card1_data': '产蛋率从92%提升至97-98%高峰',
+                'egg_card2_title': '产蛋高峰期延长',
+                'egg_card2_metric': '+4-6周',
+                'egg_card2_desc1': '维持90%以上产蛋率时间延长，提升总产蛋数',
+                'egg_card2_data_label': '实测数据：',
+                'egg_card2_data': '产蛋高峰期从32周延长至36-38周',
+                'egg_card3_title': '饲料效率优化',
+                'egg_card3_metric': 'FCR -8-12%',
+                'egg_card3_desc1': '提升营养吸收效率，每公斤蛋饲料成本降低',
+                'egg_card3_data_label': '实测数据：',
+                'egg_card3_data': '料蛋比从2.2:1优化至2.0-2.1:1',
+                'egg_card4_title': '产蛋持续性改善',
+                'egg_card4_metric': '淘汰率 -15%',
+                'egg_card4_desc1': '改善后期产蛋表现，降低过早淘汰比例',
+                'egg_card4_data_label': '实测数据：',
+                'egg_card4_data': '72周龄产蛋率从78%提升至82-84%',
+                
+                // 產蛋高峰機制
+                'peak_mechanism_title': '📈 延长产蛋高峰期核心作用机制',
+                'mechanism1': '调节下丘脑-垂体-卵巢轴 (HPO轴)，维持促卵泡素(FSH)与黄体生成素(LH)稳定分泌，延缓卵巢功能衰退',
+                'mechanism2': '提升卵母细胞成熟率，减少空壳蛋/无壳蛋发生率，维持稳定排卵节律',
+                'mechanism3': '抗氧化成分清除体内自由基，降低卵巢细胞氧化损伤，延长产蛋功能寿命',
+                'mechanism4': '改善能量代谢，提升肝脏脂质运输能力，确保产蛋所需营养供给不间断',
+                'mechanism5': '调控生殖激素分泌节律，维持90%以上产蛋率的时间窗口延长4-6周',
+                
+                // 圖片說明
+                'image1_alt': '产蛋率提升与高峰期延长示意图',
+                'image1_caption': '图1：活力旺方案产蛋率提升与高峰期延长对比 (92% → 97-98%，高峰期延长4-6周)',
+                
+                // 產品規格
+                'specs_title': '产品规格与添加参数',
+                'spec1_label': '每吨饲料添加量',
+                'spec1_unit': '公斤/吨',
+                'spec2_label': '产品单价',
+                'spec2_unit': 'CNY/公斤',
+                'spec3_label': '每吨饲料成本增加',
+                'spec3_unit': 'CNY/吨',
+                'spec4_label': '蛋鸡日采食量',
+                'spec4_unit': '公斤/只/天',
+                'spec5_label': '每只鸡日成本增加',
+                'spec5_unit': 'CNY/只/天',
+                'spec6_label': '适用阶段',
+                'spec6_value': '产蛋全程',
+                'spec6_unit': '18-72周龄',
+                'usage_label': '使用方法：',
+                'usage_desc': '每吨蛋鸡全价饲料均匀添加活力旺蛋鸡专用配方1公斤，从产蛋开始全程使用，无需调整现有饲养管理流程。',
+                'image2_alt': '现代化蛋鸡场添加活力旺饲料示意图',
+                'image2_caption': '图2：现代化蛋鸡场自动化饲料添加系统 (活力旺专用添加模块)',
+                
+                // 蛋品品質提升專區
+                'section2_title': '⭐ 蛋品品质提升专区｜内外品质全面优化',
+                'section2_desc': '全面改善蛋品内外品质，提升蛋黄颜色、蛋壳强度，大幅减少暗斑蛋，创造市场差异化竞争优势。',
+                'quality_card1_title': '蛋黄品质提升',
+                'quality_card1_metric': '+3-4级',
+                'quality_card1_desc1': '天然色素沉积提升蛋黄颜色，胡萝卜素含量增加',
+                'quality_card1_data_label': '实测数据：',
+                'quality_card1_data': '罗氏比色计从8级提升至11-12级',
+                'quality_card1_mechanism_label': '作用机制：',
+                'quality_card1_mechanism': '促进类胡萝卜素吸收与沉积，提升卵黄腺色素结合能力',
+                'quality_card2_title': '暗斑蛋减少',
+                'quality_card2_metric': '-70-80%',
+                'quality_card2_desc1': '改善蛋壳腺功能，减少钙质沉积异常',
+                'quality_card2_data_label': '实测数据：',
+                'quality_card2_data': '暗斑蛋比例从15%降低至3-5%',
+                'quality_card2_mechanism_label': '作用机制：',
+                'quality_card2_mechanism': '调节蛋壳腺碳酸酐酶活性，优化钙质晶体排列结构',
+                'quality_card3_title': '蛋壳强度提升',
+                'quality_card3_metric': '+25-30%',
+                'quality_card3_desc1': '优化钙磷代谢，提升蛋壳厚度与均匀度',
+                'quality_card3_data_label': '实测数据：',
+                'quality_card3_data': '蛋壳厚度从0.33mm提升至0.40-0.42mm',
+                'quality_card3_mechanism_label': '作用机制：',
+                'quality_card3_mechanism': '提升维生素D3活化效率，促进小肠钙吸收与蛋壳腺沉积',
+                'quality_card4_title': '哈氏单位提升',
+                'quality_card4_metric': '+15-20',
+                'quality_card4_desc1': '蛋白浓稠度改善，提升蛋品新鲜度与保存性',
+                'quality_card4_data_label': '实测数据：',
+                'quality_card4_data': '哈氏单位从80提升至95-100',
+                'quality_card4_mechanism_label': '作用机制：',
+                'quality_card4_mechanism': '维持卵白蛋白合成效率，减少蛋白水分流失',
+                'image3_alt': '蛋黄品质对比图',
+                'image3_caption': '图3：蛋黄品质对比 (左：传统蛋黄8级｜右：活力旺优化蛋黄11-12级，提升3-4级)',
+                'image4_alt': '暗斑蛋减少示意图',
+                'image4_caption': '图4：暗斑蛋比例减少 (传统15% → 过渡8% → 优化3-5%，降幅70-80%)',
+                
+                // 健康度提升專區
+                'section3_title': '🩺 健康度提升专区｜产卵发炎降低与免疫力增强',
+                'benefit_card1_title': '产卵发炎降低',
+                'benefit_card1_metric': '-40-50%',
+                'benefit_card1_desc1': '抗炎成分降低输卵管炎症发生率，改善产蛋舒适度',
+                'benefit_card1_mechanism_label': '作用机制：',
+                'benefit_card1_mechanism': '抑制COX-2炎症通路，调节前列腺素水平，减少输卵管黏膜充血水肿',
+                'benefit_card2_title': '免疫力提升',
+                'benefit_card2_metric': '+30-40%',
+                'benefit_card2_desc1': '免疫调节成分提升抗体水平，降低疾病发生率',
+                'benefit_card2_mechanism_label': '作用机制：',
+                'benefit_card2_mechanism': '促进IgA分泌，强化黏膜免疫屏障，提升巨噬细胞吞噬能力',
+                'benefit_card3_title': '肝脏健康改善',
+                'benefit_card3_metric': '脂肪肝 -60%',
+                'benefit_card3_desc1': '改善脂质代谢，减少脂肪肝发生，延长产蛋寿命',
+                'benefit_card3_mechanism_label': '作用机制：',
+                'benefit_card3_mechanism': '促进脂肪酸氧化，抑制脂肪合成，提升肝脏脂蛋白合成与运输能力',
+                'benefit_card4_title': '骨骼强度提升',
+                'benefit_card4_metric': '骨密度 +20%',
+                'benefit_card4_desc1': '优化钙磷吸收与代谢，减少产蛋疲劳症发生',
+                'benefit_card4_mechanism_label': '作用机制：',
+                'benefit_card4_mechanism': '维生素D代谢调控，改善钙质沉积，提升骨钙素合成效率',
+                'image5_alt': '蛋鸡健康改善图',
+                'image5_caption': '图5：蛋鸡健康指标改善 (输卵管发炎-40-50%｜脂肪肝-60%｜骨密度+20%｜免疫力+30-40%)',
+                
+                // 經濟效益分析
+                'section4_title': '💰 经济效益分析｜每只蛋鸡净利提升',
+                'calc_basis_label': '计算基准：',
+                'calc_basis': '蛋鸡产蛋期40周(280天)｜产蛋率92%→97%｜料蛋比2.2→2.05｜蛋价6元/颗｜每只鸡日采食量115克｜添加成本0.069元/天',
+                'table_header1': '效益项目',
+                'table_header2': '改善幅度',
+                'table_header3': '每只蛋鸡经济价值(CNY)',
+                'row1_col1': '产蛋率提升收益(+5%)',
+                'row1_col2': '+5%产蛋率',
+                'row2_col1': '饲料效率优化(FCR -7%)',
+                'row2_col2': '料蛋比2.2→2.05',
+                'row3_col1': '蛋品品质溢价',
+                'row3_col2': '价格+15%',
+                'row4_col1': '暗斑蛋减少收益',
+                'row4_col2': '-75%次级蛋',
+                'row5_col1': '健康度提升减少损失',
+                'row5_col2': '死亡率-2%',
+                'row6_col1': '总效益增加',
+                'row7_col1': '饲料添加成本增加',
+                'row7_col2': '0.069元/天×280天',
+                'row8_col1': '每只蛋鸡净利润增加',
+                'roi_title': '每只蛋鸡投资报酬率 (ROI)',
+                'roi_desc': '产蛋期每投入1元，创造6.76元净收益｜投资回收期 <15天',
+                'large_scale_label': '万只蛋鸡场年度效益：',
+                'large_scale': '每批蛋鸡净利增加<span data-value="919800" data-currency>919,800</span>元｜年更新1.5批次总计增加<span data-value="1379700" data-currency>1,379,700</span>元｜饲料添加总成本仅增加<span data-value="193200" data-currency>193,200</span>元',
+                'image6_alt': '蛋鸡经济效益计算图',
+                'image6_caption': '图6：蛋鸡场经济效益计算 (ROI 580%｜每只净利+45.2元)',
+                
+                // CTA區塊
+                'cta_title': '🚀 立即启动蛋鸡性能提升方案',
+                'cta_subtitle1': '每只蛋鸡净利润增加(CNY)',
+                'cta_subtitle2': '投资报酬率(ROI)',
+                'cta_bullets': '🥚 产蛋率提升5-8%｜⭐ 蛋黄品质提升3-4级｜🩺 发炎降低40-50%',
+                'cta_btn1': '📞 获取蛋鸡专案技术咨询',
+                'cta_btn2': '📋 免费索取蛋鸡试用方案',
+                
+                // 頁腳
+                'footer_company': '首池有限公司',
+                'footer_tagline': '蛋鸡性能优化 × 蛋品品质提升 × 健康养殖解决方案',
+                'footer_disclaimer': '本技术资料表数据基于海兰、罗曼等蛋鸡品种实测结果，实际效果因管理条件略有差异',
+                'footer_copyright': '&copy; 2026 首池有限公司 版权所有｜蛋鸡优化技术为商业机密，未经授权禁止转载'
+            },
+            
+            'en': {
+                // 標題和標語
+                'title': 'VigorPro Egg Layer Performance Enhancement TDS',
+                'subtitle': 'Egg Production Increase · Yolk Quality Improvement · Blood Spots Reduction · Laying Inflammation Reduction',
+                'tagline': 'Egg Production Enhancement &middot; Yolk Quality Improvement &middot; Shell Strength Optimization',
+                'highlight': '🥚 Egg Production +5-8%｜Yolk Quality +3-4 Grades｜Blood Spots -70-80%',
+                'feature2': 'Dosage: 1 kg/ton feed',
+                'feature3': 'Inflammation Index -40%',
+                
+                // 產蛋率提升專區
+                'section1_title': '🥚 Egg Production Enhancement｜High & Stable Performance',
+                'section1_desc': 'Nutritional regulation solution specifically designed for laying hens, significantly increasing egg production rate, extending peak laying period, improving egg quality, and creating higher economic value.',
+                'egg_card1_title': 'Egg Production Increase',
+                'egg_card1_metric': '+5-8%',
+                'egg_card1_desc1': 'Precise nutritional regulation extends peak laying period, improves overall egg production efficiency',
+                'egg_card1_data_label': 'Field Data:',
+                'egg_card1_data': 'Egg production rate increased from 92% to 97-98% peak',
+                'egg_card2_title': 'Peak Laying Period Extension',
+                'egg_card2_metric': '+4-6 Weeks',
+                'egg_card2_desc1': 'Extended duration of >90% egg production rate, increasing total egg count',
+                'egg_card2_data_label': 'Field Data:',
+                'egg_card2_data': 'Peak laying period extended from 32 to 36-38 weeks',
+                'egg_card3_title': 'Feed Efficiency Optimization',
+                'egg_card3_metric': 'FCR -8-12%',
+                'egg_card3_desc1': 'Improved nutrient absorption efficiency, reduced feed cost per kg of eggs',
+                'egg_card3_data_label': 'Field Data:',
+                'egg_card3_data': 'Feed conversion ratio improved from 2.2:1 to 2.0-2.1:1',
+                'egg_card4_title': 'Laying Persistence Improvement',
+                'egg_card4_metric': 'Culling Rate -15%',
+                'egg_card4_desc1': 'Improved late-stage laying performance, reduced premature culling rate',
+                'egg_card4_data_label': 'Field Data:',
+                'egg_card4_data': '72-week egg production rate increased from 78% to 82-84%',
+                
+                // 產蛋高峰機制
+                'peak_mechanism_title': '📈 Core Mechanism for Extending Peak Laying Period',
+                'mechanism1': 'Regulates hypothalamic-pituitary-ovarian axis (HPO axis), maintains stable secretion of FSH and LH, delays ovarian function decline',
+                'mechanism2': 'Increases oocyte maturation rate, reduces shell-less/misshapen egg incidence, maintains stable ovulation rhythm',
+                'mechanism3': 'Antioxidant components清除 free radicals, reduces ovarian cell oxidative damage, extends laying function lifespan',
+                'mechanism4': 'Improves energy metabolism, enhances liver lipid transport capacity, ensures uninterrupted nutrient supply for egg production',
+                'mechanism5': 'Regulates reproductive hormone secretion rhythm, extends time window of >90% laying rate by 4-6 weeks',
+                
+                // 圖片說明
+                'image1_alt': 'Egg Production Rate Increase and Peak Period Extension Chart',
+                'image1_caption': 'Figure 1: VigorPro Solution Egg Production Increase & Peak Period Extension Comparison (92% → 97-98%, peak period extended 4-6 weeks)',
+                
+                // 產品規格
+                'specs_title': 'Product Specifications & Application Parameters',
+                'spec1_label': 'Dosage per ton feed',
+                'spec1_unit': 'kg/ton',
+                'spec2_label': 'Unit Price',
+                'spec2_unit': 'USD/kg',
+                'spec3_label': 'Feed cost increase per ton',
+                'spec3_unit': 'USD/ton',
+                'spec4_label': 'Daily feed intake per hen',
+                'spec4_unit': 'kg/bird/day',
+                'spec5_label': 'Daily cost increase per hen',
+                'spec5_unit': 'USD/bird/day',
+                'spec6_label': 'Application Stage',
+                'spec6_value': 'Entire laying period',
+                'spec6_unit': '18-72 weeks',
+                'usage_label': 'Usage Method:',
+                'usage_desc': 'Add 1 kg VigorPro Egg Layer Formula per ton of complete layer feed uniformly, use throughout the entire laying period from start of lay, no need to adjust existing management practices.',
+                'image2_alt': 'Modern Layer Farm Adding VigorPro Feed Illustration',
+                'image2_caption': 'Figure 2: Modern Layer Farm Automated Feed Addition System (VigorPro专用添加模块)',
+                
+                // 蛋品品質提升專區
+                'section2_title': '⭐ Egg Quality Enhancement｜Comprehensive Internal & External Quality Improvement',
+                'section2_desc': 'Comprehensively improves internal and external egg quality, enhances yolk color, shell strength, significantly reduces blood spots, creating differentiated market competitive advantages.',
+                'quality_card1_title': 'Yolk Quality Improvement',
+                'quality_card1_metric': '+3-4 Grades',
+                'quality_card1_desc1': 'Natural pigment deposition improves yolk color, increases carotenoid content',
+                'quality_card1_data_label': 'Field Data:',
+                'quality_card1_data': 'Roche color fan scale improved from grade 8 to 11-12',
+                'quality_card1_mechanism_label': 'Mechanism:',
+                'quality_card1_mechanism': 'Promotes carotenoid absorption and deposition, enhances yolk gland pigment binding capacity',
+                'quality_card2_title': 'Blood Spots Reduction',
+                'quality_card2_metric': '-70-80%',
+                'quality_card2_desc1': 'Improves shell gland function, reduces abnormal calcium deposition',
+                'quality_card2_data_label': 'Field Data:',
+                'quality_card2_data': 'Blood spots incidence reduced from 15% to 3-5%',
+                'quality_card2_mechanism_label': 'Mechanism:',
+                'quality_card2_mechanism': 'Regulates shell gland carbonic anhydrase activity, optimizes calcium crystal arrangement structure',
+                'quality_card3_title': 'Shell Strength Increase',
+                'quality_card3_metric': '+25-30%',
+                'quality_card3_desc1': 'Optimizes calcium-phosphorus metabolism, improves shell thickness and uniformity',
+                'quality_card3_data_label': 'Field Data:',
+                'quality_card3_data': 'Shell thickness increased from 0.33mm to 0.40-0.42mm',
+                'quality_card3_mechanism_label': 'Mechanism:',
+                'quality_card3_mechanism': 'Enhances vitamin D3 activation efficiency, promotes intestinal calcium absorption and shell gland deposition',
+                'quality_card4_title': 'Haugh Unit Increase',
+                'quality_card4_metric': '+15-20',
+                'quality_card4_desc1': 'Improves albumen viscosity, enhances egg freshness and storage stability',
+                'quality_card4_data_label': 'Field Data:',
+                'quality_card4_data': 'Haugh Unit improved from 80 to 95-100',
+                'quality_card4_mechanism_label': 'Mechanism:',
+                'quality_card4_mechanism': 'Maintains ovalbumin synthesis efficiency, reduces albumen moisture loss',
+                'image3_alt': 'Yolk Quality Comparison Chart',
+                'image3_caption': 'Figure 3: Yolk Quality Comparison (Left: Traditional yolk grade 8｜Right: VigorPro optimized yolk grade 11-12, improvement of 3-4 grades)',
+                'image4_alt': 'Blood Spots Reduction Illustration',
+                'image4_caption': 'Figure 4: Blood Spots Incidence Reduction (Traditional 15% → Transition 8% → Optimized 3-5%, reduction of 70-80%)',
+                
+                // 健康度提升專區
+                'section3_title': '🩺 Health Status Improvement｜Laying Inflammation Reduction & Immunity Enhancement',
+                'benefit_card1_title': 'Laying Inflammation Reduction',
+                'benefit_card1_metric': '-40-50%',
+                'benefit_card1_desc1': 'Anti-inflammatory components reduce oviduct inflammation incidence, improve laying comfort',
+                'benefit_card1_mechanism_label': 'Mechanism:',
+                'benefit_card1_mechanism': 'Inhibits COX-2 inflammatory pathway, regulates prostaglandin levels, reduces oviduct mucosal congestion and edema',
+                'benefit_card2_title': 'Immunity Enhancement',
+                'benefit_card2_metric': '+30-40%',
+                'benefit_card2_desc1': 'Immune-modulating components increase antibody levels, reduce disease incidence',
+                'benefit_card2_mechanism_label': 'Mechanism:',
+                'benefit_card2_mechanism': 'Promotes IgA secretion, strengthens mucosal immune barrier, enhances macrophage phagocytic capacity',
+                'benefit_card3_title': 'Liver Health Improvement',
+                'benefit_card3_metric': 'Fatty Liver -60%',
+                'benefit_card3_desc1': 'Improves lipid metabolism, reduces fatty liver incidence, extends laying lifespan',
+                'benefit_card3_mechanism_label': 'Mechanism:',
+                'benefit_card3_mechanism': 'Promotes fatty acid oxidation, inhibits fat synthesis, enhances liver lipoprotein synthesis and transport capacity',
+                'benefit_card4_title': 'Bone Strength Increase',
+                'benefit_card4_metric': 'Bone Density +20%',
+                'benefit_card4_desc1': 'Optimizes calcium-phosphorus absorption and metabolism, reduces cage layer fatigue incidence',
+                'benefit_card4_mechanism_label': 'Mechanism:',
+                'benefit_card4_mechanism': 'Vitamin D metabolic regulation, improves calcium deposition, enhances osteocalcin synthesis efficiency',
+                'image5_alt': 'Layer Health Improvement Chart',
+                'image5_caption': 'Figure 5: Layer Health Indicator Improvements (Oviduct inflammation -40-50%｜Fatty liver -60%｜Bone density +20%｜Immunity +30-40%)',
+                
+                // 經濟效益分析
+                'section4_title': '💰 Economic Benefit Analysis｜Net Profit Increase per Hen',
+                'calc_basis_label': 'Calculation Basis:',
+                'calc_basis': 'Layer laying period 40 weeks (280 days)｜Egg production 92%→97%｜Feed conversion 2.2→2.05｜Egg price 6元/egg｜Daily feed intake 115g/bird｜Additive cost 0.069元/day',
+                'table_header1': 'Benefit Item',
+                'table_header2': 'Improvement',
+                'table_header3': 'Economic Value per Hen(USD)',
+                'row1_col1': 'Egg production increase benefit (+5%)',
+                'row1_col2': '+5% egg production',
+                'row2_col1': 'Feed efficiency optimization (FCR -7%)',
+                'row2_col2': 'Feed conversion 2.2→2.05',
+                'row3_col1': 'Egg quality premium',
+                'row3_col2': 'Price +15%',
+                'row4_col1': 'Blood spots reduction benefit',
+                'row4_col2': '-75% secondary eggs',
+                'row5_col1': 'Health improvement loss reduction',
+                'row5_col2': 'Mortality -2%',
+                'row6_col1': 'Total benefit increase',
+                'row7_col1': 'Feed additive cost increase',
+                'row7_col2': '0.069元/day×280 days',
+                'row8_col1': 'Net profit increase per hen',
+                'roi_title': 'Return on Investment (ROI) per Hen',
+                'roi_desc': 'For every 1元 invested during laying period, generates 6.76元 net profit｜Investment payback period <15 days',
+                'large_scale_label': '10,000-hen farm annual benefit:',
+                'large_scale': 'Net profit per batch increased by <span data-value="919800" data-currency>919,800</span>元｜Annual 1.5 batches total increase <span data-value="1379700" data-currency>1,379,700</span>元｜Total feed additive cost only increased by <span data-value="193200" data-currency>193,200</span>元',
+                'image6_alt': 'Layer Economic Benefit Calculation Chart',
+                'image6_caption': 'Figure 6: Layer Farm Economic Benefit Calculation (ROI 580%｜Net profit per hen +45.2元)',
+                
+                // CTA區塊
+                'cta_title': '🚀 Start Egg Layer Performance Enhancement Now',
+                'cta_subtitle1': 'Net profit increase per hen(USD)',
+                'cta_subtitle2': 'Return on Investment(ROI)',
+                'cta_bullets': '🥚 Egg production +5-8%｜⭐ Yolk quality +3-4 grades｜🩺 Inflammation -40-50%',
+                'cta_btn1': '📞 Get Layer Project Technical Consultation',
+                'cta_btn2': '📋 Request Free Layer Trial Program',
+                
+                // 頁腳
+                'footer_company': 'First Pond Co., Ltd.',
+                'footer_tagline': 'Layer Performance Optimization × Egg Quality Enhancement × Healthy Farming Solutions',
+                'footer_disclaimer': 'Technical data based on field test results of Hy-Line, Lohmann and other layer breeds, actual results may vary depending on management conditions',
+                'footer_copyright': '&copy; 2026 First Pond Co., Ltd. All rights reserved｜Layer optimization technology is commercial confidential, unauthorized reproduction prohibited'
+            }
+        };
+
+        // 匯率設定 (NTD:CNY:USD = 1:0.23:0.033)
+        const exchangeRates = {
+            'zh-TW': 1,      // NTD
+            'zh-CN': 0.23,   // CNY (NTD 1 = CNY 0.23)
+            'en': 0.033      // USD (NTD 1 = USD 0.033)
+        };
+
+        // 貨幣符號
+        const currencySymbols = {
+            'zh-TW': 'NTD ',
+            'zh-CN': 'CNY ',
+            'zh-CN_symbol': '¥',
+            'en': 'USD ',
+            'en_symbol': '$'
+        };
+
+        // 當前語言
+        let currentLang = 'zh-TW';
+
+        // DOM載入完成後初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化語言按鈕事件
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    switchLanguage(lang);
+                });
+            });
+
+            // 初始化卡片點擊事件
+            document.querySelectorAll('.egg-card, .quality-card, .benefit-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                });
+            });
+
+            // 初始化滾動淡入效果
+            initScrollAnimation();
+            
+            // 初始載入繁體中文
+            switchLanguage('zh-TW');
+        });
+
+        // 切換語言函數
+        function switchLanguage(lang) {
+            // 更新語言按鈕狀態
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // 更新當前語言
+            currentLang = lang;
+
+            // 更新所有文本內容
+            updateTextContent(lang);
+
+            // 更新所有貨幣數值
+            updateCurrencyValues(lang);
+
+            // 更新頁面語言屬性
+            document.documentElement.lang = lang === 'zh-CN' ? 'zh-Hans' : lang;
+        }
+
+        // 更新文本內容
+        function updateTextContent(lang) {
+            // 遍歷所有帶有data-translate屬性的元素
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    // 如果是innerHTML需要處理的標籤
+                    if (element.hasAttribute('data-inner-html')) {
+                        element.innerHTML = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+            
+            // 特殊處理頁首的feature1和feature4
+            updateFeatureBadges(lang);
+        }
+
+        // 更新頁首特徵標籤
+        function updateFeatureBadges(lang) {
+            const feature1 = document.getElementById('feature1');
+            const feature4 = document.getElementById('feature4');
+            
+            if (feature1 && feature4) {
+                // 根據語言更新內容
+                if (lang === 'zh-TW') {
+                    feature1.innerHTML = '成本：NTD <span data-value="600" data-currency>600</span>/公斤';
+                    feature4.innerHTML = '投資報酬率：<span data-value="580" data-percent>580</span>%';
+                } else if (lang === 'zh-CN') {
+                    feature1.innerHTML = '成本：CNY <span data-value="138" data-currency>138</span>/公斤';
+                    feature4.innerHTML = '投资报酬率：<span data-value="580" data-percent>580</span>%';
+                } else if (lang === 'en') {
+                    feature1.innerHTML = 'Cost: USD <span data-value="19.8" data-currency>19.8</span>/kg';
+                    feature4.innerHTML = 'ROI: <span data-value="580" data-percent>580</span>%';
+                }
+            }
+        }
+
+        // 更新貨幣數值
+        function updateCurrencyValues(lang) {
+            const rate = exchangeRates[lang];
+            const symbol = currencySymbols[lang];
+            const symbolOnly = lang === 'zh-CN' ? currencySymbols['zh-CN_symbol'] : 
+                              lang === 'en' ? currencySymbols['en_symbol'] : symbol;
+
+            // 更新所有帶有data-value和data-currency屬性的元素
+            document.querySelectorAll('[data-value][data-currency]').forEach(element => {
+                const originalValue = parseFloat(element.getAttribute('data-value'));
+                const convertedValue = originalValue * rate;
+                
+                // 格式化數字
+                let formattedValue;
+                if (originalValue % 1 === 0) {
+                    formattedValue = Math.round(convertedValue);
+                } else {
+                    formattedValue = convertedValue.toFixed(3);
+                    formattedValue = parseFloat(formattedValue).toString();
+                }
+                
+                // 添加千位分隔符
+                formattedValue = addThousandsSeparator(formattedValue);
+                
+                // 更新顯示
+                element.textContent = symbolOnly + formattedValue;
+                
+                // 更新父元素的單位顯示
+                const parentUnit = element.closest('.spec-card')?.querySelector('.unit');
+                if (parentUnit && lang !== 'zh-TW') {
+                    parentUnit.textContent = parentUnit.textContent.replace('NTD', lang === 'zh-CN' ? 'CNY' : 'USD');
+                }
+            });
+
+            // 更新百分比數值（不需要轉換，只需更新顯示）
+            document.querySelectorAll('[data-value][data-percent]').forEach(element => {
+                const value = element.getAttribute('data-value');
+                element.textContent = value;
+            });
+
+            // 更新表格中的貨幣單位
+            document.querySelectorAll('.profit-table th, .profit-table td').forEach(cell => {
+                if (cell.textContent.includes('NTD') && lang !== 'zh-TW') {
+                    cell.textContent = cell.textContent.replace('NTD', lang === 'zh-CN' ? 'CNY' : 'USD');
+                }
+            });
+
+            // 更新CTA區塊中的貨幣單位
+            const ctaSubtitle = document.querySelector('.cta-section p');
+            if (ctaSubtitle && ctaSubtitle.textContent.includes('NTD') && lang !== 'zh-TW') {
+                ctaSubtitle.textContent = ctaSubtitle.textContent.replace('NTD', lang === 'zh-CN' ? 'CNY' : 'USD');
+            }
+        }
+
+        // 添加千位分隔符
+        function addThousandsSeparator(numberStr) {
+            if (numberStr.includes('.')) {
+                const parts = numberStr.split('.');
+                parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                return parts.join('.');
+            } else {
+                return numberStr.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            }
+        }
+
+        // 滾動淡入效果
+        function initScrollAnimation() {
+            const fadeElements = document.querySelectorAll('.fade-in, .egg-image-container, .peak-mechanism');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+    </script>
 </body>
 </html>
