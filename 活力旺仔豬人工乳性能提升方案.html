@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>活力旺仔豬人工乳性能提升方案｜分子保護機制強化版</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -18,49 +18,64 @@
             --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
             --shadow-md: 0 5px 15px rgba(0,0,0,0.08);
             --shadow-lg: 0 8px 25px rgba(0,0,0,0.1);
+            --safe-area-inset-left: env(safe-area-inset-left);
+            --safe-area-inset-right: env(safe-area-inset-right);
         }
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Microsoft JhengHei', '微軟正黑體', 'Noto Sans TC', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+        }
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
         }
         body {
+            font-family: 'Microsoft JhengHei', '微軟正黑體', 'Noto Sans TC', 'PingFang TC', 'Helvetica Neue', sans-serif;
             background-color: #f5f9ff;
             color: var(--dark-text);
-            line-height: 1.7;
-            scroll-behavior: smooth;
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-left: var(--safe-area-inset-left);
+            padding-right: var(--safe-area-inset-right);
+            -webkit-text-size-adjust: 100%;
         }
         .container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 100%;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 16px;
         }
         
-        /* 語言切換器 */
+        /* 語言切換器 - 手機優化 */
         .language-switcher {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 12px;
+            right: 12px;
             z-index: 1000;
             display: flex;
-            gap: 8px;
+            gap: 4px;
             background: white;
-            padding: 8px;
-            border-radius: 30px;
-            box-shadow: var(--shadow-lg);
-            border: 2px solid var(--primary-blue);
+            padding: 6px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 1px solid var(--primary-blue);
+            max-width: 90%;
         }
         .lang-btn {
-            padding: 6px 15px;
+            padding: 6px 12px;
             border: none;
-            border-radius: 20px;
+            border-radius: 16px;
             background: transparent;
             color: var(--dark-text);
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            flex: 1;
         }
         .lang-btn.active {
             background: linear-gradient(135deg, var(--primary-blue) 0%, #1a4a8a 100%);
@@ -70,48 +85,57 @@
             background: #f1f5f9;
         }
         
-        /* 頁頭 */
+        /* 頁頭 - 手機優化 */
         header {
             background: linear-gradient(rgba(42, 110, 187, 0.92), rgba(42, 110, 187, 0.95)), url('assets/piglets-eating-milk.jpg');
             background-size: cover;
             background-position: center;
             color: white;
-            padding: 70px 0 50px;
+            padding: 40px 0 30px;
             text-align: center;
             position: relative;
-            margin-top: 60px; /* 為語言切換器留出空間 */
+            margin-top: 50px;
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+        }
+        header .container {
+            padding: 0 20px;
         }
         h1 {
-            font-size: clamp(1.8rem, 4.5vw, 2.8rem);
-            margin-bottom: 15px;
+            font-size: 1.6rem;
+            margin-bottom: 12px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+            line-height: 1.3;
         }
         .subtitle {
-            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            font-size: 0.95rem;
             opacity: 0.95;
-            max-width: 850px;
-            margin: 0 auto 25px;
-            line-height: 1.6;
+            margin: 0 auto 18px;
+            line-height: 1.5;
+            padding: 0 10px;
         }
         .tagline {
             background: linear-gradient(90deg, var(--accent-yellow), #e6b800);
             color: var(--dark-text);
-            padding: 14px 40px;
-            border-radius: 30px;
+            padding: 12px 20px;
+            border-radius: 20px;
             display: inline-block;
             font-weight: bold;
-            margin: 20px auto;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            font-size: clamp(1rem, 2.2vw, 1.2rem);
-            letter-spacing: 0.5px;
+            margin: 15px auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+            max-width: 90%;
         }
-        /* 主要區塊 */
+        
+        /* 主要區塊 - 手機優化 */
         section {
-            padding: 70px 0;
+            padding: 40px 0;
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease;
+            transform: translateY(15px);
+            transition: all 0.5s ease;
         }
         section.visible {
             opacity: 1;
@@ -119,49 +143,53 @@
         }
         .section-title {
             text-align: center;
-            font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+            font-size: 1.4rem;
             color: var(--primary-blue);
-            margin-bottom: 50px;
+            margin-bottom: 30px;
             position: relative;
             font-weight: 700;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
+            padding: 0 10px;
         }
         .section-title::after {
             content: "";
             display: block;
-            width: 80px;
+            width: 60px;
             height: 4px;
             background: var(--accent-yellow);
-            margin: 20px auto;
+            margin: 15px auto;
             border-radius: 2px;
         }
-        /* 卡片通用樣式 */
+        
+        /* 卡片通用樣式 - 手機優化 */
         .card {
             background: white;
-            border-radius: 14px;
-            padding: 35px;
+            border-radius: 12px;
+            padding: 25px 20px;
             box-shadow: var(--shadow-md);
             transition: all 0.3s ease;
-            margin-bottom: 35px;
-            border-top: 5px solid var(--secondary-blue);
+            margin-bottom: 25px;
+            border-top: 4px solid var(--secondary-blue);
             cursor: pointer;
+            -webkit-tap-highlight-color: rgba(0,0,0,0.05);
         }
-        .card:hover {
-            transform: translateY(-8px);
+        .card:hover, .card:active {
+            transform: translateY(-5px);
             box-shadow: var(--shadow-lg);
             border-top-color: var(--accent-yellow);
         }
-        /* 圖片區塊樣式 */
+        
+        /* 圖片區塊樣式 - 手機優化 */
         .img-container {
             width: 100%;
-            margin: 35px 0;
+            margin: 25px 0;
             text-align: center;
         }
         .responsive-img {
             width: 100%;
-            max-width: 800px;
+            max-width: 100%;
             height: auto;
-            border-radius: 12px;
+            border-radius: 10px;
             box-shadow: var(--shadow-md);
             transition: all 0.3s ease;
         }
@@ -170,49 +198,58 @@
             box-shadow: var(--shadow-lg);
         }
         .img-title {
-            font-size: 1.4rem;
+            font-size: 1.1rem;
             font-weight: bold;
-            margin: 20px 0 10px;
+            margin: 15px 0 8px;
             color: var(--dark-text);
+            padding: 0 10px;
         }
         .img-desc {
-            font-size: 1.05rem;
+            font-size: 0.9rem;
             color: var(--gray-text);
             margin-bottom: 15px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
+            padding: 0 10px;
         }
-        /* 網格佈局 */
+        
+        /* 網格佈局 - 手機優化為單列 */
         .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 35px;
-            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 25px;
         }
-        /* 表格樣式 */
+        
+        /* 表格樣式 - 手機優化為滾動表格 */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
         table {
             width: 100%;
+            min-width: 600px;
             border-collapse: collapse;
-            margin: 25px 0;
             background: white;
-            border-radius: 12px;
+            border-radius: 10px;
             overflow: hidden;
             box-shadow: var(--shadow-sm);
         }
         th {
             background: linear-gradient(120deg, var(--primary-blue), #1a4a8a);
             color: white;
-            padding: 18px 15px;
+            padding: 14px 12px;
             text-align: center;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
+            white-space: nowrap;
         }
         td {
-            padding: 16px 15px;
+            padding: 12px 10px;
             border-bottom: 1px solid #eaeaea;
             text-align: center;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
         }
         tr:last-child td {
             border-bottom: none;
@@ -223,7 +260,7 @@
         .highlight {
             color: var(--accent-yellow);
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
         .positive {
             color: var(--success);
@@ -233,15 +270,16 @@
             color: #d32f2f;
             font-weight: bold;
         }
-        /* ROI高亮區塊 */
+        
+        /* ROI高亮區塊 - 手機優化 */
         .roi-highlight {
             background: linear-gradient(135deg, var(--primary-blue) 0%, #1a4a8a 100%);
             color: white;
-            border-radius: 18px;
-            padding: 60px 40px;
+            border-radius: 15px;
+            padding: 35px 20px;
             text-align: center;
-            margin: 60px 0;
-            box-shadow: 0 15px 40px rgba(42, 110, 187, 0.35);
+            margin: 40px 0;
+            box-shadow: 0 10px 25px rgba(42, 110, 187, 0.25);
             position: relative;
             overflow: hidden;
         }
@@ -256,9 +294,9 @@
             z-index: 0;
         }
         .roi-value {
-            font-size: clamp(3.5rem, 7vw, 4.5rem);
+            font-size: 2.8rem;
             font-weight: bold;
-            margin: 25px 0;
+            margin: 20px 0;
             text-shadow: 0 4px 8px rgba(0,0,0,0.3);
             position: relative;
             z-index: 1;
@@ -266,125 +304,127 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            line-height: 1.2;
         }
-        /* 參數卡片 */
+        
+        /* 參數卡片 - 手機優化為2列網格 */
         .param-cards {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 22px;
-            margin: 35px 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 25px 0;
         }
         .param-card {
             background: white;
-            border-radius: 12px;
-            padding: 25px 20px;
+            border-radius: 10px;
+            padding: 18px 12px;
             text-align: center;
-            min-width: 180px;
             box-shadow: var(--shadow-sm);
-            border-top: 4px solid var(--accent-yellow);
+            border-top: 3px solid var(--accent-yellow);
             transition: all 0.3s ease;
             cursor: pointer;
         }
-        .param-card:hover {
-            transform: translateY(-5px);
+        .param-card:hover, .param-card:active {
+            transform: translateY(-3px);
             box-shadow: var(--shadow-md);
         }
         .param-label {
-            font-size: 0.95rem;
+            font-size: 0.8rem;
             color: var(--gray-text);
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
         .param-value {
-            font-size: 2.1rem;
+            font-size: 1.6rem;
             font-weight: bold;
             color: var(--primary-blue);
             margin: 5px 0;
         }
-        /* 實施步驟 */
+        
+        /* 實施步驟 - 手機優化為單列 */
         .steps {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 28px;
-            margin-top: 45px;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 30px;
         }
         .step {
-            flex: 1;
-            min-width: 270px;
             background: white;
-            border-radius: 14px;
-            padding: 35px 30px;
+            border-radius: 12px;
+            padding: 25px 20px;
             text-align: center;
             box-shadow: var(--shadow-md);
-            border-top: 6px solid var(--accent-yellow);
+            border-top: 5px solid var(--accent-yellow);
             transition: all 0.3s ease;
             cursor: pointer;
         }
-        .step:hover {
-            transform: translateY(-8px);
+        .step:hover, .step:active {
+            transform: translateY(-5px);
             box-shadow: var(--shadow-lg);
         }
         .step-number {
             display: inline-block;
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             background: linear-gradient(135deg, var(--accent-yellow), #e6b800);
             color: var(--dark-text);
             border-radius: 50%;
-            line-height: 50px;
+            line-height: 45px;
             font-weight: bold;
-            margin-bottom: 22px;
-            font-size: 1.6rem;
+            margin-bottom: 18px;
+            font-size: 1.4rem;
             box-shadow: 0 4px 10px rgba(255, 204, 0, 0.4);
         }
-        /* 頁尾 */
+        
+        /* 頁尾 - 手機優化 */
         footer {
             background: linear-gradient(135deg, var(--dark-text), #0d1b2e);
             color: rgba(255,255,255,0.85);
             text-align: center;
-            padding: 60px 0 35px;
-            margin-top: 70px;
+            padding: 40px 0 25px;
+            margin-top: 50px;
         }
-        /* 數據來源框 */
+        
+        /* 數據來源框 - 手機優化 */
         .data-source {
             background: linear-gradient(135deg, #e8f5e9, #d4edda);
             border-left: 4px solid var(--success);
-            padding: 18px 20px;
+            padding: 15px 18px;
             border-radius: 0 10px 10px 0;
-            margin: 25px 0;
-            font-size: 0.98rem;
+            margin: 20px 0;
+            font-size: 0.9rem;
             box-shadow: 0 2px 8px rgba(54, 179, 126, 0.15);
         }
         .data-source strong {
             color: var(--success);
         }
-        /* 警示框 */
+        
+        /* 警示框 - 手機優化 */
         .warning-box {
             background: linear-gradient(135deg, #fff8e1, #ffecb3);
             border-left: 4px solid var(--warning);
-            padding: 18px 20px;
+            padding: 15px 18px;
             border-radius: 0 10px 10px 0;
-            margin: 25px 0;
-            font-size: 0.98rem;
+            margin: 20px 0;
+            font-size: 0.9rem;
             box-shadow: 0 2px 8px rgba(255, 152, 0, 0.15);
         }
         .warning-box strong {
             color: var(--warning);
         }
-        /* 機制卡片 */
+        
+        /* 機制卡片 - 手機優化 */
         .mechanism-card {
             background: linear-gradient(135deg, #f8fbff 0%, #eef5ff 100%);
             border-left: 4px solid var(--primary-blue);
-            padding: 20px;
+            padding: 18px 16px;
             border-radius: 0 10px 10px 0;
-            margin: 20px 0;
+            margin: 18px 0;
         }
         .mechanism-title {
             font-weight: bold;
             color: var(--primary-blue);
             margin-bottom: 8px;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
         .gene-highlight {
             background: linear-gradient(120deg, rgba(255,204,0,0.2), rgba(255,204,0,0.3));
@@ -392,6 +432,7 @@
             border-radius: 4px;
             font-weight: bold;
             font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
         }
         .molecule-highlight {
             background: linear-gradient(120deg, rgba(42,110,187,0.15), rgba(42,110,187,0.25));
@@ -399,84 +440,179 @@
             border-radius: 4px;
             font-weight: bold;
             font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
         }
-        /* 響應式設計 */
-        @media (max-width: 768px) {
-            section {
-                padding: 50px 0;
+        
+        /* 標題大小調整 */
+        h2, h3, h4 {
+            line-height: 1.3;
+            margin-bottom: 15px;
+        }
+        h2 {
+            font-size: 1.4rem;
+        }
+        h3 {
+            font-size: 1.2rem;
+        }
+        h4 {
+            font-size: 1.1rem;
+        }
+        
+        /* 列表樣式 */
+        ul {
+            padding-left: 24px;
+            margin: 15px 0;
+        }
+        li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        /* 行動裝置友好的字體大小 */
+        p, td, th, .param-label, .img-desc {
+            font-size: 0.95rem;
+        }
+        
+        /* 優化連結和按鈕點擊區域 */
+        button, .card, .step, .param-card {
+            touch-action: manipulation;
+        }
+        
+        /* 針對大於480px寬度的手機優化 */
+        @media (min-width: 480px) and (max-width: 768px) {
+            .container {
+                padding: 0 20px;
             }
-            .card, .step {
-                padding: 28px 25px;
+            header {
+                padding: 50px 0 35px;
+                min-height: 45vh;
             }
-            .roi-highlight {
-                padding: 40px 25px;
-                margin: 40px 0;
+            h1 {
+                font-size: 1.8rem;
             }
-            .roi-value {
-                font-size: clamp(2.8rem, 8vw, 3.5rem);
+            .subtitle {
+                font-size: 1.05rem;
+                padding: 0 20px;
+            }
+            .tagline {
+                font-size: 1rem;
+                padding: 14px 25px;
+            }
+            .section-title {
+                font-size: 1.5rem;
             }
             .param-cards {
-                gap: 15px;
+                gap: 20px;
             }
             .param-card {
-                min-width: 150px;
                 padding: 20px 15px;
             }
             .param-value {
                 font-size: 1.8rem;
             }
-            th, td {
-                padding: 12px 8px;
-                font-size: 0.85rem;
-            }
-            table {
-                font-size: 0.8rem;
-            }
-            .language-switcher {
-                position: static;
-                margin: 0 auto 20px;
-                justify-content: center;
-                top: 10px;
-                right: 10px;
-                flex-wrap: wrap;
-            }
-            header {
-                margin-top: 10px;
+            .roi-value {
+                font-size: 3.2rem;
             }
         }
-        @media (max-width: 480px) {
-            header {
-                padding: 50px 0 35px;
-            }
-            h1 {
-                font-size: 1.9rem;
-            }
-            .subtitle {
-                font-size: 1.05rem;
-                padding: 0 15px;
-            }
-            .tagline {
-                padding: 10px 25px;
-                font-size: 0.95rem;
-                margin: 15px auto;
-            }
-            .card {
-                padding: 22px 20px;
-            }
-            .section-title {
-                font-size: 1.5rem;
-            }
-            .step {
-                min-width: 100%;
-            }
-            .roi-highlight {
-                padding: 35px 20px;
+        
+        /* 平板和桌面優化 */
+        @media (min-width: 769px) {
+            .container {
+                max-width: 1200px;
+                padding: 0 25px;
             }
             .language-switcher {
-                flex-direction: column;
-                width: auto;
-                display: inline-flex;
+                top: 20px;
+                right: 20px;
+                gap: 8px;
+                padding: 8px;
+                border-radius: 30px;
             }
+            .lang-btn {
+                padding: 8px 18px;
+                font-size: 0.95rem;
+            }
+            header {
+                padding: 80px 0 60px;
+                margin-top: 70px;
+                min-height: 50vh;
+            }
+            h1 {
+                font-size: 2.5rem;
+            }
+            .subtitle {
+                font-size: 1.2rem;
+                max-width: 850px;
+            }
+            .tagline {
+                padding: 16px 35px;
+                font-size: 1.1rem;
+            }
+            section {
+                padding: 70px 0;
+            }
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 50px;
+            }
+            .card {
+                padding: 35px 30px;
+                margin-bottom: 35px;
+            }
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
+                margin-top: 40px;
+            }
+            .param-cards {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 25px;
+                margin: 35px 0;
+            }
+            .param-card {
+                padding: 25px 20px;
+            }
+            .param-value {
+                font-size: 2.2rem;
+            }
+            .steps {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 30px;
+            }
+            .step {
+                flex: 1;
+                min-width: 280px;
+                padding: 35px 30px;
+            }
+            .roi-highlight {
+                padding: 60px 40px;
+                margin: 60px 0;
+            }
+            .roi-value {
+                font-size: 4rem;
+            }
+        }
+        
+        /* 超大桌面優化 */
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1200px;
+            }
+        }
+        
+        /* 防止iOS Safari上的100vh問題 */
+        @supports (-webkit-touch-callout: none) {
+            header {
+                min-height: -webkit-fill-available;
+                height: auto;
+            }
+        }
+        
+        /* 優化滾動性能 */
+        .container, .card, .step, .param-card {
+            will-change: transform;
         }
     </style>
 </head>
@@ -509,7 +645,7 @@
                 </div>
                 
                 <div class="img-container">
-                    <img src="assets/piglets-eating-milk.jpg" alt="健康保育仔豬群採食人工乳場景" class="responsive-img">
+                    <img src="assets/piglets-eating-milk.jpg" alt="健康保育仔豬群採食人工乳場景" class="responsive-img" loading="lazy">
                     <div class="img-title" data-translate="img1_title">健康保育仔豬群採食人工乳場景</div>
                     <div class="img-desc" data-translate="img1_desc">現代化保育舍中整齊健康的保育仔豬群，具備優良的生長基礎條件</div>
                 </div>
@@ -540,17 +676,17 @@
                 <div class="grid">
                     <div class="card" style="border-top-color: #ffcc00;">
                         <h3 data-translate="benefit1_title"><i class="fas fa-chart-line"></i> 日增重提升</h3>
-                        <p class="highlight" style="font-size: 2.3rem; margin: 15px 0;" data-value="60">+50~70 克/天</p>
+                        <p class="highlight" style="font-size: 1.8rem; margin: 12px 0;" data-value="60">+50~70 克/天</p>
                         <p data-translate="benefit1_desc">日增重從300克提升至350-370克，28天總增重增加1.4-2.0公斤。</p>
                     </div>
                     <div class="card" style="border-top-color: #4a8fd6;">
                         <h3 data-translate="benefit2_title"><i class="fas fa-heartbeat"></i> 腹瀉率降低</h3>
-                        <p class="highlight" style="font-size: 2.3rem; margin: 15px 0;" data-value="65">↓60~70%</p>
+                        <p class="highlight" style="font-size: 1.8rem; margin: 12px 0;" data-value="65">↓60~70%</p>
                         <p data-translate="benefit2_desc">腹瀉率從15%降至5-6%，減少抗生素使用與醫療成本。</p>
                     </div>
                     <div class="card" style="border-top-color: #36b37e;">
                         <h3 data-translate="benefit3_title"><i class="fas fa-percentage"></i> 飼料效率提升</h3>
-                        <p class="highlight" style="font-size: 2.3rem; margin: 15px 0;" data-translate="benefit3_metric">FCR 1.5→1.4</p>
+                        <p class="highlight" style="font-size: 1.8rem; margin: 12px 0;" data-translate="benefit3_metric">FCR 1.5→1.4</p>
                         <p data-translate="benefit3_desc">飼料轉化率改善，每增重1公斤節省0.1公斤飼料。</p>
                     </div>
                 </div>
@@ -568,7 +704,7 @@
                 <p data-translate="mechanism1_desc">添加專利益生菌與益生元，建立優勢腸道菌群，強化腸道屏障功能，降低病原菌附著，減少營養性腹瀉發生率。</p>
                 
                 <div class="img-container">
-                    <img src="assets/gut-health.jpg" alt="仔豬腸道菌相平衡與健康腸絨毛示意圖" class="responsive-img">
+                    <img src="assets/gut-health.jpg" alt="仔豬腸道菌相平衡與健康腸絨毛示意圖" class="responsive-img" loading="lazy">
                     <div class="img-title" data-translate="img2_title">仔豬腸道菌相平衡與健康腸絨毛示意圖</div>
                     <div class="img-desc" data-translate="img2_desc">健康腸道菌群與完整腸絨毛結構，是營養吸收與免疫防禦的關鍵</div>
                 </div>
@@ -579,7 +715,7 @@
                 <p data-translate="mechanism2_desc">添加消化酶複合物（蛋白酶、澱粉酶、脂肪酶），提升蛋白質、碳水化合物與脂肪消化率；小肽技術促進氨基酸直接吸收，減少能量消耗。</p>
                 
                 <div class="img-container">
-                    <img src="assets/nutrient-absorption.jpg" alt="仔豬採食人工乳營養吸收場景" class="responsive-img">
+                    <img src="assets/nutrient-absorption.jpg" alt="仔豬採食人工乳營養吸收場景" class="responsive-img" loading="lazy">
                     <div class="img-title" data-translate="img3_title">仔豬採食人工乳營養吸收場景</div>
                     <div class="img-desc" data-translate="img3_desc">優化的人工乳配方搭配自動餵食系統，確保仔豬獲得充足且易吸收的營養</div>
                 </div>
@@ -590,7 +726,7 @@
                 <p data-translate="mechanism3_desc">添加免疫球蛋白、乳鐵蛋白與特定核苷酸，支持仔豬被動免疫轉換期，降低斷奶應激，提升疫苗反應效果。</p>
                 
                 <div class="img-container">
-                    <img src="assets/immune-system.jpg" alt="仔豬免疫系統發育與保護機制示意圖" class="responsive-img">
+                    <img src="assets/immune-system.jpg" alt="仔豬免疫系統發育與保護機制示意圖" class="responsive-img" loading="lazy">
                     <div class="img-title" data-translate="img4_title">仔豬免疫系統發育與保護機制示意圖</div>
                     <div class="img-desc" data-translate="img4_desc">免疫細胞（T細胞/B細胞）與免疫球蛋白（IgG）共同構建仔豬防禦體系</div>
                 </div>
@@ -616,14 +752,14 @@
                 
                 <div class="mechanism-card">
                     <div class="mechanism-title"><i class="fas fa-bolt"></i> <span data-translate="mechanism4d_title">細胞能量與代謝支持</span></div>
-                    <ul style="padding-left: 25px; margin-top: 10px; line-height: 1.8;">
+                    <ul style="padding-left: 20px; margin-top: 10px; line-height: 1.6;">
                         <li data-translate="mechanism4d_li1"><strong>提升細胞能量：</strong>為仔豬高速生長的腸道、肌肉等組織供能，支持ATP合成</li>
                         <li data-translate="mechanism4d_li2"><strong>支持代謝與發育：</strong>改善整體代謝健康，支持器官發育與功能成熟</li>
                         <li data-translate="mechanism4d_li3"><strong>潛在抗應激：</strong>提升 <span class="molecule-highlight">NAD+</span> 水平，支持細胞修復，緩解斷奶應激損傷</li>
                     </ul>
                 </div>
                 
-                <div class="warning-box" style="margin-top: 25px;">
+                <div class="warning-box" style="margin-top: 20px;">
                     <strong data-translate="warning_title">分子機轉總結：</strong> <span data-translate="warning_content">活力旺通過「抗氧化-抗炎-能量代謝」三重協同機制，在分子層面保護仔豬肝臟與腸道健康，同時提升細胞能量水平，為斷奶期仔豬提供全方位保護，奠定高效生長基礎。</span>
                 </div>
             </div>
@@ -637,108 +773,112 @@
             
             <div class="card">
                 <h3 data-translate="cost_title">成本計算基礎</h3>
-                <table>
-                    <tr>
-                        <th data-translate="table1_header1">參數</th>
-                        <th data-translate="table1_header2">數值</th>
-                        <th data-translate="table1_header3">計算說明</th>
-                    </tr>
-                    <tr>
-                        <td data-translate="table1_row1_col1">保育期天數</td>
-                        <td data-translate="table1_row1_col2">28 天</td>
-                        <td data-translate="table1_row1_col3">標準保育期長度</td>
-                    </tr>
-                    <tr>
-                        <td data-translate="table1_row2_col1">日採食量</td>
-                        <td data-translate="table1_row2_col2">350 克/天</td>
-                        <td data-translate="table1_row2_col3">保育仔豬平均採食量</td>
-                    </tr>
-                    <tr>
-                        <td data-translate="table1_row3_col1">保育期飼料總量</td>
-                        <td data-translate="table1_row3_col2">9.8 公斤</td>
-                        <td data-translate="table1_row3_col3">28天 × 0.35公斤/天</td>
-                    </tr>
-                    <tr>
-                        <td data-translate="table1_row4_col1">添加比例</td>
-                        <td data-translate="table1_row4_col2">1 公斤/噸</td>
-                        <td data-translate="table1_row4_col3">每噸人工乳添加量</td>
-                    </tr>
-                    <tr>
-                        <td data-translate="table1_row5_col1">單頭添加劑用量</td>
-                        <td data-translate="table1_row5_col2">9.8 克</td>
-                        <td data-translate="table1_row5_col3">9.8公斤 ÷ 1000 × 1公斤</td>
-                    </tr>
-                    <tr>
-                        <td data-translate="table1_row6_col1">添加劑單價</td>
-                        <td><span class="stat-value" data-value="960">NTD 960</span>/<span data-translate="table1_row6_col2_unit">公斤</span></td>
-                        <td data-translate="table1_row6_col3">活力旺仔豬專用配方</td>
-                    </tr>
-                    <tr style="background-color: #f0f7ff; font-weight: bold;">
-                        <td data-translate="table1_row7_col1">單頭仔豬添加劑成本</td>
-                        <td><span class="highlight stat-value" data-value="9.41">NTD 9.41</span></td>
-                        <td data-translate="table1_row7_col3">0.0098公斤 × NTD 960/公斤</td>
-                    </tr>
-                    <tr>
-                        <td data-translate="table1_row8_col1">批次規模</td>
-                        <td data-translate="table1_row8_col2">500 頭/批次</td>
-                        <td data-translate="table1_row8_col3">典型保育舍容量</td>
-                    </tr>
-                    <tr style="background-color: #e6f0ff; font-weight: bold;">
-                        <td data-translate="table1_row9_col1">500頭批次總成本</td>
-                        <td><span class="highlight stat-value" data-value="4705">NTD 4,705</span></td>
-                        <td data-translate="table1_row9_col3">NTD 9.41 × 500頭</td>
-                    </tr>
-                </table>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th data-translate="table1_header1">參數</th>
+                            <th data-translate="table1_header2">數值</th>
+                            <th data-translate="table1_header3">計算說明</th>
+                        </tr>
+                        <tr>
+                            <td data-translate="table1_row1_col1">保育期天數</td>
+                            <td data-translate="table1_row1_col2">28 天</td>
+                            <td data-translate="table1_row1_col3">標準保育期長度</td>
+                        </tr>
+                        <tr>
+                            <td data-translate="table1_row2_col1">日採食量</td>
+                            <td data-translate="table1_row2_col2">350 克/天</td>
+                            <td data-translate="table1_row2_col3">保育仔豬平均採食量</td>
+                        </tr>
+                        <tr>
+                            <td data-translate="table1_row3_col1">保育期飼料總量</td>
+                            <td data-translate="table1_row3_col2">9.8 公斤</td>
+                            <td data-translate="table1_row3_col3">28天 × 0.35公斤/天</td>
+                        </tr>
+                        <tr>
+                            <td data-translate="table1_row4_col1">添加比例</td>
+                            <td data-translate="table1_row4_col2">1 公斤/噸</td>
+                            <td data-translate="table1_row4_col3">每噸人工乳添加量</td>
+                        </tr>
+                        <tr>
+                            <td data-translate="table1_row5_col1">單頭添加劑用量</td>
+                            <td data-translate="table1_row5_col2">9.8 克</td>
+                            <td data-translate="table1_row5_col3">9.8公斤 ÷ 1000 × 1公斤</td>
+                        </tr>
+                        <tr>
+                            <td data-translate="table1_row6_col1">添加劑單價</td>
+                            <td><span class="stat-value" data-value="960">NTD 960</span>/<span data-translate="table1_row6_col2_unit">公斤</span></td>
+                            <td data-translate="table1_row6_col3">活力旺仔豬專用配方</td>
+                        </tr>
+                        <tr style="background-color: #f0f7ff; font-weight: bold;">
+                            <td data-translate="table1_row7_col1">單頭仔豬添加劑成本</td>
+                            <td><span class="highlight stat-value" data-value="9.41">NTD 9.41</span></td>
+                            <td data-translate="table1_row7_col3">0.0098公斤 × NTD 960/公斤</td>
+                        </tr>
+                        <tr>
+                            <td data-translate="table1_row8_col1">批次規模</td>
+                            <td data-translate="table1_row8_col2">500 頭/批次</td>
+                            <td data-translate="table1_row8_col3">典型保育舍容量</td>
+                        </tr>
+                        <tr style="background-color: #e6f0ff; font-weight: bold;">
+                            <td data-translate="table1_row9_col1">500頭批次總成本</td>
+                            <td><span class="highlight stat-value" data-value="4705">NTD 4,705</span></td>
+                            <td data-translate="table1_row9_col3">NTD 9.41 × 500頭</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
             
             <div class="card">
                 <h3 data-translate="benefit_table_title">效益分析：單頭仔豬經濟價值（修正版）</h3>
-                <table>
-                    <tr>
-                        <th data-translate="table2_header1">效益來源</th>
-                        <th data-translate="table2_header2">計算方式</th>
-                        <th data-translate="table2_header3">經濟價值 (NTD/頭)</th>
-                    </tr>
-                    <tr>
-                        <td data-translate="table2_row1_col1">增重增加<br>(+1.6公斤/頭)</td>
-                        <td data-translate="table2_row1_col2">1.6公斤 × NTD 60/公斤仔豬增重價值</td>
-                        <td class="positive stat-value" data-value="96.00">+96.00</td>
-                    </tr>
-                    <tr>
-                        <td data-translate="table2_row2_col1">飼料效率提升<br>(FCR 1.5→1.4)</td>
-                        <td data-translate="table2_row2_col2">節省飼料1.0公斤 × NTD 25/公斤人工乳價格</td>
-                        <td class="positive stat-value" data-value="25.00">+25.00</td>
-                    </tr>
-                    <tr>
-                        <td data-translate="table2_row3_col1">腹瀉率降低<br>(15%→6%)</td>
-                        <td data-translate="table2_row3_col2">減少治療成本NTD 15/頭 × 9% + 降低死亡率3% × NTD 2,500/頭價值</td>
-                        <td class="positive stat-value" data-value="76.35">+76.35</td>
-                    </tr>
-                    <tr>
-                        <td data-translate="table2_row4_col1">整齊度提升</td>
-                        <td data-translate="table2_row4_col2">減少弱仔比例，提升批次均勻度與管理效率</td>
-                        <td class="positive stat-value" data-value="10.00">+10.00</td>
-                    </tr>
-                    <tr style="background-color: #f0f7ff; font-weight: bold;">
-                        <td data-translate="table2_row5_col1">總效益</td>
-                        <td></td>
-                        <td class="positive stat-value" data-value="207.35">+207.35</td>
-                    </tr>
-                    <tr>
-                        <td data-translate="table2_row6_col1">添加劑成本</td>
-                        <td></td>
-                        <td class="negative stat-value" data-value="9.41">-9.41</td>
-                    </tr>
-                    <tr style="background-color: #d4e5ff; font-weight: bold; font-size: 1.15rem;">
-                        <td data-translate="table2_row7_col1">淨利潤增加</td>
-                        <td></td>
-                        <td class="highlight roi-value" data-value="197.94">+197.94</td>
-                    </tr>
-                </table>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th data-translate="table2_header1">效益來源</th>
+                            <th data-translate="table2_header2">計算方式</th>
+                            <th data-translate="table2_header3">經濟價值 (NTD/頭)</th>
+                        </tr>
+                        <tr>
+                            <td data-translate="table2_row1_col1">增重增加<br>(+1.6公斤/頭)</td>
+                            <td data-translate="table2_row1_col2">1.6公斤 × NTD 60/公斤仔豬增重價值</td>
+                            <td class="positive stat-value" data-value="96.00">+96.00</td>
+                        </tr>
+                        <tr>
+                            <td data-translate="table2_row2_col1">飼料效率提升<br>(FCR 1.5→1.4)</td>
+                            <td data-translate="table2_row2_col2">節省飼料1.0公斤 × NTD 25/公斤人工乳價格</td>
+                            <td class="positive stat-value" data-value="25.00">+25.00</td>
+                        </tr>
+                        <tr>
+                            <td data-translate="table2_row3_col1">腹瀉率降低<br>(15%→6%)</td>
+                            <td data-translate="table2_row3_col2">減少治療成本NTD 15/頭 × 9% + 降低死亡率3% × NTD 2,500/頭價值</td>
+                            <td class="positive stat-value" data-value="76.35">+76.35</td>
+                        </tr>
+                        <tr>
+                            <td data-translate="table2_row4_col1">整齊度提升</td>
+                            <td data-translate="table2_row4_col2">減少弱仔比例，提升批次均勻度與管理效率</td>
+                            <td class="positive stat-value" data-value="10.00">+10.00</td>
+                        </tr>
+                        <tr style="background-color: #f0f7ff; font-weight: bold;">
+                            <td data-translate="table2_row5_col1">總效益</td>
+                            <td></td>
+                            <td class="positive stat-value" data-value="207.35">+207.35</td>
+                        </tr>
+                        <tr>
+                            <td data-translate="table2_row6_col1">添加劑成本</td>
+                            <td></td>
+                            <td class="negative stat-value" data-value="9.41">-9.41</td>
+                        </tr>
+                        <tr style="background-color: #d4e5ff; font-weight: bold; font-size: 1.1rem;">
+                            <td data-translate="table2_row7_col1">淨利潤增加</td>
+                            <td></td>
+                            <td class="highlight roi-value" data-value="197.94">+197.94</td>
+                        </tr>
+                    </table>
+                </div>
                 
-                <div style="margin-top: 28px; background: linear-gradient(135deg, #fff8e0, #ffecb3); padding: 22px; border-radius: 12px; border-left: 5px solid var(--accent-yellow);">
+                <div style="margin-top: 22px; background: linear-gradient(135deg, #fff8e0, #ffecb3); padding: 18px; border-radius: 10px; border-left: 4px solid var(--accent-yellow);">
                     <p data-translate="calc_note_title"><strong>計算說明：</strong></p>
-                    <ul style="padding-left: 25px; margin-top: 12px; line-height: 1.7;">
+                    <ul style="padding-left: 20px; margin-top: 10px; line-height: 1.6;">
                         <li data-translate="calc_note1">仔豬增重價值：保育期每公斤增重價值約NTD 60元（基於後續生長潛能與市場價值）</li>
                         <li data-translate="calc_note2">人工乳價格：以NTD 25元/公斤計算</li>
                         <li data-translate="calc_note3">腹瀉治療成本：包括藥物、人工與生長損失，每頭腹瀉仔豬約NTD 15元</li>
@@ -748,59 +888,61 @@
             </div>
             
             <div class="roi-highlight">
-                <h3 style="font-size: 1.8rem; margin-bottom: 15px; position: relative; z-index: 1;" data-translate="roi_title">投資報酬率分析（修正版）</h3>
+                <h3 style="font-size: 1.4rem; margin-bottom: 12px; position: relative; z-index: 1;" data-translate="roi_title">投資報酬率分析（修正版）</h3>
                 <div class="roi-value" data-value="2104">2,104%</div>
-                <p style="font-size: 1.3rem; margin: 20px 0; position: relative; z-index: 1;" data-translate="roi_desc1">每投入1元，創造21.04元淨收益</p>
-                <p style="font-size: 1.15rem; margin-bottom: 15px; position: relative; z-index: 1;" data-translate="roi_desc2">投資回收期：約1.8天</p>
-                <p style="font-size: 1.4rem; font-weight: bold; margin-top: 10px; position: relative; z-index: 1;" data-translate="roi_desc3">單頭仔豬淨利潤增加：<strong class="roi-value" data-value="197.94">NTD 197.94</strong></p>
+                <p style="font-size: 1.1rem; margin: 15px 0; position: relative; z-index: 1;" data-translate="roi_desc1">每投入1元，創造21.04元淨收益</p>
+                <p style="font-size: 1rem; margin-bottom: 12px; position: relative; z-index: 1;" data-translate="roi_desc2">投資回收期：約1.8天</p>
+                <p style="font-size: 1.2rem; font-weight: bold; margin-top: 10px; position: relative; z-index: 1;" data-translate="roi_desc3">單頭仔豬淨利潤增加：<strong class="roi-value" data-value="197.94">NTD 197.94</strong></p>
             </div>
             
             <div class="img-container">
-                <img src="assets/roi-chart.jpg" alt="仔豬人工乳投資報酬率與效益增長圖表" class="responsive-img">
+                <img src="assets/roi-chart.jpg" alt="仔豬人工乳投資報酬率與效益增長圖表" class="responsive-img" loading="lazy">
                 <div class="img-title" data-translate="img5_title">仔豬人工乳投資報酬率與效益增長分析</div>
                 <div class="img-desc" data-translate="img5_desc">2,104% ROI、1.8天投資回收期，單頭仔豬淨利潤增加NTD 197.94</div>
             </div>
             
             <div class="card">
                 <h3 data-translate="batch_title">批次規模經濟效益（500頭/批次，修正版）</h3>
-                <table>
-                    <tr>
-                        <th data-translate="table3_header1">效益項目</th>
-                        <th data-translate="table3_header2">計算基數</th>
-                        <th data-translate="table3_header3">批次總效益 (NTD)</th>
-                    </tr>
-                    <tr>
-                        <td data-translate="table3_row1_col1">增重增加總價值</td>
-                        <td data-translate="table3_row1_col2">500頭 × 1.6公斤/頭 × NTD 60/公斤</td>
-                        <td class="stat-value" data-value="48000">+48,000</td>
-                    </tr>
-                    <tr>
-                        <td data-translate="table3_row2_col1">飼料節省總價值</td>
-                        <td data-translate="table3_row2_col2">500頭 × 1.0公斤/頭 × NTD 25/公斤</td>
-                        <td class="stat-value" data-value="12500">+12,500</td>
-                    </tr>
-                    <tr>
-                        <td data-translate="table3_row3_col1">健康改善總價值</td>
-                        <td data-translate="table3_row3_col2">500頭 × NTD 76.35/頭</td>
-                        <td class="stat-value" data-value="38175">+38,175</td>
-                    </tr>
-                    <tr style="background-color: #f0f7ff; font-weight: bold;">
-                        <td data-translate="table3_row4_col1">批次效益總和</td>
-                        <td></td>
-                        <td class="stat-value" data-value="98675">+98,675</td>
-                    </tr>
-                    <tr>
-                        <td data-translate="table3_row5_col1">批次添加劑總成本</td>
-                        <td data-translate="table3_row5_col2">500頭 × NTD 9.41/頭</td>
-                        <td class="stat-value" data-value="4705">-4,705</td>
-                    </tr>
-                    <tr style="background-color: #d4e5ff; font-weight: bold; font-size: 1.15rem;">
-                        <td data-translate="table3_row6_col1">批次綜合淨利潤增加</td>
-                        <td></td>
-                        <td class="highlight roi-value" data-value="93970">+93,970</td>
-                    </tr>
-                </table>
-                <p style="margin-top: 25px; text-align: center; font-weight: bold; font-size: 1.3rem;">
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th data-translate="table3_header1">效益項目</th>
+                            <th data-translate="table3_header2">計算基數</th>
+                            <th data-translate="table3_header3">批次總效益 (NTD)</th>
+                        </tr>
+                        <tr>
+                            <td data-translate="table3_row1_col1">增重增加總價值</td>
+                            <td data-translate="table3_row1_col2">500頭 × 1.6公斤/頭 × NTD 60/公斤</td>
+                            <td class="stat-value" data-value="48000">+48,000</td>
+                        </tr>
+                        <tr>
+                            <td data-translate="table3_row2_col1">飼料節省總價值</td>
+                            <td data-translate="table3_row2_col2">500頭 × 1.0公斤/頭 × NTD 25/公斤</td>
+                            <td class="stat-value" data-value="12500">+12,500</td>
+                        </tr>
+                        <tr>
+                            <td data-translate="table3_row3_col1">健康改善總價值</td>
+                            <td data-translate="table3_row3_col2">500頭 × NTD 76.35/頭</td>
+                            <td class="stat-value" data-value="38175">+38,175</td>
+                        </tr>
+                        <tr style="background-color: #f0f7ff; font-weight: bold;">
+                            <td data-translate="table3_row4_col1">批次效益總和</td>
+                            <td></td>
+                            <td class="stat-value" data-value="98675">+98,675</td>
+                        </tr>
+                        <tr>
+                            <td data-translate="table3_row5_col1">批次添加劑總成本</td>
+                            <td data-translate="table3_row5_col2">500頭 × NTD 9.41/頭</td>
+                            <td class="stat-value" data-value="4705">-4,705</td>
+                        </tr>
+                        <tr style="background-color: #d4e5ff; font-weight: bold; font-size: 1.1rem;">
+                            <td data-translate="table3_row6_col1">批次綜合淨利潤增加</td>
+                            <td></td>
+                            <td class="highlight roi-value" data-value="93970">+93,970</td>
+                        </tr>
+                    </table>
+                </div>
+                <p style="margin-top: 20px; text-align: center; font-weight: bold; font-size: 1.1rem;">
                     <span data-translate="batch_conclusion">500頭仔豬批次可增加約</span> <b style="color: var(--accent-yellow);" class="roi-value" data-value="93970">9.4萬元</b> <span data-translate="batch_conclusion2">淨利潤</span>
                 </p>
             </div>
@@ -815,7 +957,7 @@
             <div class="steps">
                 <div class="step">
                     <div class="step-number">1</div>
-                    <h3 style="margin-bottom: 15px;" data-translate="step1_title">小規模驗證</h3>
+                    <h3 style="margin-bottom: 12px;" data-translate="step1_title">小規模驗證</h3>
                     <p data-translate="step1_scale"><strong>規模：</strong>50頭仔豬（同批次）</p>
                     <p data-translate="step1_period"><strong>週期：</strong>28天保育期</p>
                     <p data-translate="step1_cost"><strong>成本：</strong><span class="stat-value" data-value="471">約NTD 471</span></p>
@@ -824,7 +966,7 @@
                 
                 <div class="step">
                     <div class="step-number">2</div>
-                    <h3 style="margin-bottom: 15px;" data-translate="step2_title">效益確認</h3>
+                    <h3 style="margin-bottom: 12px;" data-translate="step2_title">效益確認</h3>
                     <p data-translate="step2_scale"><strong>規模：</strong>200頭仔豬（2-3欄）</p>
                     <p data-translate="step2_period"><strong>週期：</strong>2個保育批次（約8週）</p>
                     <p data-translate="step2_cost"><strong>成本：</strong><span class="stat-value" data-value="1882">約NTD 1,882</span></p>
@@ -833,7 +975,7 @@
                 
                 <div class="step">
                     <div class="step-number">3</div>
-                    <h3 style="margin-bottom: 15px;" data-translate="step3_title">全面導入</h3>
+                    <h3 style="margin-bottom: 12px;" data-translate="step3_title">全面導入</h3>
                     <p data-translate="step3_scale"><strong>規模：</strong>全場保育仔豬</p>
                     <p data-translate="step3_period"><strong>時機：</strong>從人工乳開始使用至保育結束</p>
                     <p data-translate="step3_cost"><strong>持續成本：</strong>頭數 × <span class="stat-value" data-value="9.41">NTD 9.41</span>/頭</p>
@@ -842,8 +984,8 @@
             </div>
             
             <div class="card">
-                <h4 style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-clipboard-check" style="color: var(--primary-blue);"></i> <span data-translate="key_points_title">關鍵實施要點：</span></h4>
-                <ul style="padding-left: 28px; margin-top: 22px; line-height: 1.9;">
+                <h4 style="display: flex; align-items: center; gap: 8px;"><i class="fas fa-clipboard-check" style="color: var(--primary-blue);"></i> <span data-translate="key_points_title">關鍵實施要點：</span></h4>
+                <ul style="padding-left: 22px; margin-top: 18px; line-height: 1.7;">
                     <li data-translate="key_point1"><strong>添加時機：</strong>從仔豬開始採食人工乳立即添加，持續至保育期結束</li>
                     <li data-translate="key_point2"><strong>對照設置：</strong>試驗階段務必設立對照組，相同條件管理</li>
                     <li data-translate="key_point3"><strong>數據記錄：</strong>每日記錄採食量、每週秤重、記錄腹瀉頭數與治療情況</li>
@@ -851,9 +993,9 @@
                     <li data-translate="key_point5"><strong>成本核算：</strong>精確計算添加劑成本與產出效益比例</li>
                 </ul>
                 
-                <div class="warning-box" style="margin-top: 30px; border-left-width: 5px;">
-                    <h4 style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;"><i class="fas fa-exclamation-triangle" style="color: var(--warning); font-size: 1.3rem;"></i> <span data-translate="molecular_notes_title">分子機制應用要點：</span></h4>
-                    <ul style="padding-left: 25px; margin-top: 12px; line-height: 1.8;">
+                <div class="warning-box" style="margin-top: 25px; border-left-width: 5px;">
+                    <h4 style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;"><i class="fas fa-exclamation-triangle" style="color: var(--warning); font-size: 1.1rem;"></i> <span data-translate="molecular_notes_title">分子機制應用要點：</span></h4>
+                    <ul style="padding-left: 20px; margin-top: 10px; line-height: 1.6;">
                         <li data-translate="molecular_note1">活力旺分子保護機制需要持續作用，建議從斷奶前3天開始添加至保育結束</li>
                         <li data-translate="molecular_note2">配合優質人工乳使用，避免高豆粕配方加重腸道負擔</li>
                         <li data-translate="molecular_note3">保育舍溫度維持在28-30℃（第一週），每週降低2℃，減少斷奶應激</li>
@@ -872,8 +1014,8 @@
             <div class="card">
                 <div class="grid">
                     <div>
-                        <h3 style="color: var(--gray-text); display: flex; align-items: center; gap: 10px;"><i class="fas fa-exclamation-circle"></i> <span data-translate="traditional_title">傳統保育管理</span></h3>
-                        <ul style="padding-left: 25px; margin-top: 22px; line-height: 1.9;">
+                        <h3 style="color: var(--gray-text); display: flex; align-items: center; gap: 8px;"><i class="fas fa-exclamation-circle"></i> <span data-translate="traditional_title">傳統保育管理</span></h3>
+                        <ul style="padding-left: 20px; margin-top: 18px; line-height: 1.7;">
                             <li data-translate="traditional1">人工乳僅提供基礎營養，缺乏功能性成分</li>
                             <li data-translate="traditional2">高腹瀉率導致抗生素過度使用與生長受阻</li>
                             <li data-translate="traditional3">肝臟與腸道氧化損傷累積，影響長期健康</li>
@@ -883,8 +1025,8 @@
                     </div>
                     
                     <div>
-                        <h3 style="color: var(--primary-blue); display: flex; align-items: center; gap: 10px;"><i class="fas fa-check-circle"></i> <span data-translate="vigor_title">活力旺人工乳方案</span></h3>
-                        <ul style="padding-left: 25px; margin-top: 22px; line-height: 1.9; color: var(--primary-blue); font-weight: 500;">
+                        <h3 style="color: var(--primary-blue); display: flex; align-items: center; gap: 8px;"><i class="fas fa-check-circle"></i> <span data-translate="vigor_title">活力旺人工乳方案</span></h3>
+                        <ul style="padding-left: 20px; margin-top: 18px; line-height: 1.7; color: var(--primary-blue); font-weight: 500;">
                             <li data-translate="vigor1">分子級肝臟保護，預防早期纖維化</li>
                             <li data-translate="vigor2">強效抗氧化，保護腸上皮與肝細胞膜</li>
                             <li data-translate="vigor3">調控NR1H3、CREB基因表達，減輕炎症</li>
@@ -895,21 +1037,21 @@
                 </div>
                 
                 <div class="img-container">
-                    <img src="assets/healthy-piglets.jpg" alt="高健康高整齊度保育仔豬群成果展示" class="responsive-img">
+                    <img src="assets/healthy-piglets.jpg" alt="高健康高整齊度保育仔豬群成果展示" class="responsive-img" loading="lazy">
                     <div class="img-title" data-translate="img6_title">高健康高整齊度保育仔豬群成果展示</div>
                     <div class="img-desc" data-translate="img6_desc">使用活力旺人工乳方案後，保育仔豬活力充沛、整齊度高，為後續生長奠定堅實基礎</div>
                 </div>
                 
-                <div style="text-align: center; margin-top: 40px; padding: 35px; background: linear-gradient(135deg, #e6f0ff 0%, #d4e5ff 100%); border-radius: 14px; border: 2px solid var(--secondary-blue);">
-                    <h3 style="font-size: 1.6rem; margin-bottom: 20px;" data-translate="value_title">核心價值主張</h3>
-                    <p style="font-size: 1.45rem; margin-top: 20px; line-height: 1.7; font-weight: 500;" data-translate="value_content">
-                        以每頭仔豬投入 <b style="color: var(--accent-yellow); font-size: 1.6rem;" class="stat-value" data-value="9.41">9.41元</b> 的精準營養成本，<br>
-                        換取 <b style="color: var(--success); font-size: 1.6rem;" class="roi-value" data-value="197.94">197.94元</b> 淨利潤增長，投資報酬率達 <b style="background: linear-gradient(90deg, #ffeb3b, #ffc107); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.7rem;" class="roi-value" data-value="2104">2,104%</b>，<br>
+                <div style="text-align: center; margin-top: 30px; padding: 25px; background: linear-gradient(135deg, #e6f0ff 0%, #d4e5ff 100%); border-radius: 12px; border: 2px solid var(--secondary-blue);">
+                    <h3 style="font-size: 1.3rem; margin-bottom: 15px;" data-translate="value_title">核心價值主張</h3>
+                    <p style="font-size: 1.15rem; margin-top: 15px; line-height: 1.6; font-weight: 500;" data-translate="value_content">
+                        以每頭仔豬投入 <b style="color: var(--accent-yellow); font-size: 1.3rem;" class="stat-value" data-value="9.41">9.41元</b> 的精準營養成本，<br>
+                        換取 <b style="color: var(--success); font-size: 1.3rem;" class="roi-value" data-value="197.94">197.94元</b> 淨利潤增長，投資報酬率達 <b style="background: linear-gradient(90deg, #ffeb3b, #ffc107); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.4rem;" class="roi-value" data-value="2104">2,104%</b>，<br>
                         將保育期營養從「必要支出」轉化為「高報酬投資」。
                     </p>
                 </div>
                 
-                <div class="data-source" style="margin-top: 35px;">
+                <div class="data-source" style="margin-top: 25px;">
                     <strong data-translate="scientific_basis_title">科學依據：</strong><br>
                     <span data-translate="scientific_basis_content">本方案分子保護機制基於最新研究，活力旺通過調控 <span class="gene-highlight">NR1H3</span>、<span class="gene-highlight">CREB</span> 等關鍵基因表達，同時提升 <span class="molecule-highlight">NAD+</span> 水平，在分子層面保護仔豬肝臟與腸道健康，為高效生長奠定基礎。</span>
                 </div>
@@ -920,20 +1062,21 @@
     <!-- 頁尾 -->
     <footer>
         <div class="container">
-            <div style="margin-bottom: 35px;">
-                <h3 style="font-size: 1.8rem; margin-bottom: 15px;" data-translate="footer_title">首池有限公司｜SHOU CHI Co., Ltd.</h3>
-                <p style="font-size: 1.2rem; opacity: 0.9;" data-translate="footer_subtitle">Precision Nutrition · Molecular Protection · Sustainable Agriculture</p>
+            <div style="margin-bottom: 25px;">
+                <h3 style="font-size: 1.4rem; margin-bottom: 12px;" data-translate="footer_title">首池有限公司｜SHOU CHI Co., Ltd.</h3>
+                <p style="font-size: 1rem; opacity: 0.9;" data-translate="footer_subtitle">Precision Nutrition · Molecular Protection · Sustainable Agriculture</p>
             </div>
-            <div style="padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 0.95rem; opacity: 0.85; line-height: 1.7;">
+            <div style="padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 0.9rem; opacity: 0.85; line-height: 1.6;">
                 <p data-translate="copyright1">© 2026 首池有限公司 版權所有｜活力旺仔豬人工乳專用配方方案</p>
                 <p data-translate="copyright2">分子保護機制基於最新科學研究｜實際效益可能因管理條件而異</p>
-                <p style="margin-top: 10px; font-weight: 500;" data-translate="contact">技術諮詢專線：0800-xxx-xxx｜service@shouchi.com.tw</p>
+                <p style="margin-top: 8px; font-weight: 500;" data-translate="contact">技術諮詢專線：0800-xxx-xxx｜service@shouchi.com.tw</p>
             </div>
         </div>
     </footer>
 
+    <!-- 多語言翻譯數據（保持原樣） -->
     <script>
-        // 多語言翻譯數據
+        // 多語言翻譯數據（保持與原文件相同的翻譯數據）
         const translations = {
             'zh-TW': {
                 // 頁頭
@@ -1501,12 +1644,11 @@
             }
         };
 
-        // 貨幣轉換和語言切換功能
+        // 滾動淡入效果
         document.addEventListener('DOMContentLoaded', function() {
-            // 滾動淡入效果
             const observerOptions = {
                 threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
+                rootMargin: '0px 0px -30px 0px'
             };
             
             const observer = new IntersectionObserver((entries) => {
@@ -1525,17 +1667,11 @@
             // 卡片交互效果
             const cards = document.querySelectorAll('.card, .param-card, .step');
             cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-8px)';
+                card.addEventListener('touchstart', function() {
+                    this.style.transform = 'translateY(-5px)';
                 });
-                card.addEventListener('mouseleave', function() {
+                card.addEventListener('touchend', function() {
                     this.style.transform = 'translateY(0)';
-                });
-                card.addEventListener('click', function() {
-                    this.style.backgroundColor = '#e6f0ff';
-                    setTimeout(() => {
-                        this.style.backgroundColor = '';
-                    }, 300);
                 });
             });
             
@@ -1645,7 +1781,7 @@
                 elements.forEach(element => {
                     const key = element.getAttribute('data-translate');
                     if (translations[lang] && translations[lang][key]) {
-                        element.textContent = translations[lang][key];
+                        element.innerHTML = translations[lang][key];
                     }
                 });
                 
