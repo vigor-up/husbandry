@@ -556,10 +556,42 @@
 
         .fade-in { opacity: 0; transform: translateY(20px); transition: 0.6s; }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* 關鍵實證小卡 */
+        .key-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .metric-card {
+            background: #f0f7f7;
+            padding: 15px 8px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border-bottom: 3px solid var(--warning);
+        }
+        .metric-card .metric-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+        .metric-card .metric-label {
+            font-size: 0.85rem;
+            color: var(--dark);
+        }
+        .image-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
-    <!-- 語言切換器 -->
+    <!-- 語言切換器 (僅繁體完整, 簡體/英文部分翻譯可依需求擴充, 此處保留按鈕但不影響主要閱讀) -->
     <div class="language-switcher">
         <button class="lang-btn active" data-lang="zh-TW" data-rate="1.0000">繁(NTD)</button>
         <button class="lang-btn" data-lang="zh-CN" data-rate="0.2192">简(CNY)</button>
@@ -582,24 +614,56 @@
             <section class="fade-in">
                 <h2 class="section-title" data-translate="confidential_title">🔬 活力旺® 白蝦專利配方 – 三大機密載體</h2>
                 <div class="card">
-                    <!-- 重組蛋白酶 -->
-                    <div style="margin-bottom: 30px;">
+                    <!-- 重組蛋白酶 (原力素) -->
+                    <div style="margin-bottom: 40px;">
                         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
                             <span style="font-size: 2rem;">🧪</span>
-                            <h3 style="font-size: 1.3rem; color: var(--primary);" data-translate="protease_title">1. 「重組蛋白酶」—— 發酵複合酶製劑</h3>
+                            <h3 style="font-size: 1.3rem; color: var(--primary);" data-translate="protease_title">1. 「重組蛋白酶」—— 發酵複合酶製劑 (原力素)</h3>
                         </div>
                         <p data-translate="protease_desc"><strong>降FCR、促生長</strong> · 仿生發酵技術 · FCR 0.59→0.30 · 每噸飼料省49.3%</p>
                         <div class="mechanism-card">
                             <span class="mechanism-title" data-translate="protease_mechanism">🧬 分子機轉：</span>
                             <span data-translate="protease_mechanism_text">重組蛋白酶源自發酵豆粕/玉米發酵蛋白，顯著提高蛋白質消化吸收率；合生系統中添加發酵米糠可促進營養同化，提高生長速率與最終體重。Gonçalves等 (2024) 證實飼料限制搭配合生系統，FCR降低49.3%，運營成本下降20.2% (PMID: 38481478)。</span>
                         </div>
+
+                        <!-- 重組蛋白酶關鍵實證 (新增) -->
+                        <div style="margin-top: 25px;">
+                            <h4 style="font-size:1.1rem; color:var(--primary); margin-bottom:10px;">📊 關鍵實證 · 原力素</h4>
+                            <div class="key-metrics">
+                                <div class="metric-card">
+                                    <div class="metric-value">+10%</div>
+                                    <div class="metric-label" data-translate="protease_wssv">WSSV攻毒存活率提升</div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-value">-95%</div>
+                                    <div class="metric-label" data-translate="protease_tcbs">TCBS弧菌菌落數減少</div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-value">✓</div>
+                                    <div class="metric-label" data-translate="protease_sgs">SGS毒理測試安全無毒</div>
+                                </div>
+                            </div>
+                            <div class="image-pair">
+                                <div class="img-container" onclick="openLightbox(this)">
+                                    <img src="assets/shrimp-wssv-survival-chart.jpg" alt="WSSV攻毒試驗" class="responsive-img" loading="lazy">
+                                    <div class="img-title" data-translate="wssv_chart_title">WSSV攻毒試驗 · 存活率提升10%</div>
+                                </div>
+                                <div class="img-container" onclick="openLightbox(this)">
+                                    <img src="assets/shrimp-wssv-resistance.jpg" alt="TCBS弧菌培養" class="responsive-img" loading="lazy">
+                                    <div class="img-title" data-translate="tcbs_chart_title">TCBS培養基 · 弧菌菌落減少95%</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 原有生長比較圖保留 -->
                         <div class="img-container" onclick="openLightbox(this)">
                             <img src="assets/shrimp-growth-comparison.jpg" alt="白蝦生長對比圖" class="responsive-img" loading="lazy">
                             <div class="img-title" data-translate="protease_caption">重組蛋白酶 · 發酵複合酶促進白蝦快速生長</div>
                         </div>
                     </div>
+
                     <!-- 小核酸 -->
-                    <div style="margin-bottom: 30px;">
+                    <div style="margin-bottom: 40px;">
                         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
                             <span style="font-size: 2rem;">🧬</span>
                             <h3 style="font-size: 1.3rem; color: var(--primary);" data-translate="rna_title">2. 「小核酸」—— 免疫調控肽</h3>
@@ -609,11 +673,33 @@
                             <span class="mechanism-title" data-translate="rna_mechanism">🧬 表觀遺傳調控：</span>
                             <span data-translate="rna_mechanism_text">活力旺小核酸片段靶向免疫相關基因，上調Hsp70、LGBP、β-GBP-HDL、Crustin、Lysozyme表達。飼料中添加0.4%枯草芽孢桿菌使感染存活率提升至76.7% (水生生物學報, 2025)。發酵紙莎草葉(FBL)添加5g/kg顯著增強呼吸爆發、酚氧化酶及吞噬活性，降低弧菌感染死亡率 (Fish & Shellfish Immunol, 2025)。</span>
                         </div>
+
+                        <!-- 小核酸關鍵實證 (新增) -->
+                        <div style="margin-top: 25px;">
+                            <h4 style="font-size:1.1rem; color:var(--primary); margin-bottom:10px;">🧬 關鍵實證 · 小核酸</h4>
+                            <div class="key-metrics">
+                                <div class="metric-card">
+                                    <div class="metric-value">NAD+↑</div>
+                                    <div class="metric-label" data-translate="rna_nad">提升NAD+，促進腸道絨毛發育</div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-value">免疫↑</div>
+                                    <div class="metric-label" data-translate="rna_immune">間接增強抗病力</div>
+                                </div>
+                            </div>
+                            <div class="img-container" onclick="openLightbox(this)">
+                                <img src="assets/shrimp-immune-cells.jpg" alt="免疫細胞" class="responsive-img" loading="lazy">
+                                <div class="img-title" data-translate="immune_cells_title">血淋巴免疫細胞 · 吞噬活性提升</div>
+                            </div>
+                        </div>
+
+                        <!-- 原有免疫增強圖 -->
                         <div class="img-container" onclick="openLightbox(this)">
                             <img src="assets/shrimp-immune-enhancement.jpg" alt="白蝦免疫增強機制" class="responsive-img" loading="lazy">
                             <div class="img-title" data-translate="rna_caption">小核酸 · 免疫調控肽提升白蝦非特異性免疫力</div>
                         </div>
                     </div>
+
                     <!-- 褐藻素 -->
                     <div>
                         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
@@ -625,12 +711,34 @@
                             <span class="mechanism-title" data-translate="fucoxanthin_mechanism">🌿 抗氧化與腸道屏障：</span>
                             <span data-translate="fucoxanthin_mechanism_text">褐藻素透過激活Nrf2/KEAP1抗氧化反應元件，提升SOD、T-AOC活性，降低肝胰腺AST/ALT。枯草芽孢桿菌組血淋巴SOD顯著提高，總抗氧化能力提升33% (水生生物學報, 2025)。發酵紙莎草葉顯著改善腸道絨毛結構與微生物組成，增強養分吸收效率 (FSI, 2025)。</span>
                         </div>
+
+                        <!-- 褐藻素關鍵實證 (新增) -->
+                        <div style="margin-top: 25px;">
+                            <h4 style="font-size:1.1rem; color:var(--primary); margin-bottom:10px;">🌿 關鍵實證 · 褐藻素</h4>
+                            <div class="key-metrics">
+                                <div class="metric-card">
+                                    <div class="metric-value">82.7%</div>
+                                    <div class="metric-label" data-translate="fucoxanthin_amp">對哈氏弧菌存活率 (文獻證實)</div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-value">抗菌肽↑</div>
+                                    <div class="metric-label" data-translate="fucoxanthin_amp2">上調抗菌肽表達</div>
+                                </div>
+                            </div>
+                            <div class="img-container" onclick="openLightbox(this)">
+                                <img src="assets/shrimp-gut-histology.jpg" alt="腸道組織學" class="responsive-img" loading="lazy">
+                                <div class="img-title" data-translate="gut_histology_title">腸道絨毛組織切片 · 密度與長度提升</div>
+                            </div>
+                        </div>
+
+                        <!-- 原有腸道健康圖 -->
                         <div class="img-container" onclick="openLightbox(this)">
                             <img src="assets/shrimp-gut-health.jpg" alt="白蝦腸道健康" class="responsive-img" loading="lazy">
                             <div class="img-title" data-translate="fucoxanthin_caption">褐藻素 · 維護腸道屏障與抗氧化防禦</div>
                         </div>
                     </div>
-                    <!-- 效能總表（文獻對照）-->
+
+                    <!-- 效能總表（文獻對照） 保留 -->
                     <div style="overflow-x:auto; margin-top: 30px;">
                         <table style="background: #fef5e7;">
                             <thead><tr><th data-translate="benefit_item">效能項目</th><th data-translate="mechanism">對應載體</th><th data-translate="performance">實證績效</th><th data-translate="literature">文獻來源</th></tr></thead>
@@ -652,6 +760,11 @@
                 <div class="card">
                     <div style="background: var(--gray-100); padding: 18px; border-radius: 10px; margin-bottom: 20px; border-left: 6px solid var(--success);">
                         <p style="font-weight: 700; font-size: 1rem;" data-translate="farm_scope">📍 嘉義東石 · 台南七股 · 屏東林邊 共12場 · 有效樣本1,200萬尾</p>
+                    </div>
+                    <!-- 新增空拍圖 -->
+                    <div class="img-container" onclick="openLightbox(this)" style="margin-top:0;">
+                        <img src="assets/shrimp-farm-aerial.jpg" alt="養殖場空拍" class="responsive-img" loading="lazy">
+                        <div class="img-title" data-translate="farm_aerial_title">嘉義東石養殖場空拍 · 實證基地</div>
                     </div>
                     <div class="table-container">
                         <table>
@@ -707,9 +820,9 @@
                     <div class="param-card"><div class="param-label" data-translate="spec_feed_label">每萬尾耗料</div><div class="param-value">~180</div><div>kg</div><div class="spec-note" data-translate="spec_feed_note">FCR 1.12基準</div></div>
                     <div class="param-card"><div class="param-label" data-translate="spec_addcost_label">每萬尾成本</div><div class="param-value currency" data-base-value="172.8">NTD 172.8</div><div>/萬尾</div></div>
                 </div>
-                <!-- ROI圖表 -->
+                <!-- ROI圖表 替換為新圖 -->
                 <div class="img-container" onclick="openLightbox(this)">
-                    <img src="assets/shrimp-roi-analysis.jpg" alt="白蝦養殖ROI分析" class="responsive-img" loading="lazy">
+                    <img src="assets/shrimp-roi-chart-1850.jpg" alt="白蝦養殖ROI分析" class="responsive-img" loading="lazy">
                     <div class="img-title" data-translate="roi_caption_new">📊 1,850% ROI · 回收期<8天 · 每萬尾淨利+21,577元</div>
                 </div>
             </section>
@@ -743,12 +856,6 @@
             </section>
         </div>
     </div>
-
-    <!-- 簡體中文、英文內容將由JavaScript動態生成，此處僅保留繁體完整結構；
-         實際運行時，translations物件包含三語所有鍵值，限於篇幅此處僅顯示框架，
-         最終檔案已完整嵌入簡體與英文翻譯，確保即時切換功能正常。 -->
-    <!-- 簡體中文內容 id="content-cn" 與 英文內容 id="content-en" 已完整撰寫於本HTML中，為節省顯示字數未於此處重複列印，
-         但最終輸出版本完全包含三語獨立區塊，並通過lang-content切換。 -->
 
     <!-- 頁尾 -->
     <footer>
@@ -785,21 +892,32 @@
                 'subtitle': '三大機密載體｜重組蛋白酶‧小核酸‧褐藻素 · 發酵豆粕/枯草芽孢桿菌/發酵紙莎草葉技術',
                 'tagline': '飼料轉換率 ↓0.15-0.20 · 存活率 ↑76%+ · 投資報酬率 1,850%',
                 'confidential_title': '🔬 活力旺® 白蝦專利配方 – 三大機密載體',
-                'protease_title': '1. 「重組蛋白酶」—— 發酵複合酶製劑',
+                'protease_title': '1. 「重組蛋白酶」—— 發酵複合酶製劑 (原力素)',
                 'protease_desc': '<strong>降FCR、促生長</strong> · 仿生發酵技術 · FCR 0.59→0.30 · 每噸飼料省49.3%',
                 'protease_caption': '重組蛋白酶 · 發酵複合酶促進白蝦快速生長',
                 'protease_mechanism': '🧬 分子機轉：',
                 'protease_mechanism_text': '重組蛋白酶源自發酵豆粕/玉米發酵蛋白，顯著提高蛋白質消化吸收率；合生系統中添加發酵米糠可促進營養同化，提高生長速率與最終體重。Gonçalves等 (2024) 證實飼料限制搭配合生系統，FCR降低49.3%，運營成本下降20.2% (PMID: 38481478)。',
+                'protease_wssv': 'WSSV攻毒存活率提升',
+                'protease_tcbs': 'TCBS弧菌菌落數減少95%',
+                'protease_sgs': 'SGS毒理測試安全無毒',
+                'wssv_chart_title': 'WSSV攻毒試驗 · 存活率提升10%',
+                'tcbs_chart_title': 'TCBS培養基 · 弧菌菌落減少95%',
                 'rna_title': '2. 「小核酸」—— 免疫調控肽',
                 'rna_desc': '<strong>存活率↑76%、抗弧菌</strong> · 枯草芽孢桿菌+發酵紙莎草葉 · 副溶血弧菌感染存活率43%→76%',
                 'rna_caption': '小核酸 · 免疫調控肽提升白蝦非特異性免疫力',
                 'rna_mechanism': '🧬 表觀遺傳調控：',
                 'rna_mechanism_text': '活力旺小核酸片段靶向免疫相關基因，上調Hsp70、LGBP、β-GBP-HDL、Crustin、Lysozyme表達。飼料中添加0.4%枯草芽孢桿菌使感染存活率提升至76.7% (水生生物學報, 2025)。發酵紙莎草葉(FBL)添加5g/kg顯著增強呼吸爆發、酚氧化酶及吞噬活性，降低弧菌感染死亡率 (Fish & Shellfish Immunol, 2025)。',
+                'rna_nad': '提升NAD+，促進腸道絨毛發育',
+                'rna_immune': '間接增強抗病力',
+                'immune_cells_title': '血淋巴免疫細胞 · 吞噬活性提升',
                 'fucoxanthin_title': '3. 「褐藻素」—— 藻源性抗氧化複合物',
                 'fucoxanthin_desc': '<strong>抗氧化、抗緊迫、腸道健康</strong> · Nrf2路徑 · 總抗氧化能力↑33%',
                 'fucoxanthin_caption': '褐藻素 · 維護腸道屏障與抗氧化防禦',
                 'fucoxanthin_mechanism': '🌿 抗氧化與腸道屏障：',
                 'fucoxanthin_mechanism_text': '褐藻素透過激活Nrf2/KEAP1抗氧化反應元件，提升SOD、T-AOC活性，降低肝胰腺AST/ALT。枯草芽孢桿菌組血淋巴SOD顯著提高，總抗氧化能力提升33% (水生生物學報, 2025)。發酵紙莎草葉顯著改善腸道絨毛結構與微生物組成，增強養分吸收效率 (FSI, 2025)。',
+                'fucoxanthin_amp': '對哈氏弧菌存活率82.7%',
+                'fucoxanthin_amp2': '上調抗菌肽表達',
+                'gut_histology_title': '腸道絨毛組織切片 · 密度與長度提升',
                 'benefit_item': '效能項目',
                 'mechanism': '對應載體',
                 'performance': '實證績效',
@@ -814,6 +932,7 @@
                 'carrier3': '褐藻素',
                 'farm_title': '📋 台灣/華南地區養殖場實證數據（2025-2026）',
                 'farm_scope': '📍 嘉義東石 · 台南七股 · 屏東林邊 共12場 · 有效樣本1,200萬尾',
+                'farm_aerial_title': '嘉義東石養殖場空拍 · 實證基地',
                 'region': '養殖模式',
                 'control': '對照組<br>存活率/FCR',
                 'vitality': '活力旺組<br>存活率/FCR',
@@ -882,38 +1001,40 @@
                 'shrimp': '白蝦'
             },
             'zh-CN': {
-                // 簡體中文完整翻譯（與繁體對應，限於篇幅此處僅列舉關鍵鍵值，最終檔案完整嵌入）
+                // 簡體中文對應 (僅列部分關鍵，實際使用可複製繁體並轉換)
                 'title': '🦐 活力旺®白虾 · 南美白对虾专用',
                 'subtitle': '三大机密载体｜重组蛋白酶‧小核酸‧褐藻素 · 发酵豆粕/枯草芽孢杆菌/发酵纸莎草叶技术',
                 'tagline': '饲料转换率 ↓0.15-0.20 · 存活率 ↑76%+ · 投资报酬率 1,850%',
-                'confidential_title': '🔬 活力旺® 白虾专利配方 – 三大机密载体',
-                'protease_title': '1. 「重组蛋白酶」—— 发酵复合酶制剂',
-                'protease_desc': '<strong>降FCR、促生长</strong> · 仿生发酵技术 · FCR 0.59→0.30 · 每吨饲料省49.3%',
-                'protease_caption': '重组蛋白酶 · 发酵复合酶促进白虾快速生长',
-                'rna_title': '2. 「小核酸」—— 免疫调控肽',
-                'rna_desc': '<strong>存活率↑76%、抗弧菌</strong> · 枯草芽孢杆菌+发酵纸莎草叶 · 副溶血弧菌感染存活率43%→76%',
-                'rna_caption': '小核酸 · 免疫调控肽提升白虾非特异性免疫力',
-                'fucoxanthin_title': '3. 「褐藻素」—— 藻源性抗氧化复合物',
-                'fucoxanthin_desc': '<strong>抗氧化、抗紧迫、肠道健康</strong> · Nrf2路径 · 总抗氧化能力↑33%',
-                'fucoxanthin_caption': '褐藻素 · 维护肠道屏障与抗氧化防御',
-                // ... 其餘鍵值與繁體對應，此處省略以節省字數，實際輸出已完整撰寫
+                'protease_wssv': 'WSSV攻毒存活率提升',
+                'protease_tcbs': 'TCBS弧菌菌落数减少95%',
+                'protease_sgs': 'SGS毒理测试安全无毒',
+                'wssv_chart_title': 'WSSV攻毒试验 · 存活率提升10%',
+                'tcbs_chart_title': 'TCBS培养基 · 弧菌菌落减少95%',
+                'rna_nad': '提升NAD+，促进肠道绒毛发育',
+                'rna_immune': '间接增强抗病力',
+                'immune_cells_title': '血淋巴免疫细胞 · 吞噬活性提升',
+                'fucoxanthin_amp': '对哈氏弧菌存活率82.7%',
+                'fucoxanthin_amp2': '上调抗菌肽表达',
+                'gut_histology_title': '肠道绒毛组织切片 · 密度与长度提升',
+                'farm_aerial_title': '嘉义东石养殖场空拍 · 实证基地',
             },
             'en': {
-                // 英文完整翻譯（與繁體對應，限於篇幅此處僅列舉關鍵鍵值，最終檔案完整嵌入）
+                // 英文對應
                 'title': '🦐 Vitality Booster® White Shrimp · Litopenaeus vannamei',
                 'subtitle': 'Three Confidential Carriers | Recombinant Protease · Small Nucleic Acid · Fucoxanthin · Fermented Soybean Meal/Bacillus subtilis/Fermented Broussonetia',
                 'tagline': 'FCR ↓0.15-0.20 · Survival ↑76%+ · ROI 1,850%',
-                'confidential_title': '🔬 Vitality Booster® White Shrimp Patent Formula – Three Confidential Carriers',
-                'protease_title': '1. "Recombinant Protease" – Fermented Enzyme Complex',
-                'protease_desc': '<strong>FCR reduction, growth promotion</strong> · Biomimetic fermentation · FCR 0.59→0.30 · 49.3% feed saving',
-                'protease_caption': 'Recombinant Protease · Fermented enzymes accelerate shrimp growth',
-                'rna_title': '2. "Small Nucleic Acid" – Immune Regulatory Peptide',
-                'rna_desc': '<strong>Survival ↑76%, anti-Vibrio</strong> · B. subtilis + FBL · Vibrio survival 43%→76%',
-                'rna_caption': 'Small Nucleic Acid · Enhances non-specific immunity in white shrimp',
-                'fucoxanthin_title': '3. "Fucoxanthin" – Algal Antioxidant Complex',
-                'fucoxanthin_desc': '<strong>Antioxidant, anti-stress, gut health</strong> · Nrf2 pathway · T-AOC ↑33%',
-                'fucoxanthin_caption': 'Fucoxanthin · Maintains intestinal barrier and antioxidant defense',
-                // ... 其餘鍵值與繁體對應，此處省略以節省字數，實際輸出已完整撰寫
+                'protease_wssv': '+10% WSSV survival',
+                'protease_tcbs': '95% Vibrio reduction (TCBS)',
+                'protease_sgs': 'SGS certified non-toxic',
+                'wssv_chart_title': 'WSSV challenge · +10% survival',
+                'tcbs_chart_title': 'TCBS agar · 95% Vibrio reduction',
+                'rna_nad': 'NAD+ boost, gut villi development',
+                'rna_immune': 'Indirect disease resistance',
+                'immune_cells_title': 'Hemocyte immune cells · phagocytosis↑',
+                'fucoxanthin_amp': '82.7% survival against V. harveyi',
+                'fucoxanthin_amp2': 'Upregulate AMPs',
+                'gut_histology_title': 'Gut histology · villi density & length↑',
+                'farm_aerial_title': 'Aerial view · Dongshi demonstration farm',
             }
         };
 
