@@ -1,63 +1,32 @@
-# .github/workflows/sync-oss.yml
-# 將 GitHub Pages 內容增量同步至阿里雲 OSS 的自動化工作流
-
 name: 增量同步至阿里雲 OSS
 
 on:
   push:
-    branches:
-      - main            # ⚠️ 若你的默認分支是 master，請改為 master
+    branches: [ main ]   # 若你用的是 master 請修改
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      # 1. 檢出代碼
-      - name: 檢出代碼
+      - name: 檢出程式碼
         uses: actions/checkout@v4
 
-      # 2. （可選）如果你的網站需要編譯（如 Jekyll、Hugo、Hexo 等），請在此添加構建步驟
-      # 示例 1：Jekyll
-      # - name: 安裝 Jekyll 並構建
+      # ❌ 如果你的網站不需要建構，請刪除或註解掉所有建構步驟
+      # 例如：
+      # - name: 安裝 Jekyll 並建構
       #   run: |
       #     gem install bundler jekyll
       #     bundle install
       #     bundle exec jekyll build
-      #   輸出目錄通常為 ./_site
-      #
-      # 示例 2：Hugo
-      # - name: 安裝 Hugo 並構建
-      #   run: |
-      #     wget https://github.com/gohugoio/hugo/releases/download/v0.121.2/hugo_extended_0.121.2_Linux-64bit.tar.gz
-      #     tar -xzf hugo_extended_0.121.2_Linux-64bit.tar.gz
-      #     ./hugo
-      #   輸出目錄通常為 ./public
-      #
-      # 如果使用純靜態 HTML（無需構建），請註釋或刪除本步驟，並將下方的 local-path 改為 ./
 
-      # 3. 增量上傳至阿里雲 OSS
       - name: 增量上傳至 OSS
         uses: Menci/upload-to-oss@beta-v3
         with:
-          # 以下 Secrets 必須在 GitHub 倉庫 Settings → Secrets and variables → Actions 中設定
           access-key-id: ${{ secrets.OSS_ACCESS_KEY_ID }}
           access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
-          bucket: ${{ secrets.OSS_BUCKET }}                 # 例如 richtrong-site
-          endpoint: ${{ secrets.OSS_ENDPOINT }}             # 例如 oss-cn-hangzhou.aliyuncs.com
-
-          # 本地路徑：需要上傳的目錄
-          # 若純靜態（無構建步驟）：local-path: ./
-          # 若有構建步驟且輸出到 _site：local-path: ./_site
-          # 若有構建步驟且輸出到 public：local-path: ./public
-          local-path: ./_site      # ⚠️ 根據你的實際輸出目錄修改
-
-          # 遠程路徑：上傳到 Bucket 的哪個目錄（通常為根目錄 /）
+          bucket: ${{ secrets.OSS_BUCKET }}
+          endpoint: ${{ secrets.OSS_ENDPOINT }}
+          local-path: ./        # ✅ 改為根目錄
           remote-path: /
-
-          # 增量模式參數
-          no-delete-remote-files: true   # 保留 OSS 中已有的檔案（不會刪除）
-          delay-html-file-upload: true    # HTML 文件最後上傳，減少用戶看到不完整頁面的機率
-
-          # （可選）若需過濾特定文件，可使用 include-regex / exclude-regex
-          # include-regex: '\.(html|css|js|png|jpg|svg|ico)$'   # 僅上傳指定後綴文件
-          # exclude-regex: '^temp/|\.tmp$'                      # 排除某些文件
+          no-delete-remote-files: true
+          delay-html-file-upload: true
