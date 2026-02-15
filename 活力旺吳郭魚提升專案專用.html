@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
+    <title>活力旺®吳郭魚存活率提升方案 - 首池有限公司</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #00a8a8;
+            --secondary-blue: #007d7d;
+            --accent-yellow: #ffb74d;
+            --light-bg: #f0f7ff;
+            --dark-text: #1e3c4a;
+            --gray-text: #6c7a9c;
+            --success: #2e7d5e;
+            --warning: #ff9800;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-md: 0 5px 15px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 25px rgba(0,0,0,0.1);
+            --safe-area-inset-left: env(safe-area-inset-left);
+            --safe-area-inset-right: env(safe-area-inset-right);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+        }
+        html {
+            font-size: 17px;
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Microsoft JhengHei', '微軟正黑體', 'Noto Sans TC', 'PingFang TC', 'Helvetica Neue', sans-serif;
+            background-color: #f5f9ff;
+            color: var(--dark-text);
+            line-height: 1.5;
+            overflow-x: hidden;
+            padding-left: var(--safe-area-inset-left);
+            padding-right: var(--safe-area-inset-right);
+            -webkit-text-size-adjust: 100%;
+        }
+        .container {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 12px;
+        }
+        
+        /* 語言切換器 */
+        .language-switcher {
+            position: fixed;
+            top: 12px;
+            right: 12px;
+            z-index: 1000;
+            display: flex;
+            gap: 4px;
+            background: white;
+            padding: 6px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 1px solid var(--primary-blue);
+            max-width: 90%;
+        }
+        .lang-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 16px;
+            background: transparent;
+            color: var(--dark-text);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            flex: 1;
+        }
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #007d7d 100%);
+            color: white;
+        }
+        
+        /* 返回主頁按鈕 (回到頂部) */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: var(--shadow-lg);
+            cursor: pointer;
+            z-index: 999;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+        }
+        .back-to-top:hover {
+            background: var(--secondary-blue);
+            transform: scale(1.1);
+        }
+        
+        header {
+            background: linear-gradient(rgba(0, 168, 168, 0.92), rgba(0, 125, 125, 0.95)), url('assets/tilapia-header-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 40px 0 30px;
+            text-align: center;
+            position: relative;
+            margin-top: 60px;
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+        }
+        header .container {
+            padding: 0 15px;
+        }
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: 0.5px;
+            line-height: 1.3;
+        }
+        .subtitle {
+            font-size: 1rem;
+            opacity: 0.95;
+            margin: 0 auto 18px;
+            line-height: 1.5;
+            padding: 0 10px;
+        }
+        .tagline {
+            background: linear-gradient(90deg, var(--accent-yellow), #e6b800);
+            color: var(--dark-text);
+            padding: 14px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: bold;
+            margin: 15px auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            font-size: 1rem;
+            letter-spacing: 0.3px;
+            max-width: 90%;
+        }
+        
+        section {
+            padding: 35px 0;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.5s ease;
+        }
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .section-title {
+            text-align: center;
+            font-size: 1.6rem;
+            color: var(--primary-blue);
+            margin-bottom: 25px;
+            position: relative;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            padding: 0 10px;
+        }
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--accent-yellow);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 15px;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            border-top: 4px solid var(--secondary-blue);
+            cursor: pointer;
+            -webkit-tap-highlight-color: rgba(0,0,0,0.05);
+        }
+        .card:hover, .card:active {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-top-color: var(--accent-yellow);
+        }
+        
+        .img-container {
+            width: 100%;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .responsive-img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+        .responsive-img:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+        .img-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin: 12px 0 6px;
+            color: var(--dark-text);
+            padding: 0 10px;
+        }
+        
+        .grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 15px 0;
+            border-radius: 10px;
+        }
+        table {
+            width: 100%;
+            min-width: 600px;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        th {
+            background: linear-gradient(120deg, var(--primary-blue), #007d7d);
+            color: white;
+            padding: 14px 12px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #eaeaea;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        tr:hover td {
+            background-color: #f0f7ff;
+        }
+        .highlight {
+            color: var(--accent-yellow);
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        .positive {
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .roi-highlight {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #007d7d 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 30px 15px;
+            text-align: center;
+            margin: 30px 0;
+            box-shadow: 0 10px 25px rgba(0,168,168,0.25);
+            position: relative;
+            overflow: hidden;
+        }
+        .roi-highlight::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            z-index: 0;
+        }
+        .roi-value {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 15px 0;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(90deg, #ffeb3b, #ffc107, #ffeb3b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+        
+        .param-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .param-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px 10px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border-top: 3px solid var(--accent-yellow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .param-card:hover, .param-card:active {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        .param-label {
+            font-size: 0.85rem;
+            color: var(--gray-text);
+            margin-bottom: 5px;
+        }
+        .param-value {
+            font-size: 1.7rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+            margin: 5px 0;
+        }
+        
+        .mechanism-card {
+            background: linear-gradient(135deg, #f8fbff 0%, #eef5ff 100%);
+            border-left: 4px solid var(--primary-blue);
+            padding: 16px 14px;
+            border-radius: 0 10px 10px 0;
+            margin: 16px 0;
+        }
+        .mechanism-title {
+            font-weight: bold;
+            color: var(--primary-blue);
+            margin-bottom: 6px;
+            font-size: 1.05rem;
+        }
+        .gene-highlight {
+            background: linear-gradient(120deg, rgba(255,204,0,0.2), rgba(255,204,0,0.3));
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--dark-text), #0d1b2e);
+            color: rgba(255,255,255,0.85);
+            text-align: center;
+            padding: 35px 0 20px;
+            margin-top: 40px;
+        }
+        
+        @media (min-width: 769px) {
+            .container {
+                max-width: 1200px;
+                padding: 0 25px;
+            }
+            .language-switcher {
+                top: 20px;
+                right: 20px;
+                gap: 8px;
+                padding: 8px;
+                border-radius: 30px;
+            }
+            .lang-btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+            header {
+                padding: 80px 0 60px;
+                margin-top: 70px;
+                min-height: 50vh;
+            }
+            h1 {
+                font-size: 2.5rem;
+            }
+            .subtitle {
+                font-size: 1.2rem;
+                max-width: 850px;
+            }
+            .tagline {
+                padding: 16px 35px;
+                font-size: 1.1rem;
+            }
+            section {
+                padding: 60px 0;
+            }
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 40px;
+            }
+            .card {
+                padding: 30px 25px;
+                margin-bottom: 30px;
+            }
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
+                margin-top: 30px;
+            }
+            .param-cards {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 25px;
+                margin: 30px 0;
+            }
+            .param-card {
+                padding: 25px 20px;
+            }
+            .param-value {
+                font-size: 2.2rem;
+            }
+            .roi-highlight {
+                padding: 60px 40px;
+                margin: 60px 0;
+            }
+            .roi-value {
+                font-size: 4rem;
+            }
+        }
+        
+        @supports (-webkit-touch-callout: none) {
+            header {
+                min-height: -webkit-fill-available;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 語言切換器 -->
+    <div class="language-switcher">
+        <button class="lang-btn active" data-lang="zh-TW" data-rate="1.0000">繁(NTD)</button>
+        <button class="lang-btn" data-lang="zh-CN" data-rate="0.2192">简(CNY)</button>
+        <button class="lang-btn" data-lang="en" data-rate="0.0320">EN(USD)</button>
+    </div>
+
+    <!-- 返回主頁按鈕 (回到頂部) -->
+    <a href="#" class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">↑</a>
+
+    <!-- 頁頭 -->
+    <header>
+        <div class="container">
+            <h1 data-translate="title">🐟 活力旺®吳郭魚 · 尼羅吳郭魚專用</h1>
+            <p class="subtitle" data-translate="subtitle">三大機密載體｜重組蛋白酶‧小核酸‧褐藻素 · 發酵豆粕/枯草芽孢桿菌/發酵紙莎草葉技術</p>
+            <div class="tagline" data-translate="tagline">飼料轉換率 ↓0.12-0.18 · 存活率 ↑18%+ · 投資報酬率 1,250%</div>
+        </div>
+    </header>
+
+    <!-- 頂部特徵網格 -->
+    <section>
+        <div class="container">
+            <div class="feature-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: -30px; margin-bottom: 20px;">
+                <div class="badge" style="background: var(--primary-blue); color: white; padding: 12px 16px; border-radius: 60px; font-weight: 700; font-size: 1rem; text-align: center;">
+                    <span data-translate="cost_label">成本</span>：<span class="stat-value" data-value="960">NTD 960</span>/<span data-translate="per_kg">公斤</span>
+                </div>
+                <div class="badge" style="background: var(--primary-blue); color: white; padding: 12px 16px; border-radius: 60px; font-weight: 700; font-size: 1rem; text-align: center;" data-translate="dosage_label">
+                    添加量：1公斤/噸飼料
+                </div>
+                <div class="badge" style="background: var(--primary-blue); color: white; padding: 12px 16px; border-radius: 60px; font-weight: 700; font-size: 1rem; text-align: center;" data-translate="verified_fish">
+                    實證尾數：800萬+
+                </div>
+                <div class="badge" style="background: var(--primary-blue); color: white; padding: 12px 16px; border-radius: 60px; font-weight: 700; font-size: 1rem; text-align: center;">
+                    ROI：<span class="roi-percent" data-value="1250">1,250%</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 1. 核心規格對比 ========== -->
+    <section>
+        <div class="container">
+            <h2 class="section-title" data-translate="spec_title">⚙️ 吳郭魚養殖性能參數｜高密度·高存活</h2>
+            <div class="grid">
+                <div class="card" style="border-top-color: #ffb74d;">
+                    <div style="font-size: 2.8rem; text-align: center;">📉</div>
+                    <h3 data-translate="metric_fcr_title">飼料轉換率 (FCR)</h3>
+                    <p class="highlight" style="font-size: 2rem; margin: 8px 0;">↓12-16%</p>
+                    <p data-translate="fcr_desc">省 2,800 元/萬尾</p>
+                </div>
+                <div class="card" style="border-top-color: #4fc3f7;">
+                    <div style="font-size: 2.8rem; text-align: center;">🐟</div>
+                    <h3 data-translate="metric_survival_title">存活率</h3>
+                    <p class="highlight" style="font-size: 2rem; margin: 8px 0;">↑15-20%</p>
+                    <p data-translate="survival_desc">+12,000 元/萬尾</p>
+                </div>
+                <div class="card" style="border-top-color: #66bb6a;">
+                    <div style="font-size: 2.8rem; text-align: center;">📏</div>
+                    <h3 data-translate="metric_growth_title">生長速率</h3>
+                    <p class="highlight" style="font-size: 2rem; margin: 8px 0;">↑12-16%</p>
+                    <p data-translate="growth_desc">溢價 2,000 元/萬尾</p>
+                </div>
+                <div class="card" style="border-top-color: #ff9800;">
+                    <div style="font-size: 2.8rem; text-align: center;">🛡️</div>
+                    <h3 data-translate="metric_health_title">鏈球菌損失減少</h3>
+                    <p class="highlight" style="font-size: 2rem; margin: 8px 0;">↓50-70%</p>
+                    <p data-translate="health_desc">節省 1,500 元/萬尾</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 2. 三大機密載體 (已刪除原力素及AI圖片提示詞) ========== -->
+    <section style="background-color: #f0f7ff;">
+        <div class="container">
+            <h2 class="section-title" data-translate="confidential_title">🔬 活力旺® 吳郭魚專利配方 – 三大機密載體</h2>
+            
+            <!-- 重組蛋白酶卡片 -->
+            <div class="card">
+                <h3 style="display: flex; align-items: center; gap: 10px;"><span style="font-size: 2.4rem;">🧪</span> <span data-translate="protease_title">1. 「重組蛋白酶」—— 發酵複合酶製劑</span></h3>
+                <p data-translate="protease_desc"><strong>降FCR、促生長</strong> · 仿生發酵技術 · 植物蛋白消化率 ↑28% · 每噸飼料省 12% 成本</p>
+                
+                <div class="mechanism-card">
+                    <div class="mechanism-title">🧬 分子機轉：</div>
+                    <p data-translate="protease_mechanism_text">重組蛋白酶源自發酵豆粕/玉米發酵蛋白，顯著提高蛋白酶、澱粉酶活性，促進胺基酸吸收；吳郭魚腸道絨毛高度增加，營養同化效率提升。Gonçalves等 (2024) 證實飼料限制搭配合生系統，FCR降低49.3%，運營成本下降20.2% (PMID: 38481478)。應用於吳郭魚可顯著縮短養殖週期。</p>
+                </div>
+                
+                <p><strong data-translate="villi_increase_label">📊 高密度養殖實證：</strong> <span data-translate="villi_increase">腸道絨毛高度提升約30%，吸收面積增加，FCR下降0.12–0.18，每噸飼料成本降低約12–15%，養殖週期縮短10–18天。</span></p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin: 16px 0;">
+                    <div class="gene-highlight" style="text-align: center; background: rgba(0,168,168,0.1);"><span style="font-size:1.6rem;">+30%</span><br><span data-translate="villi_short">絨毛高度</span></div>
+                    <div class="gene-highlight" style="text-align: center; background: rgba(0,168,168,0.1);"><span style="font-size:1.6rem;">↓0.15</span><br><span data-translate="fcr_short">FCR</span></div>
+                    <div class="gene-highlight" style="text-align: center; background: rgba(0,168,168,0.1);"><span style="font-size:1.6rem;">-14d</span><br><span data-translate="cycle_short">養殖天數</span></div>
+                </div>
+                
+                <div class="img-container">
+                    <img src="assets/tilapia-growth-comparison.jpg" alt="生長對比" class="responsive-img" loading="lazy">
+                    <div class="img-title" data-translate="protease_caption">重組蛋白酶 · 促進吳郭魚快速增重</div>
+                </div>
+            </div>
+            
+            <!-- 小核酸卡片 -->
+            <div class="card">
+                <h3 style="display: flex; align-items: center; gap: 10px;"><span style="font-size: 2.4rem;">🧬</span> <span data-translate="rna_title">2. 「小核酸」—— 免疫調控肽</span></h3>
+                <p data-translate="rna_desc"><strong>抗鏈球菌、提高存活率</strong> · 枯草芽孢桿菌+發酵紙莎草葉 · 鏈球菌感染存活率 52%→82%</p>
+                
+                <div class="mechanism-card">
+                    <div class="mechanism-title">🧬 免疫基因啟動：</div>
+                    <p data-translate="rna_mechanism_text">活力旺小核酸片段靶向免疫調控基因，上調 IgM（↑3倍）、IL-1β/TNF-α 表達、溶菌酶活性↑2倍、補體系統 C3 啟動。搭配 Bacillus subtilis 發酵技術，增強頭腎巨噬細胞吞噬能力與呼吸爆發反應。</p>
+                </div>
+                
+                <p><strong data-translate="strep_protection_label">🛡️ 實證數據：</strong> <span data-translate="strep_protection">鏈球菌攻毒存活率由52%→82%，死亡率下降50–70%，抗生素依賴度明顯降低。</span></p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin: 16px 0;">
+                    <div class="gene-highlight" style="text-align: center; background: rgba(0,168,168,0.1);"><span style="font-size:1.6rem;">IgM↑3x</span><br><span data-translate="igm">抗體提升</span></div>
+                    <div class="gene-highlight" style="text-align: center; background: rgba(0,168,168,0.1);"><span style="font-size:1.6rem;">52%→82%</span><br><span data-translate="strep_surv">鏈球菌存活</span></div>
+                    <div class="gene-highlight" style="text-align: center; background: rgba(0,168,168,0.1);"><span style="font-size:1.6rem;">↓60%</span><br><span data-translate="mortality">死亡率</span></div>
+                </div>
+                
+                <div class="img-container">
+                    <img src="assets/tilapia-head-kidney-macrophage.jpg" alt="免疫細胞" class="responsive-img" loading="lazy">
+                    <div class="img-title" data-translate="immune_cells_title">頭腎巨噬細胞 · 吞噬活性提升65%</div>
+                </div>
+            </div>
+            
+            <!-- 褐藻素卡片 -->
+            <div class="card">
+                <h3 style="display: flex; align-items: center; gap: 10px;"><span style="font-size: 2.4rem;">🌿</span> <span data-translate="fucoxanthin_title">3. 「褐藻素」—— 藻源性抗氧化複合物</span></h3>
+                <p data-translate="fucoxanthin_desc"><strong>抗氧化、抗緊迫、腸道健康</strong> · Nrf2路徑 · 總抗氧化能力↑41%</p>
+                
+                <div class="mechanism-card">
+                    <div class="mechanism-title">🌿 抗氧化與抗緊迫：</div>
+                    <p data-translate="fucoxanthin_mechanism_text">褐藻素活化 Nrf2/KEAP1 抗氧化路徑，提升 SOD ↑41%、CAT/GPx 活性上升、肝臟MDA下降、Hsp70上調（抗緊迫蛋白）。同時改善腸道緊密連接蛋白表達，降低腸道通透性，減少內毒素滲漏。</p>
+                </div>
+                
+                <p><strong data-translate="oxidative_stress_label">📊 綜合效應：</strong> <span data-translate="oxidative_stress">高密度條件下仍維持 85–92% 存活率，嗜水氣單胞菌攻毒存活率達 86%，腸道屏障完整性顯著優於對照組。</span></p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin: 16px 0;">
+                    <div class="gene-highlight" style="text-align: center; background: rgba(0,168,168,0.1);"><span style="font-size:1.6rem;">SOD↑41%</span><br><span data-translate="sod">超氧化物歧化酶</span></div>
+                    <div class="gene-highlight" style="text-align: center; background: rgba(0,168,168,0.1);"><span style="font-size:1.6rem;">86%</span><br><span data-translate="aeromonas_surv">嗜水氣單胞菌存活</span></div>
+                    <div class="gene-highlight" style="text-align: center; background: rgba(0,168,168,0.1);"><span style="font-size:1.6rem;">Hsp70↑</span><br><span data-translate="hsp">抗緊迫</span></div>
+                </div>
+                
+                <div class="img-container">
+                    <img src="assets/tilapia-gut-barrier.jpg" alt="腸道組織學" class="responsive-img" loading="lazy">
+                    <div class="img-title" data-translate="gut_histology_title">腸道絨毛組織切片 · 緊密連接增強</div>
+                </div>
+            </div>
+            
+            <!-- 效能總表 -->
+            <div class="table-container">
+                <table class="data-table">
+                    <thead><tr><th data-translate="benefit_item">效能項目</th><th data-translate="mechanism">對應載體</th><th data-translate="performance">實證績效</th><th data-translate="literature">文獻來源</th></tr></thead>
+                    <tbody>
+                        <tr><td data-translate="benefit1">降FCR、促生長</td><td data-translate="carrier1">重組蛋白酶</td><td>絨毛↑30% · FCR 1.42→1.22</td><td>PMID:38481478</td></tr>
+                        <tr><td data-translate="benefit2">抗鏈球菌、存活率↑</td><td data-translate="carrier2">小核酸</td><td>存活率52%→82.3% · IgM↑3倍</td><td>水生生物學報2025</td></tr>
+                        <tr><td data-translate="benefit3">抗氧化、腸道健康</td><td data-translate="carrier3">褐藻素</td><td>SOD↑41% · 嗜水氣單胞菌存活86%</td><td>FSI 2025</td></tr>
+                        <tr><td data-translate="benefit4">免疫相關基因表達</td><td data-translate="carrier2">小核酸</td><td>IL-1β/TNF-α/溶菌酶 ↑</td><td>DOI:10.3724/1000-3207.2025.0050</td></tr>
+                        <tr><td data-translate="benefit5">總效益提升</td><td>全配方協同</td><td>淨利↑17,000~30,000元/萬尾</td><td>台灣水產學會2025</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 3. 養殖實證數據 ========== -->
+    <section>
+        <div class="container">
+            <h2 class="section-title" data-translate="farm_title">📋 台灣/東南亞養殖場實證數據（2025-2026）</h2>
+            
+            <div style="background:var(--light-bg); padding:16px; border-radius:18px; margin-bottom:16px; border-left:6px solid var(--success);">
+                <p style="font-weight:700;" data-translate="farm_scope">📍 雲林口湖 · 嘉義義竹 · 屏東佳冬 · 泰國猜納 共18場 · 有效樣本800萬尾</p>
+            </div>
+            
+            <div class="table-container">
+                <table class="data-table">
+                    <thead><tr><th data-translate="region">養殖模式</th><th data-translate="control">對照組<br>存活率/FCR</th><th data-translate="vitality">活力旺組<br>存活率/FCR</th><th data-translate="improvement">改善幅度</th><th data-translate="benefit">收益提升</th></tr></thead>
+                    <tbody>
+                        <tr><td data-translate="pond">傳統土塘</td><td>68% / 1.45</td><td><span style="color:var(--success);font-weight:700;">83% / 1.28</span></td><td>↑15% / ↓0.17</td><td><span class="stat-value" data-value="22.5">+22.5%</span></td></tr>
+                        <tr><td data-translate="greenhouse">循環水(RAS)</td><td>78% / 1.25</td><td><span style="color:var(--success);font-weight:700;">92% / 1.08</span></td><td>↑14% / ↓0.17</td><td><span class="stat-value" data-value="28.6">+28.6%</span></td></tr>
+                        <tr><td data-translate="biofloc">湖上網箱</td><td>72% / 1.38</td><td><span style="color:var(--success);font-weight:700;">88% / 1.18</span></td><td>↑16% / ↓0.20</td><td><span class="stat-value" data-value="31.4">+31.4%</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <p style="margin-top:16px; background:#e3f2fd; padding:14px; border-radius:14px; font-weight:600;" data-translate="farm_conclusion">🔬 平均存活率提升15-18%，FCR降低0.15-0.20，每萬尾淨利增加2.2-3.4萬元</p>
+        </div>
+    </section>
+
+    <!-- ========== 4. 經濟效益精算 ========== -->
+    <section style="background-color: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title" data-translate="profit_title">💰 單造效益精算｜飼料節省＋存活率提升＋生長加速</h2>
+            
+            <div class="card">
+                <!-- 三重協同效應說明 -->
+                <div style="background:#e8f4fd; padding:15px; border-radius:12px; margin-bottom:20px;">
+                    <p><strong data-translate="synergy_title">🔁 三重協同效應：</strong> <span data-translate="synergy_desc">「消化效率提升 × 免疫強化 × 抗氧化穩定」三軸同步作用，帶來存活率↑15–20%、生長速率↑12–16%、FCR↓0.15左右，每萬尾淨利增加17,000–30,000元，最終形成1,250%投資報酬率，12天內回本。</span></p>
+                </div>
+                
+                <div style="background:#fff3e0; padding:16px; border-radius:18px; margin-bottom:20px;">
+                    <p style="font-size:1rem;"><strong data-translate="calc_basis">📐 基準：</strong><span data-translate="calc_detail">尼羅吳郭魚 · 放養密度2萬尾/公頃 · 養殖150天 · 飼料28元/kg · 出魚均價65元/kg · 添加量1kg/噸飼料</span></p>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead><tr><th data-translate="profit_item">效益項目</th><th data-translate="improvement_range">改善幅度</th><th data-translate="value_ntd">經濟價值（NTD/萬尾）</th></tr></thead>
+                        <tbody>
+                            <tr><td data-translate="feed_saving">飼料節省</td><td data-translate="fcr_saving_detail">FCR 1.42→1.22，省14.1%</td><td><span class="stat-value" data-value="2800">2,800</span></td></tr>
+                            <tr><td data-translate="survival_gain">存活率提升</td><td data-translate="survival_gain_detail">72%→87%，多收1,500尾</td><td><span class="stat-value" data-value="12000">12,000</span></td></tr>
+                            <tr><td data-translate="growth_gain">生長加速效益</td><td data-translate="growth_gain_detail">150天規格提升80克/尾，溢價5元/kg</td><td><span class="stat-value" data-value="2000">2,000</span></td></tr>
+                            <tr><td data-translate="health_gain">鏈球菌損失減少</td><td data-translate="health_gain_detail">鏈球菌感染率↓60%，節省藥費與死魚</td><td><span class="stat-value" data-value="1500">1,500</span></td></tr>
+                            <tr style="background:#ffeaa7;"><td><strong data-translate="total_benefit">總效益增加</strong></td><td>—</td><td><strong><span class="stat-value" data-value="18300">18,300</span></strong></td></tr>
+                            <tr><td data-translate="add_cost">活力旺添加成本</td><td data-translate="add_cost_detail">全程耗料450kg/萬尾 × 0.96元/kg</td><td><span class="stat-value" data-value="-432">-432</span></td></tr>
+                            <tr style="background:linear-gradient(145deg,var(--primary-blue),var(--secondary-blue)); color:white;"><td><strong data-translate="net_profit">每萬尾淨利增加</strong></td><td>—</td><td><strong><span class="stat-value" data-value="17868">17,868</span></strong></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="roi-highlight">
+                    <h3 style="font-size:1.6rem; margin-bottom:12px; position: relative; z-index: 1;" data-translate="roi_title">投資報酬率 ROI —— 1,250%</h3>
+                    <div class="roi-value" data-value="1250">1,250%</div>
+                    <p style="font-size:1.2rem; margin:15px 0; position: relative; z-index: 1;" data-translate="roi_desc">💰 每投入1元，創造13.5元淨收益 · 回收期<12天</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 5. 產品規格 ========== -->
+    <section>
+        <div class="container">
+            <h2 class="section-title" data-translate="product_spec_title">📋 產品規格｜每噸全價飼料添加1kg</h2>
+            
+            <div class="param-cards">
+                <div class="param-card"><div class="param-label" data-translate="spec_dosage_label">添加量</div><div class="param-value">1</div><div>kg/噸</div><div class="spec-note" data-translate="spec_dosage_note">高密度可增至1.5kg</div></div>
+                <div class="param-card"><div class="param-label" data-translate="spec_price_label">單價</div><div class="param-value stat-value" data-value="960">NTD 960</div><div>/kg</div></div>
+                <div class="param-card"><div class="param-label" data-translate="spec_cost_label">飼料成本增</div><div class="param-value stat-value" data-value="960">NTD 960</div><div>/噸</div></div>
+                <div class="param-card"><div class="param-label" data-translate="spec_stage_label">適用階段</div><div class="param-value" data-translate="spec_stage_value">全程</div><div>魚苗至成魚</div></div>
+                <div class="param-card"><div class="param-label" data-translate="spec_feed_label">每萬尾耗料</div><div class="param-value">~450</div><div>kg</div><div class="spec-note" data-translate="spec_feed_note">FCR 1.22基準</div></div>
+                <div class="param-card"><div class="param-label" data-translate="spec_addcost_label">每萬尾成本</div><div class="param-value stat-value" data-value="432">NTD 432</div><div>/萬尾</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 6. 見證與CTA ========== -->
+    <section style="background: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 100%);">
+        <div class="container">
+            <div class="grid" style="grid-template-columns: repeat(2, 1fr);">
+                <div class="card">
+                    <p data-translate="testimonial1" style="font-size:1rem;">「雲林口湖循環水場，連續兩批使用活力旺，FCR從1.42降到1.20，存活率從71%衝到89%，每萬尾多賺1.8萬元，今年打算全場導入！」</p>
+                    <div style="margin-top: 16px; font-weight: 700;" data-translate="testimonial1_author">雲林 · 張養殖</div>
+                    <div style="color: #777; font-size:0.9rem;" data-translate="testimonial1_meta">循環水RAS · 2026.03結算</div>
+                </div>
+                <div class="card">
+                    <p data-translate="testimonial2" style="font-size:1rem;">「泰國猜納網箱養殖，鏈球菌一直困擾我們，活力旺添加後死亡率明顯下降，肝臟健康，料比1.18，今年增設20個網箱！」</p>
+                    <div style="margin-top: 16px; font-weight: 700;" data-translate="testimonial2_author">泰國 · Somchai</div>
+                    <div style="color: #777; font-size:0.9rem;" data-translate="testimonial2_meta">湖上網箱 · 年產2批</div>
+                </div>
+            </div>
+            
+            <div class="cta-block" style="background: linear-gradient(145deg, #1e4a5a, #0f3a45); color: white; padding: 40px 20px; border-radius: 30px; text-align: center; margin: 40px 0;">
+                <h2 style="font-size:2rem; color:white;" data-translate="cta_title">🚀 試算您魚場的1,250% ROI</h2>
+                <div class="big-number" style="font-size: 3rem; font-weight: 900; color: var(--accent-yellow);"><span class="stat-value" data-value="17868">NTD 17,868</span></div>
+                <p style="font-size:1.3rem;" data-translate="cta_sub1">每萬尾額外淨利 × 您的規模</p>
+                <div class="big-number" style="font-size:2.6rem;"><span class="roi-value" data-value="1250">1,250%</span></div>
+                <p style="font-size:1.3rem;" data-translate="cta_sub2">養殖業高報酬 · 12天回本</p>
+                <div style="margin:25px 0;">
+                    <a class="btn btn-primary" href="tel:+886912345678" style="padding: 16px 30px; border-radius: 60px; font-weight: 800; font-size: 1.2rem; display: inline-flex; align-items: center; gap: 10px; text-decoration: none; background: linear-gradient(145deg, var(--accent-yellow), #f39c12); color: var(--dark-text); box-shadow: 0 8px 20px rgba(255,180,70,0.4);" data-translate="cta_btn1">📞 免費ROI試算｜首批8折</a>
+                    <a class="btn btn-secondary" href="#" style="padding: 16px 30px; border-radius: 60px; font-weight: 800; font-size: 1.2rem; display: inline-flex; align-items: center; gap: 10px; text-decoration: none; background: transparent; border: 2px solid rgba(255,255,255,0.9); color: white;" data-translate="cta_btn2">📋 領取吳郭魚實證手冊</a>
+                </div>
+                <p style="opacity:0.9; font-size:1rem;" data-translate="cta_footnote">* 800萬尾田間實證 · 18養殖場 · 首池無效退費</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer>
+        <div class="container">
+            <div style="margin-bottom: 20px;">
+                <h3 style="font-size: 1.5rem; margin-bottom: 10px;" data-translate="footer_company">首池有限公司｜SHOU CHI Co., Ltd.</h3>
+                <p style="font-size: 1rem; opacity: 0.9;" data-translate="footer_slogan">吳郭魚高效養殖 · 免疫與生長領導品牌</p>
+            </div>
+            <div style="padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 0.95rem; opacity: 0.85; line-height: 1.6;">
+                <p data-translate="footer_copyright">© 2026 首池有限公司 · 引用PubMed/水生生物學報 · 實拍圖片</p>
+                <p data-translate="footer_sub">分子保護機制基於最新科學研究｜實際效益可能因管理條件而異</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ========== 完整多語言翻譯物件 ==========
+        const translations = {
+            'zh-TW': {
+                'title': '🐟 活力旺®吳郭魚 · 尼羅吳郭魚專用',
+                'subtitle': '三大機密載體｜重組蛋白酶‧小核酸‧褐藻素 · 發酵豆粕/枯草芽孢桿菌/發酵紙莎草葉技術',
+                'tagline': '飼料轉換率 ↓0.12-0.18 · 存活率 ↑18%+ · 投資報酬率 1,250%',
+                'cost_label': '成本',
+                'per_kg': '公斤',
+                'dosage_label': '添加量：1公斤/噸飼料',
+                'verified_fish': '實證尾數：800萬+',
+                'confidential_title': '🔬 活力旺® 吳郭魚專利配方 – 三大機密載體',
+                'protease_title': '1. 「重組蛋白酶」—— 發酵複合酶製劑',
+                'protease_desc': '<strong>降FCR、促生長</strong> · 仿生發酵技術 · 植物蛋白消化率 ↑28% · 每噸飼料省 12% 成本',
+                'protease_mechanism_text': '重組蛋白酶源自發酵豆粕/玉米發酵蛋白，顯著提高蛋白酶、澱粉酶活性，促進胺基酸吸收；吳郭魚腸道絨毛高度增加，營養同化效率提升。Gonçalves等 (2024) 證實飼料限制搭配合生系統，FCR降低49.3%，運營成本下降20.2% (PMID: 38481478)。應用於吳郭魚可顯著縮短養殖週期。',
+                'villi_increase_label': '📊 高密度養殖實證：',
+                'villi_increase': '腸道絨毛高度提升約30%，吸收面積增加，FCR下降0.12–0.18，每噸飼料成本降低約12–15%，養殖週期縮短10–18天。',
+                'villi_short': '絨毛高度',
+                'fcr_short': 'FCR',
+                'cycle_short': '養殖天數',
+                'protease_caption': '重組蛋白酶 · 促進吳郭魚快速增重',
+                'rna_title': '2. 「小核酸」—— 免疫調控肽',
+                'rna_desc': '<strong>抗鏈球菌、提高存活率</strong> · 枯草芽孢桿菌+發酵紙莎草葉 · 鏈球菌感染存活率 52%→82%',
+                'rna_mechanism_text': '活力旺小核酸片段靶向免疫調控基因，上調 IgM（↑3倍）、IL-1β/TNF-α 表達、溶菌酶活性↑2倍、補體系統 C3 啟動。搭配 Bacillus subtilis 發酵技術，增強頭腎巨噬細胞吞噬能力與呼吸爆發反應。',
+                'strep_protection_label': '🛡️ 實證數據：',
+                'strep_protection': '鏈球菌攻毒存活率由52%→82%，死亡率下降50–70%，抗生素依賴度明顯降低。',
+                'igm': '抗體提升',
+                'strep_surv': '鏈球菌存活',
+                'mortality': '死亡率',
+                'immune_cells_title': '頭腎巨噬細胞 · 吞噬活性提升65%',
+                'fucoxanthin_title': '3. 「褐藻素」—— 藻源性抗氧化複合物',
+                'fucoxanthin_desc': '<strong>抗氧化、抗緊迫、腸道健康</strong> · Nrf2路徑 · 總抗氧化能力↑41%',
+                'fucoxanthin_mechanism_text': '褐藻素活化 Nrf2/KEAP1 抗氧化路徑，提升 SOD ↑41%、CAT/GPx 活性上升、肝臟MDA下降、Hsp70上調（抗緊迫蛋白）。同時改善腸道緊密連接蛋白表達，降低腸道通透性，減少內毒素滲漏。',
+                'oxidative_stress_label': '📊 綜合效應：',
+                'oxidative_stress': '高密度條件下仍維持 85–92% 存活率，嗜水氣單胞菌攻毒存活率達 86%，腸道屏障完整性顯著優於對照組。',
+                'sod': '超氧化物歧化酶',
+                'aeromonas_surv': '嗜水氣單胞菌存活',
+                'hsp': '抗緊迫',
+                'gut_histology_title': '腸道絨毛組織切片 · 緊密連接增強',
+                'benefit_item': '效能項目',
+                'mechanism': '對應載體',
+                'performance': '實證績效',
+                'literature': '文獻來源',
+                'benefit1': '降FCR、促生長',
+                'benefit2': '抗鏈球菌、存活率↑',
+                'benefit3': '抗氧化、腸道健康',
+                'benefit4': '免疫相關基因表達',
+                'benefit5': '總效益提升',
+                'carrier1': '重組蛋白酶',
+                'carrier2': '小核酸',
+                'carrier3': '褐藻素',
+                'farm_title': '📋 台灣/東南亞養殖場實證數據（2025-2026）',
+                'farm_scope': '📍 雲林口湖 · 嘉義義竹 · 屏東佳冬 · 泰國猜納 共18場 · 有效樣本800萬尾',
+                'region': '養殖模式',
+                'control': '對照組<br>存活率/FCR',
+                'vitality': '活力旺組<br>存活率/FCR',
+                'improvement': '改善幅度',
+                'benefit': '收益提升',
+                'pond': '傳統土塘',
+                'greenhouse': '循環水(RAS)',
+                'biofloc': '湖上網箱',
+                'farm_conclusion': '🔬 平均存活率提升15-18%，FCR降低0.15-0.20，每萬尾淨利增加2.2-3.4萬元',
+                'spec_title': '⚙️ 吳郭魚養殖性能參數｜高密度·高存活',
+                'metric_fcr_title': '飼料轉換率 (FCR)',
+                'fcr_desc': '省 2,800 元/萬尾',
+                'metric_survival_title': '存活率',
+                'survival_desc': '+12,000 元/萬尾',
+                'metric_growth_title': '生長速率',
+                'growth_desc': '溢價 2,000 元/萬尾',
+                'metric_health_title': '鏈球菌損失減少',
+                'health_desc': '節省 1,500 元/萬尾',
+                'profit_title': '💰 單造效益精算｜飼料節省＋存活率提升＋生長加速',
+                'calc_basis': '📐 基準：',
+                'calc_detail': '尼羅吳郭魚 · 放養密度2萬尾/公頃 · 養殖150天 · 飼料28元/kg · 出魚均價65元/kg · 添加量1kg/噸飼料',
+                'profit_item': '效益項目',
+                'improvement_range': '改善幅度',
+                'value_ntd': '經濟價值（NTD/萬尾）',
+                'feed_saving': '飼料節省',
+                'fcr_saving_detail': 'FCR 1.42→1.22，省14.1%',
+                'survival_gain': '存活率提升',
+                'survival_gain_detail': '72%→87%，多收1,500尾',
+                'growth_gain': '生長加速效益',
+                'growth_gain_detail': '150天規格提升80克/尾，溢價5元/kg',
+                'health_gain': '鏈球菌損失減少',
+                'health_gain_detail': '鏈球菌感染率↓60%，節省藥費與死魚',
+                'total_benefit': '總效益增加',
+                'add_cost': '活力旺添加成本',
+                'add_cost_detail': '全程耗料450kg/萬尾 × 0.96元/kg',
+                'net_profit': '每萬尾淨利增加',
+                'roi_title': '投資報酬率 ROI —— 1,250%',
+                'roi_desc': '💰 每投入1元，創造13.5元淨收益 · 回收期<12天',
+                'synergy_title': '🔁 三重協同效應：',
+                'synergy_desc': '「消化效率提升 × 免疫強化 × 抗氧化穩定」三軸同步作用，帶來存活率↑15–20%、生長速率↑12–16%、FCR↓0.15左右，每萬尾淨利增加17,000–30,000元，最終形成1,250%投資報酬率，12天內回本。',
+                'product_spec_title': '📋 產品規格｜每噸全價飼料添加1kg',
+                'spec_dosage_label': '添加量',
+                'spec_dosage_note': '高密度可增至1.5kg',
+                'spec_price_label': '單價',
+                'spec_cost_label': '飼料成本增',
+                'spec_stage_label': '適用階段',
+                'spec_stage_value': '全程',
+                'spec_feed_label': '每萬尾耗料',
+                'spec_feed_note': 'FCR 1.22基準',
+                'spec_addcost_label': '每萬尾成本',
+                'testimonial1': '「雲林口湖循環水場，連續兩批使用活力旺，FCR從1.42降到1.20，存活率從71%衝到89%，每萬尾多賺1.8萬元，今年打算全場導入！」',
+                'testimonial1_author': '雲林 · 張養殖',
+                'testimonial1_meta': '循環水RAS · 2026.03結算',
+                'testimonial2': '「泰國猜納網箱養殖，鏈球菌一直困擾我們，活力旺添加後死亡率明顯下降，肝臟健康，料比1.18，今年增設20個網箱！」',
+                'testimonial2_author': '泰國 · Somchai',
+                'testimonial2_meta': '湖上網箱 · 年產2批',
+                'cta_title': '🚀 試算您魚場的1,250% ROI',
+                'cta_sub1': '每萬尾額外淨利 × 您的規模',
+                'cta_sub2': '養殖業高報酬 · 12天回本',
+                'cta_btn1': '📞 免費ROI試算｜首批8折',
+                'cta_btn2': '📋 領取吳郭魚實證手冊',
+                'cta_footnote': '* 800萬尾田間實證 · 18養殖場 · 首池無效退費',
+                'footer_company': '首池有限公司',
+                'footer_slogan': '吳郭魚高效養殖 · 免疫與生長領導品牌',
+                'footer_copyright': '© 2026 首池有限公司 · 引用PubMed/水生生物學報 · 實拍圖片',
+                'footer_sub': '分子保護機制基於最新科學研究｜實際效益可能因管理條件而異'
+            },
+            'zh-CN': {
+                // 簡體翻譯此處省略，實際使用時應包含所有對應鍵值，與繁體結構相同但內容簡體化
+                'title': '🐟 活力旺®罗非鱼 · 尼罗罗非鱼专用',
+                'subtitle': '三大机密载体｜重组蛋白酶‧小核酸‧褐藻素 · 发酵豆粕/枯草芽孢杆菌/发酵纸莎草叶技术',
+                'tagline': '饲料转换率 ↓0.12-0.18 · 存活率 ↑18%+ · 投资报酬率 1,250%',
+                'cost_label': '成本',
+                'per_kg': '公斤',
+                'dosage_label': '添加量：1公斤/吨饲料',
+                'verified_fish': '实证尾数：800万+',
+                'confidential_title': '🔬 活力旺® 罗非鱼专利配方 – 三大机密载体',
+                'protease_title': '1. 「重组蛋白酶」—— 发酵复合酶制剂',
+                'protease_desc': '<strong>降FCR、促生长</strong> · 仿生发酵技术 · 植物蛋白消化率 ↑28% · 每吨饲料省12%成本',
+                'protease_mechanism_text': '重组蛋白酶源自发酵豆粕/玉米发酵蛋白，显著提高蛋白酶、淀粉酶活性，促进氨基酸吸收；罗非鱼肠道绒毛高度增加，营养同化效率提升。Gonçalves等 (2024) 证实饲料限制搭配合生系统，FCR降低49.3%，运营成本下降20.2% (PMID: 38481478)。应用于罗非鱼可显著缩短养殖周期。',
+                'villi_increase_label': '📊 高密度养殖实证：',
+                'villi_increase': '肠道绒毛高度提升约30%，吸收面积增加，FCR下降0.12–0.18，每吨饲料成本降低约12–15%，养殖周期缩短10–18天。',
+                'villi_short': '绒毛高度',
+                'fcr_short': 'FCR',
+                'cycle_short': '养殖天数',
+                'protease_caption': '重组蛋白酶 · 促进罗非鱼快速增重',
+                'rna_title': '2. 「小核酸」—— 免疫调控肽',
+                'rna_desc': '<strong>抗链球菌、提高存活率</strong> · 枯草芽孢杆菌+发酵纸莎草叶 · 链球菌感染存活率 52%→82%',
+                'rna_mechanism_text': '活力旺小核酸片段靶向免疫调控基因，上调 IgM（↑3倍）、IL-1β/TNF-α 表达、溶菌酶活性↑2倍、补体系统 C3 启动。搭配 Bacillus subtilis 发酵技术，增强头肾巨噬细胞吞噬能力与呼吸爆发反应。',
+                'strep_protection_label': '🛡️ 实证数据：',
+                'strep_protection': '链球菌攻毒存活率由52%→82%，死亡率下降50–70%，抗生素依赖度明显降低。',
+                'igm': '抗体提升',
+                'strep_surv': '链球菌存活',
+                'mortality': '死亡率',
+                'immune_cells_title': '头肾巨噬细胞 · 吞噬活性提升65%',
+                'fucoxanthin_title': '3. 「褐藻素」—— 藻源性抗氧化复合物',
+                'fucoxanthin_desc': '<strong>抗氧化、抗紧迫、肠道健康</strong> · Nrf2路径 · 总抗氧化能力↑41%',
+                'fucoxanthin_mechanism_text': '褐藻素活化 Nrf2/KEAP1 抗氧化路径，提升 SOD ↑41%、CAT/GPx 活性上升、肝脏MDA下降、Hsp70上调（抗紧迫蛋白）。同时改善肠道紧密连接蛋白表达，降低肠道通透性，减少内毒素渗漏。',
+                'oxidative_stress_label': '📊 综合效应：',
+                'oxidative_stress': '高密度条件下仍维持 85–92% 存活率，嗜水气单胞菌攻毒存活率达 86%，肠道屏障完整性显著优于对照组。',
+                'sod': '超氧化物歧化酶',
+                'aeromonas_surv': '嗜水气单胞菌存活',
+                'hsp': '抗紧迫',
+                'gut_histology_title': '肠道绒毛组织切片 · 紧密连接增强',
+                'benefit_item': '效能项目',
+                'mechanism': '对应载体',
+                'performance': '实证绩效',
+                'literature': '文献来源',
+                'benefit1': '降FCR、促生长',
+                'benefit2': '抗链球菌、存活率↑',
+                'benefit3': '抗氧化、肠道健康',
+                'benefit4': '免疫相关基因表达',
+                'benefit5': '总效益提升',
+                'carrier1': '重组蛋白酶',
+                'carrier2': '小核酸',
+                'carrier3': '褐藻素',
+                'farm_title': '📋 台湾/东南亚养殖场实证数据（2025-2026）',
+                'farm_scope': '📍 云林口湖 · 嘉义义竹 · 屏东佳冬 · 泰国猜纳 共18场 · 有效样本800万尾',
+                'region': '养殖模式',
+                'control': '对照组<br>存活率/FCR',
+                'vitality': '活力旺组<br>存活率/FCR',
+                'improvement': '改善幅度',
+                'benefit': '收益提升',
+                'pond': '传统土塘',
+                'greenhouse': '循环水(RAS)',
+                'biofloc': '湖上网箱',
+                'farm_conclusion': '🔬 平均存活率提升15-18%，FCR降低0.15-0.20，每万尾净利增加2.2-3.4万元',
+                'spec_title': '⚙️ 罗非鱼养殖性能参数｜高密度·高存活',
+                'metric_fcr_title': '饲料转换率 (FCR)',
+                'fcr_desc': '省 2,800 元/万尾',
+                'metric_survival_title': '存活率',
+                'survival_desc': '+12,000 元/万尾',
+                'metric_growth_title': '生长速率',
+                'growth_desc': '溢价 2,000 元/万尾',
+                'metric_health_title': '链球菌损失减少',
+                'health_desc': '节省 1,500 元/万尾',
+                'profit_title': '💰 单造效益精算｜饲料节省＋存活率提升＋生长加速',
+                'calc_basis': '📐 基准：',
+                'calc_detail': '尼罗罗非鱼 · 放养密度2万尾/公顷 · 养殖150天 · 饲料28元/kg · 出鱼均价65元/kg · 添加量1kg/吨饲料',
+                'profit_item': '效益项目',
+                'improvement_range': '改善幅度',
+                'value_ntd': '经济价值（NTD/万尾）',
+                'feed_saving': '饲料节省',
+                'fcr_saving_detail': 'FCR 1.42→1.22，省14.1%',
+                'survival_gain': '存活率提升',
+                'survival_gain_detail': '72%→87%，多收1,500尾',
+                'growth_gain': '生长加速效益',
+                'growth_gain_detail': '150天规格提升80克/尾，溢价5元/kg',
+                'health_gain': '链球菌损失减少',
+                'health_gain_detail': '链球菌感染率↓60%，节省药费与死鱼',
+                'total_benefit': '总效益增加',
+                'add_cost': '活力旺添加成本',
+                'add_cost_detail': '全程耗料450kg/万尾 × 0.96元/kg',
+                'net_profit': '每万尾净利增加',
+                'roi_title': '投资报酬率 ROI —— 1,250%',
+                'roi_desc': '💰 每投入1元，创造13.5元净收益 · 回收期<12天',
+                'synergy_title': '🔁 三重协同效应：',
+                'synergy_desc': '「消化效率提升 × 免疫强化 × 抗氧化稳定」三轴同步作用，带来存活率↑15–20%、生长速率↑12–16%、FCR↓0.15左右，每万尾净利增加17,000–30,000元，最终形成1,250%投资报酬率，12天内回本。',
+                'product_spec_title': '📋 产品规格｜每吨全价饲料添加1kg',
+                'spec_dosage_label': '添加量',
+                'spec_dosage_note': '高密度可增至1.5kg',
+                'spec_price_label': '单价',
+                'spec_cost_label': '饲料成本增',
+                'spec_stage_label': '适用阶段',
+                'spec_stage_value': '全程',
+                'spec_feed_label': '每万尾耗料',
+                'spec_feed_note': 'FCR 1.22基准',
+                'spec_addcost_label': '每万尾成本',
+                'testimonial1': '「云林口湖循环水场，连续两批使用活力旺，FCR从1.42降到1.20，存活率从71%冲到89%，每万尾多赚1.8万元，今年打算全场导入！」',
+                'testimonial1_author': '云林 · 张养殖',
+                'testimonial1_meta': '循环水RAS · 2026.03结算',
+                'testimonial2': '「泰国猜纳网箱养殖，链球菌一直困扰我们，活力旺添加后死亡率明显下降，肝脏健康，料比1.18，今年增设20个网箱！」',
+                'testimonial2_author': '泰国 · Somchai',
+                'testimonial2_meta': '湖上网箱 · 年产2批',
+                'cta_title': '🚀 试算您鱼场的1,250% ROI',
+                'cta_sub1': '每万尾额外净利 × 您的规模',
+                'cta_sub2': '养殖业高报酬 · 12天回本',
+                'cta_btn1': '📞 免费ROI试算｜首批8折',
+                'cta_btn2': '📋 领取罗非鱼实证手册',
+                'cta_footnote': '* 800万尾田间实证 · 18养殖场 · 首池无效退费',
+                'footer_company': '首池有限公司',
+                'footer_slogan': '罗非鱼高效养殖 · 免疫与生长领导品牌',
+                'footer_copyright': '© 2026 首池有限公司 · 引用PubMed/水生生物学报 · 实拍图片',
+                'footer_sub': '分子保护机制基于最新科学研究｜实际效益可能因管理条件而异'
+            },
+            'en': {
+                // 英文翻譯此處省略，實際使用時應包含所有對應鍵值
+                'title': '🐟 Vitality Booster® Tilapia · Nile Tilapia Specific',
+                'subtitle': 'Three Confidential Carriers | Recombinant Protease · Small Nucleic Acid · Fucoxanthin · Fermented SBM/B. subtilis/Fermented Broussonetia',
+                'tagline': 'FCR ↓0.12-0.18 · Survival ↑18%+ · ROI 1,250%',
+                'cost_label': 'Cost',
+                'per_kg': 'kg',
+                'dosage_label': 'Inclusion: 1kg/ton feed',
+                'verified_fish': 'Validated: 8M+',
+                'confidential_title': '🔬 Vitality Booster® Tilapia Patent Formula – Three Confidential Carriers',
+                'protease_title': '1. "Recombinant Protease" – Fermented Enzyme Complex',
+                'protease_desc': '<strong>FCR reduction, growth promotion</strong> · Biomimetic fermentation · Plant protein digestibility ↑28% · Save 12% feed cost/ton',
+                'protease_mechanism_text': 'Recombinant protease from fermented soybean meal/corn protein significantly increases protease and amylase activities, enhancing amino acid absorption; tilapia intestinal villus height increases, improving nutrient assimilation. Gonçalves et al. (2024) confirmed feed restriction with synbiotics reduces FCR by 49.3% and operating costs by 20.2% (PMID: 38481478). Application in tilapia shortens production cycle.',
+                'villi_increase_label': '📊 High-density trial:',
+                'villi_increase': 'Intestinal villus height increased by ~30%, absorption area enlarged, FCR reduced by 0.12–0.18, feed cost per ton reduced by 12–15%, culture cycle shortened by 10–18 days.',
+                'villi_short': 'Villus height',
+                'fcr_short': 'FCR',
+                'cycle_short': 'Days saved',
+                'protease_caption': 'Recombinant Protease · Accelerates tilapia growth',
+                'rna_title': '2. "Small Nucleic Acid" – Immune Regulatory Peptide',
+                'rna_desc': '<strong>Anti-Streptococcus, survival↑</strong> · B. subtilis + FBL · Strep. survival 52%→82%',
+                'rna_mechanism_text': 'Vitality small nucleic acid fragments target immune regulatory genes, upregulating IgM (↑3x), IL-1β/TNF-α expression, lysozyme activity↑2x, complement C3 activation. Combined with B. subtilis fermentation, enhances head kidney macrophage phagocytosis and respiratory burst.',
+                'strep_protection_label': '🛡️ Trial data:',
+                'strep_protection': 'Streptococcus challenge survival increased from 52% to 82%, mortality reduced by 50–70%, antibiotic dependence significantly decreased.',
+                'igm': 'IgM boost',
+                'strep_surv': 'Strep. survival',
+                'mortality': 'Mortality',
+                'immune_cells_title': 'Head kidney macrophages · phagocytosis↑65%',
+                'fucoxanthin_title': '3. "Fucoxanthin" – Algal Antioxidant Complex',
+                'fucoxanthin_desc': '<strong>Antioxidant, anti-stress, gut health</strong> · Nrf2 pathway · T-AOC ↑41%',
+                'fucoxanthin_mechanism_text': 'Fucoxanthin activates Nrf2/KEAP1 antioxidant pathway, increasing SOD ↑41%, CAT/GPx activities, decreasing liver MDA, upregulating Hsp70 (stress protein). Also improves intestinal tight junction protein expression, reducing gut permeability and endotoxin leakage.',
+                'oxidative_stress_label': '📊 Overall effect:',
+                'oxidative_stress': 'Under high density, survival rate maintained at 85–92%, Aeromonas hydrophila challenge survival reached 86%, intestinal barrier integrity significantly better than control.',
+                'sod': 'SOD',
+                'aeromonas_surv': 'Aeromonas survival',
+                'hsp': 'Hsp70',
+                'gut_histology_title': 'Gut histology · tight junction enhanced',
+                'benefit_item': 'Efficacy',
+                'mechanism': 'Carrier',
+                'performance': 'Performance',
+                'literature': 'Reference',
+                'benefit1': 'FCR reduction, growth',
+                'benefit2': 'Anti-Strep., survival↑',
+                'benefit3': 'Antioxidant, gut health',
+                'benefit4': 'Immune gene expression',
+                'benefit5': 'Total benefit↑',
+                'carrier1': 'Recombinant Protease',
+                'carrier2': 'Small Nucleic Acid',
+                'carrier3': 'Fucoxanthin',
+                'farm_title': '📋 Taiwan/Southeast Asia Farm Trials (2025-2026)',
+                'farm_scope': '📍 18 farms (Yunlin, Chiayi, Pingtung, Thailand) · 8M fish',
+                'region': 'System',
+                'control': 'Control<br>Survival/FCR',
+                'vitality': 'Vitality<br>Survival/FCR',
+                'improvement': 'Improvement',
+                'benefit': 'Gain',
+                'pond': 'Earthen pond',
+                'greenhouse': 'RAS',
+                'biofloc': 'Cage (lake)',
+                'farm_conclusion': '🔬 Survival +15-18%, FCR -0.15-0.20, +NTD 22k-34k/10k fish',
+                'spec_title': '⚙️ Tilapia Performance Parameters',
+                'metric_fcr_title': 'FCR',
+                'fcr_desc': 'Save NTD 2,800/10k',
+                'metric_survival_title': 'Survival',
+                'survival_desc': '+NTD 12,000/10k',
+                'metric_growth_title': 'Growth rate',
+                'growth_desc': '+NTD 2,000/10k',
+                'metric_health_title': 'Strep. loss reduction',
+                'health_desc': 'Save NTD 1,500/10k',
+                'profit_title': '💰 Economic Analysis per 10,000 Fish',
+                'calc_basis': '📐 Basis:',
+                'calc_detail': 'Nile tilapia, 20k/ha, 150 days, feed NTD28/kg, fish NTD65/kg, inclusion 1kg/ton',
+                'profit_item': 'Item',
+                'improvement_range': 'Improvement',
+                'value_ntd': 'Value (NTD/10k)',
+                'feed_saving': 'Feed saving',
+                'fcr_saving_detail': 'FCR 1.42→1.22, -14.1%',
+                'survival_gain': 'Survival gain',
+                'survival_gain_detail': '72%→87%, +1,500 fish',
+                'growth_gain': 'Growth premium',
+                'growth_gain_detail': '+80g, +NTD5/kg',
+                'health_gain': 'Strep. reduction',
+                'health_gain_detail': 'Strep. infection -60%, vet cost↓',
+                'total_benefit': 'Total benefit',
+                'add_cost': 'Additive cost',
+                'add_cost_detail': '450kg feed × NTD0.96',
+                'net_profit': 'Net profit increase',
+                'roi_title': 'ROI —— 1,250%',
+                'roi_desc': '💰 NTD 1 → NTD 13.5 · Payback <12 days',
+                'synergy_title': '🔁 Triple synergy:',
+                'synergy_desc': '"Digestive efficiency × Immune enhancement × Antioxidant stabilization" triple action, resulting in survival ↑15–20%, growth rate ↑12–16%, FCR ↓~0.15, net profit increased by NTD 17,000–30,000 per 10,000 fish, finally achieving 1,250% ROI, payback <12 days.',
+                'product_spec_title': '📋 Product Specs｜1kg/ton complete feed',
+                'spec_dosage_label': 'Inclusion',
+                'spec_dosage_note': 'Booster 1.5kg (high density)',
+                'spec_price_label': 'Price',
+                'spec_cost_label': 'Feed cost +',
+                'spec_stage_label': 'Stage',
+                'spec_stage_value': 'Whole cycle',
+                'spec_feed_label': 'Feed/10k',
+                'spec_feed_note': 'FCR 1.22 basis',
+                'spec_addcost_label': 'Cost/10k',
+                'testimonial1': '"Yunlin RAS farm, two consecutive crops with Vitality, FCR 1.42→1.20, survival 71%→89%, earned +NTD18k/10k, plan to apply to all ponds!"',
+                'testimonial1_author': 'Mr. Chang, Yunlin',
+                'testimonial1_meta': 'RAS · Mar 2026',
+                'testimonial2': '"Chainat cage farm, Streptococcus was a big problem. After Vitality, mortality dropped, livers healthy, FCR 1.18, adding 20 more cages this year."',
+                'testimonial2_author': 'Somchai, Thailand',
+                'testimonial2_meta': 'Lake cages · 2 crops/year',
+                'cta_title': '🚀 Calculate Your 1,250% ROI',
+                'cta_sub1': 'Extra profit/10k × Your scale',
+                'cta_sub2': 'Top aquaculture ROI · 12 days payback',
+                'cta_btn1': '📞 Free ROI Calculation｜20% off first order',
+                'cta_btn2': '📋 Get Tilapia Trial Kit',
+                'cta_footnote': '* 8M fish trials, 18 farms, money-back guarantee',
+                'footer_company': 'Shou Chih Co., Ltd.',
+                'footer_slogan': 'Efficient Tilapia Farming · Immunity & Growth Leader',
+                'footer_copyright': '© 2026 Shou Chih · PubMed/J. Aquaculture cited · Actual photos',
+                'footer_sub': 'Molecular protection based on latest research | Actual results may vary'
+            }
+        };
+
+        const exchangeRates = {
+            'zh-TW': { rate: 1, symbol: 'NTD ', format: 'NTD {value}' },
+            'zh-CN': { rate: 0.2192, symbol: '¥', format: 'CNY {value}' },
+            'en':    { rate: 0.0320, symbol: '$', format: 'USD {value}' }
+        };
+        let currentLang = 'zh-TW';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = { threshold: 0.1 };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, observerOptions);
+            document.querySelectorAll('section').forEach(section => observer.observe(section));
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    switchLanguage(this.getAttribute('data-lang'));
+                });
+            });
+            switchLanguage('zh-TW');
+        });
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+            document.documentElement.lang = lang;
+
+            const dict = translations[lang] || translations['zh-TW'];
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if (dict[key] !== undefined) {
+                    if (el.tagName === 'IMG' && el.hasAttribute('alt')) {
+                        el.alt = dict[key];
+                    } else {
+                        el.innerHTML = dict[key];
+                    }
+                }
+            });
+
+            updateCurrencyValues(lang);
+        }
+
+        function updateCurrencyValues(lang) {
+            const rateInfo = exchangeRates[lang];
+            document.querySelectorAll('.stat-value').forEach(el => {
+                const base = el.getAttribute('data-value');
+                if (base) {
+                    let val = parseFloat(base);
+                    if (!isNaN(val)) {
+                        const converted = (val * rateInfo.rate).toFixed(2);
+                        let sign = '';
+                        if (el.textContent.trim().startsWith('-') || el.textContent.trim().startsWith('－')) sign = '-';
+                        else if (el.textContent.trim().startsWith('+')) sign = '+';
+                        el.textContent = rateInfo.format.replace('{value}', addThousandsSeparator(converted));
+                        if (sign) el.textContent = sign + el.textContent;
+                    }
+                }
+            });
+            document.querySelectorAll('.roi-value').forEach(el => {
+                const base = el.getAttribute('data-value');
+                if (base && !el.textContent.includes('%')) {
+                    let val = parseFloat(base);
+                    if (!isNaN(val)) {
+                        const converted = (val * rateInfo.rate).toFixed(2);
+                        el.textContent = rateInfo.format.replace('{value}', addThousandsSeparator(converted));
+                    }
+                } else if (base && el.textContent.includes('%')) {
+                    el.textContent = base + '%';
+                }
+            });
+            document.querySelectorAll('.roi-percent').forEach(el => {
+                const base = el.getAttribute('data-value');
+                if (base) el.textContent = base + '%';
+            });
+        }
+
+        function addThousandsSeparator(numStr) {
+            let parts = numStr.split('.');
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return parts.join('.');
+        }
+    </script>
+</body>
+</html>
