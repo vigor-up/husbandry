@@ -31,7 +31,6 @@
             --safe-bottom: env(safe-area-inset-bottom, 0px);
         }
 
-        /* === 重置與基礎樣式 (與原始完全相同) === */
         * {
             margin: 0;
             padding: 0;
@@ -80,7 +79,6 @@
             margin: 0 auto;
         }
 
-        /* === 語言切換器 (固定右上角) === */
         .language-switcher {
             position: fixed;
             top: calc(20px + var(--safe-top));
@@ -119,7 +117,6 @@
             box-shadow: 0 4px 12px rgba(26, 93, 26, 0.2);
         }
 
-        /* === 頁頭區域 === */
         header {
             background: linear-gradient(135deg, 
                 rgba(26, 93, 26, 0.95) 0%, 
@@ -209,7 +206,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* === 統計卡片 (更新為10項解決方案) === */
         .stats-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -265,7 +261,6 @@
             letter-spacing: 0.3px;
         }
 
-        /* === 主內容區 === */
         main {
             padding: clamp(40px, 8vw, 80px) 0;
             position: relative;
@@ -311,7 +306,6 @@
             font-weight: 400;
         }
 
-        /* === 產品網格系統 (10項產品) === */
         .products-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -332,7 +326,6 @@
             }
         }
 
-        /* === 產品卡片 (完全保留原始設計) === */
         .product-card {
             background: var(--card-bg);
             border-radius: var(--card-radius);
@@ -565,7 +558,6 @@
             left: 100%;
         }
 
-        /* === 頁尾區域 (完全保留原始設計) === */
         footer {
             background: linear-gradient(135deg, var(--primary-dark) 0%, #1a1a1a 100%);
             color: rgba(255, 255, 255, 0.85);
@@ -735,7 +727,6 @@
             z-index: 1;
         }
 
-        /* === 動畫效果 === */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -760,9 +751,6 @@
             animation: float 3s ease-in-out infinite;
         }
 
-        /* === 響應式、滾動條、輔助功能、減少動畫、打印樣式 (與原始相同) === */
-        @media (max-width: 768px) { /* ... 省略，保留原始內容 ... */ }
-        @media (max-width: 480px) { /* ... 省略，保留原始內容 ... */ }
         ::-webkit-scrollbar { width: 10px; height: 10px; }
         ::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); border-radius: 10px; }
         ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, var(--primary-green), var(--accent-gold)); border-radius: 10px; border: 2px solid transparent; background-clip: padding-box; }
@@ -771,7 +759,7 @@
     </style>
 </head>
 <body>
-    <!-- 語言切換器 (不變) -->
+    <!-- 語言切換器 -->
     <div class="language-switcher" role="region" aria-label="語言選擇">
         <button class="lang-btn active" data-lang="zh-TW" data-rate="1.000" data-currency="NTD" aria-label="繁體中文">繁體中文(NTD)</button>
         <button class="lang-btn" data-lang="zh-CN" data-rate="0.2192" data-currency="CNY" aria-label="简体中文">简体中文(CNY)</button>
@@ -797,7 +785,7 @@
                         <span class="stat-label" data-translate-key="highest_roi">最高投資報酬率</span>
                     </div>
                     <div class="stat-item fade-in" style="animation-delay: 0.2s;">
-                        <span class="stat-value" data-value="10">10</span>
+                        <span class="stat-value" data-value="11">11</span>
                         <span class="stat-label" data-translate-key="solutions_count">專業解決方案</span>
                     </div>
                     <div class="stat-item fade-in" style="animation-delay: 0.3s;">
@@ -1110,7 +1098,40 @@
                 </div>
             </article>
 
-            <!-- ========== 10. 白蝦存活率提升方案 ========= -->
+            <!-- 10. 吳郭魚存活率提升方案 (新增) -->
+            <article class="product-card fade-in" role="listitem" tabindex="0" aria-label="吳郭魚存活率提升方案" style="animation-delay: 0.95s;">
+                <div class="product-image">
+                    <img src="assets/tilapia-harvest-closeup.jpg" alt="吳郭魚豐收特寫" data-translate-key="tilapia_image_alt" loading="lazy">
+                    <div class="product-category" data-translate-key="aqua_nutrition">水產營養</div>
+                </div>
+                <div class="product-content">
+                    <div class="product-header">
+                        <div class="product-icon" style="background: linear-gradient(135deg, #0f766e, #14b8a6);" aria-hidden="true">
+                            <i class="fas fa-fish"></i>
+                        </div>
+                        <div>
+                            <h3 data-translate-key="tilapia_solution">吳郭魚存活率提升方案</h3>
+                            <div class="product-subtitle" data-translate-key="tilapia_subtitle">抗鏈球菌·免疫調控·抗氧化｜高密度專用</div>
+                        </div>
+                    </div>
+                    <ul class="product-benefits" role="list">
+                        <li><i class="fas fa-check"></i> <span data-translate-key="benefit_tilapia1">鏈球菌攻毒存活率 52% → 82%</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate-key="benefit_tilapia2">腸道絨毛高度提升30%</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate-key="benefit_tilapia3">FCR降低0.12-0.18</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate-key="benefit_tilapia4">養殖週期縮短10-18天</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate-key="profit_tilapia_label">每萬尾淨利增加</span> <span class="profit-currency" data-value="17868">NTD 17,868</span></li>
+                    </ul>
+                    <div class="product-footer">
+                        <div class="product-roi">
+                            <span class="roi-value">1,250%</span>
+                            <span class="roi-label" data-translate-key="roi_label">投資報酬率</span>
+                        </div>
+                        <a href="活力旺吳郭魚存活率提升方案.html" class="btn-view" data-translate-key="view_solution">查看方案</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 11. 白蝦存活率提升方案 -->
             <article class="product-card fade-in" role="listitem" tabindex="0" aria-label="白蝦存活率提升方案" style="animation-delay: 1.0s;">
                 <div class="product-image">
                     <img src="assets/shrimp-cover.jpg" alt="白蝦存活率提升" data-translate-key="shrimp_image_alt" loading="lazy">
@@ -1175,6 +1196,8 @@
                         <li><a href="活力旺蛋雞性能提升方案.html"><i class="fas fa-chevron-right"></i> <span data-translate-key="layer_chicken_solution_short">蛋雞性能提升</span></a></li>
                         <li><a href="活力旺土雞性能提升方案.html"><i class="fas fa-chevron-right"></i> <span data-translate-key="native_chicken_solution_short">土雞性能提升</span></a></li>
                         <li><a href="活力旺白肉雞FCR性能提升方案.html"><i class="fas fa-chevron-right"></i> <span data-translate-key="broiler_chicken_solution_short">白肉雞FCR優化</span></a></li>
+                        <!-- 吳郭魚連結 (新增) -->
+                        <li><a href="活力旺吳郭魚存活率提升方案.html"><i class="fas fa-chevron-right"></i> <span data-translate-key="tilapia_solution_short">吳郭魚存活率提升</span></a></li>
                         <li><a href="活力旺白蝦存活率提升方案.html"><i class="fas fa-chevron-right"></i> <span data-translate-key="shrimp_solution_short">白蝦存活率提升</span></a></li>
                     </ul>
                 </div>
@@ -1281,6 +1304,15 @@
                 'benefit_shrimp4': '存活率62%→78%',
                 'profit_shrimp_label': '每萬尾淨利增加',
                 'shrimp_solution_short': '白蝦存活率提升',
+                'tilapia_solution': '吳郭魚存活率提升方案',
+                'tilapia_subtitle': '抗鏈球菌·免疫調控·抗氧化｜高密度專用',
+                'benefit_tilapia1': '鏈球菌攻毒存活率 52% → 82%',
+                'benefit_tilapia2': '腸道絨毛高度提升30%',
+                'benefit_tilapia3': 'FCR降低0.12-0.18',
+                'benefit_tilapia4': '養殖週期縮短10-18天',
+                'profit_tilapia_label': '每萬尾淨利增加',
+                'tilapia_image_alt': '吳郭魚豐收特寫',
+                'tilapia_solution_short': '吳郭魚存活率提升',
                 'vitality_pro': '活力旺',
                 'footer_tagline': '精準營養解決方案',
                 'company_description': '專注於畜禽精準營養解決方案的研發與應用',
@@ -1288,7 +1320,6 @@
                 'pregnant_sow_solution_short': '懷孕母豬性能優化',
                 'nursing_sow_solution_short': '哺乳母豬性能提升',
                 'piglet_milk_solution_short': '仔豬人工乳方案',
-                'poultry_solutions': '家禽方案',
                 'breeding_chicken_solution_short': '種雞性能提升',
                 'layer_chicken_solution_short': '蛋雞性能提升',
                 'native_chicken_solution_short': '土雞性能提升',
@@ -1305,8 +1336,7 @@
                 'breeding_chicken_image_alt': '種雞性能提升',
                 'layer_chicken_image_alt': '蛋雞性能提升',
                 'native_chicken_image_alt': '土雞性能提升',
-                'broiler_chicken_image_alt': '白肉雞FCR性能提升',
-                'finisher_pig_image_alt': '育肥豬FCR性能提升'
+                'broiler_chicken_image_alt': '白肉雞FCR性能提升'
             },
             'zh-CN': {
                 'logo_alt': '活力旺logo',
@@ -1390,6 +1420,15 @@
                 'benefit_shrimp4': '存活率62%→78%',
                 'profit_shrimp_label': '每万尾净利增加',
                 'shrimp_solution_short': '白虾存活率提升',
+                'tilapia_solution': '罗非鱼存活率提升方案',
+                'tilapia_subtitle': '抗链球菌·免疫调控·抗氧化｜高密度专用',
+                'benefit_tilapia1': '链球菌攻毒存活率 52% → 82%',
+                'benefit_tilapia2': '肠道绒毛高度提升30%',
+                'benefit_tilapia3': 'FCR降低0.12-0.18',
+                'benefit_tilapia4': '养殖周期缩短10-18天',
+                'profit_tilapia_label': '每万尾净利增加',
+                'tilapia_image_alt': '罗非鱼丰收特写',
+                'tilapia_solution_short': '罗非鱼存活率提升',
                 'vitality_pro': '活力旺',
                 'footer_tagline': '精准营养解决方案',
                 'company_description': '专注于畜禽精准营养解决方案的研发与应用',
@@ -1397,7 +1436,6 @@
                 'pregnant_sow_solution_short': '怀孕母猪性能优化',
                 'nursing_sow_solution_short': '哺乳母猪性能提升',
                 'piglet_milk_solution_short': '仔猪人工乳方案',
-                'poultry_solutions': '家禽方案',
                 'breeding_chicken_solution_short': '种鸡性能提升',
                 'layer_chicken_solution_short': '蛋鸡性能提升',
                 'native_chicken_solution_short': '土鸡性能提升',
@@ -1414,8 +1452,7 @@
                 'breeding_chicken_image_alt': '种鸡性能提升',
                 'layer_chicken_image_alt': '蛋鸡性能提升',
                 'native_chicken_image_alt': '土鸡性能提升',
-                'broiler_chicken_image_alt': '白肉鸡FCR性能提升',
-                'finisher_pig_image_alt': '育肥猪FCR性能提升'
+                'broiler_chicken_image_alt': '白肉鸡FCR性能提升'
             },
             'en': {
                 'logo_alt': 'Vitality Pro logo',
@@ -1499,6 +1536,15 @@
                 'benefit_shrimp4': 'Survival 62%→78%',
                 'profit_shrimp_label': 'Net profit per 10,000 shrimp',
                 'shrimp_solution_short': 'Shrimp Survival',
+                'tilapia_solution': 'Tilapia Survival Enhancement Program',
+                'tilapia_subtitle': 'Anti-Streptococcus·Immunomodulation·Antioxidant | High-density specific',
+                'benefit_tilapia1': 'Streptococcus challenge survival 52% → 82%',
+                'benefit_tilapia2': 'Intestinal villi height increased by 30%',
+                'benefit_tilapia3': 'FCR reduced by 0.12-0.18',
+                'benefit_tilapia4': 'Culture cycle shortened by 10-18 days',
+                'profit_tilapia_label': 'Net profit per 10,000 fish',
+                'tilapia_image_alt': 'Tilapia harvest close-up',
+                'tilapia_solution_short': 'Tilapia Survival',
                 'vitality_pro': 'Vitality Pro',
                 'footer_tagline': 'Precision Nutrition Solutions',
                 'company_description': 'Focus on R&D and application of precision nutrition solutions for livestock and poultry',
@@ -1506,7 +1552,6 @@
                 'pregnant_sow_solution_short': 'Pregnant Sow Performance Optimization',
                 'nursing_sow_solution_short': 'Lactating Sow Performance Improvement',
                 'piglet_milk_solution_short': 'Piglet Milk Replacer Program',
-                'poultry_solutions': 'Poultry Programs',
                 'breeding_chicken_solution_short': 'Breeder Chicken Performance Improvement',
                 'layer_chicken_solution_short': 'Layer Chicken Performance Improvement',
                 'native_chicken_solution_short': 'Native Chicken Performance Improvement',
@@ -1523,8 +1568,7 @@
                 'breeding_chicken_image_alt': 'Breeder chicken performance improvement',
                 'layer_chicken_image_alt': 'Layer chicken performance improvement',
                 'native_chicken_image_alt': 'Native chicken performance improvement',
-                'broiler_chicken_image_alt': 'Broiler chicken FCR improvement',
-                'finisher_pig_image_alt': 'Finisher pig FCR performance improvement'
+                'broiler_chicken_image_alt': 'Broiler chicken FCR improvement'
             }
         };
 
