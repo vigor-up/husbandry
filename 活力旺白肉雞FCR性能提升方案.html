@@ -1,6 +1,66 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
+    <style>
+    /* 防止文字選取 */
+    body {
+        -webkit-user-select: none;  /* Safari */
+        -moz-user-select: none;     /* Firefox */
+        -ms-user-select: none;      /* IE/Edge */
+        user-select: none;           /* 標準語法 */
+    }
+
+    /* 針對圖片：禁止拖曳、禁止長按菜單，但保留點擊事件（由父層處理） */
+    img {
+        -webkit-touch-callout: none; /* iOS 長按選單 */
+        -webkit-user-drag: none;     /* Chrome 拖曳 */
+        user-drag: none;
+        pointer-events: none;         /* 讓圖片本身無法被點擊，但父容器可接收點擊 */
+    }
+
+    /* 圖片的容器需設定 cursor: pointer 提示可點擊 */
+    .img-container {
+        cursor: pointer;
+    }
+</style>
+
+<!-- 簡易 Lightbox 結構 -->
+<div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; justify-content:center; align-items:center; flex-direction:column;" onclick="this.style.display='none'">
+    <img id="lightbox-img" src="" style="max-width:90%; max-height:80%; object-fit:contain; border-radius:8px;">
+    <div id="lightbox-caption" style="color:white; margin-top:16px; font-size:1rem;"></div>
+</div>
+
+<script>
+    // 1. 禁止右鍵選單 (含手機長按)
+    document.addEventListener('contextmenu', e => e.preventDefault());
+
+    // 2. 禁止複製快捷鍵 (Ctrl+C, Ctrl+X)
+    document.addEventListener('copy', e => e.preventDefault());
+    document.addEventListener('cut', e => e.preventDefault());
+
+    // 3. 禁止選取事件 (滑鼠拖曳選取)
+    document.addEventListener('selectstart', e => e.preventDefault());
+
+    // 4. 輕量 Lightbox 功能：所有 .img-container 內的圖片點擊放大
+    function openLightbox(element) {
+        const img = element.querySelector('img');
+        if (!img) return;
+        const caption = element.querySelector('.img-title')?.innerText || '';
+        const lb = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lightbox-img');
+        const lbCaption = document.getElementById('lightbox-caption');
+        lbImg.src = img.src;
+        lbCaption.innerText = caption;
+        lb.style.display = 'flex';
+    }
+
+    // 為所有 .img-container 綁定點擊事件
+    document.querySelectorAll('.img-container').forEach(container => {
+        container.addEventListener('click', function() {
+            openLightbox(this);
+        });
+    });
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>活力旺白肉雞FCR性能提升方案 TDS｜首池有限公司</title>
