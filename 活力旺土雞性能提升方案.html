@@ -4,18 +4,18 @@
     <style>
     /* 防止文字選取 */
     body {
-        -webkit-user-select: none;  /* Safari */
-        -moz-user-select: none;     /* Firefox */
-        -ms-user-select: none;      /* IE/Edge */
-        user-select: none;           /* 標準語法 */
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
     }
 
     /* 針對圖片：禁止拖曳、禁止長按菜單，但保留點擊事件（由父層處理） */
     img {
-        -webkit-touch-callout: none; /* iOS 長按選單 */
-        -webkit-user-drag: none;     /* Chrome 拖曳 */
+        -webkit-touch-callout: none;
+        -webkit-user-drag: none;
         user-drag: none;
-        pointer-events: none;         /* 讓圖片本身無法被點擊，但父容器可接收點擊 */
+        pointer-events: none;
     }
 
     /* 圖片的容器需設定 cursor: pointer 提示可點擊 */
@@ -64,26 +64,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>活力旺土雞性能提升方案 TDS｜首池有限公司</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { 
-            --primary: #e63946; 
-            --secondary: #2a9d8f; 
-            --accent: #f4a261; 
-            --dark: #264653; 
-            --light: #f8f9fa; 
-            --gray: #6c757d; 
-            --border-radius: 12px; 
-            --shadow: 0 4px 12px rgba(0,0,0,0.08); 
-            --shadow-hover: 0 6px 16px rgba(0,0,0,0.12); 
+        /* === 淺色農業風格 (基於設計系統) === */
+        :root {
+            --primary-green: #2a7a2a;
+            --secondary-green: #1b5e1b;
+            --accent-gold: #d4a017;
+            --accent-light: #f5f0e1;
+            --primary-dark: #2e3b2e;
+            --secondary-dark: #4a5a4a;
+            --light-bg: #f9fff9;
+            --card-bg: #ffffff;
+            --border-light: rgba(0, 0, 0, 0.05);
+            --border-medium: rgba(0, 0, 0, 0.1);
+            --shadow-card: 0 8px 30px rgba(0, 40, 0, 0.08);
+            --shadow-card-hover: 0 12px 40px rgba(42, 122, 42, 0.15);
+            --shadow-header: 0 4px 20px rgba(0, 30, 0, 0.1);
+            --shadow-btn: 0 6px 20px rgba(42, 122, 42, 0.2);
+            --border-radius-sm: 8px;
+            --border-radius-md: 16px;
+            --border-radius-lg: 20px;
+            --border-radius-xl: 28px;
+            --border-radius-pill: 30px;
+            --transition: all 0.3s ease;
+            --font-sans: 'Microsoft JhengHei', '微軟正黑體', 'PingFang TC', 'Noto Sans TC', sans-serif;
+            --safe-area-inset-top: env(safe-area-inset-top);
+            --safe-area-inset-bottom: env(safe-area-inset-bottom);
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { 
-            font-family: 'Microsoft JhengHei', '微軟正黑體', 'PingFang TC', sans-serif; 
+            font-family: var(--font-sans); 
+            background: var(--light-bg); 
+            color: var(--primary-dark); 
             line-height: 1.6; 
-            color: var(--dark); 
-            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%); 
             padding: 15px; 
-            padding-top: 80px; /* 為語言切換器留出空間 */
+            padding-top: 80px; 
         }
         .container { max-width: 1200px; margin: 0 auto; }
         
@@ -95,44 +112,43 @@
             z-index: 1000;
             display: flex;
             gap: 10px;
-            background: white;
+            background: var(--card-bg);
             padding: 8px 12px;
-            border-radius: 30px;
-            box-shadow: var(--shadow);
-            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius-pill);
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--border-medium);
         }
         .lang-btn {
             background: transparent;
             border: none;
             padding: 6px 15px;
-            border-radius: 20px;
+            border-radius: var(--border-radius-pill);
             font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            color: var(--dark);
+            transition: var(--transition);
+            color: var(--primary-dark);
         }
         .lang-btn.active {
-            background: var(--primary);
+            background: var(--primary-green);
             color: white;
         }
         .lang-btn:hover:not(.active) {
-            background: #f0f0f0;
+            background: var(--accent-light);
         }
         
-        /* 優化封面抬頭樣式 - 提升專業感 */
+        /* 頁頭 */
         header { 
-            background: linear-gradient(135deg, var(--dark) 0%, #1a323c 100%); 
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green)); 
             color: white; 
             padding: 45px 30px; 
-            border-radius: var(--border-radius); 
+            border-radius: var(--border-radius-lg); 
             margin-bottom: 30px; 
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12); 
+            box-shadow: var(--shadow-header); 
             position: relative; 
             overflow: hidden; 
             text-align: center; 
-            border-top: 5px solid var(--secondary);
-            border-bottom: 5px solid var(--accent);
+            border: 1px solid var(--accent-gold);
         }
         header::before { 
             content: ''; 
@@ -141,7 +157,7 @@
             left: -50%; 
             width: 200%; 
             height: 200%; 
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%); 
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); 
             transform: rotate(30deg); 
             z-index: 1;
         }
@@ -152,7 +168,7 @@
             left: 0;
             width: 100%;
             height: 8px;
-            background: linear-gradient(90deg, var(--secondary), var(--accent), var(--primary));
+            background: linear-gradient(90deg, var(--secondary-green), var(--accent-gold), var(--primary-green));
             opacity: 0.8;
         }
         .company-info {
@@ -162,7 +178,7 @@
             margin: 0 auto;
         }
         .company-info h1 { 
-            font-size: 32px; 
+            font-size: clamp(1.8rem, 5vw, 2.8rem); 
             margin-bottom: 12px; 
             letter-spacing: 1.5px; 
             font-weight: 700;
@@ -170,6 +186,7 @@
             position: relative;
             display: inline-block;
             padding-bottom: 8px;
+            color: white;
         }
         .company-info h1::after {
             content: '';
@@ -178,45 +195,47 @@
             left: 10%;
             width: 80%;
             height: 3px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
         }
         .company-info p { 
-            font-size: 20px; 
+            font-size: clamp(1rem, 3vw, 1.4rem); 
             opacity: 0.98; 
             margin-bottom: 15px;
             letter-spacing: 0.8px;
+            color: white;
         }
         .tagline { 
-            font-size: 16px; 
-            background: rgba(42, 157, 143, 0.25); 
+            font-size: 1rem; 
+            background: rgba(255,255,255,0.2); 
             display: inline-block; 
             padding: 8px 25px; 
-            border-radius: 25px; 
+            border-radius: var(--border-radius-pill); 
             margin-top: 10px; 
             letter-spacing: 1px;
             font-weight: 500;
+            color: white;
         }
         .tds-badge { 
-            background: linear-gradient(135deg, var(--secondary), #1d7d72); 
+            background: linear-gradient(135deg, var(--accent-gold), var(--secondary-green)); 
             color: white; 
             padding: 8px 22px; 
-            border-radius: 25px; 
+            border-radius: var(--border-radius-pill); 
             font-weight: bold; 
             display: inline-block; 
             margin-top: 15px; 
-            font-size: 18px;
+            font-size: 1rem;
             box-shadow: 0 3px 10px rgba(0,0,0,0.15);
         }
         
         /* 區塊樣式優化 */
         section { 
-            background: white; 
+            background: var(--card-bg); 
             padding: 30px; 
             margin-bottom: 25px; 
-            border-radius: var(--border-radius); 
-            box-shadow: var(--shadow); 
-            transition: transform 0.3s ease, box-shadow 0.3s ease; 
-            border-top: 4px solid var(--secondary);
+            border-radius: var(--border-radius-lg); 
+            box-shadow: var(--shadow-card); 
+            transition: var(--transition); 
+            border-top: 4px solid var(--secondary-green);
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.8s ease, transform 0.8s ease, box-shadow 0.3s ease;
@@ -227,14 +246,14 @@
         }
         section:hover { 
             transform: translateY(-4px); 
-            box-shadow: var(--shadow-hover); 
+            box-shadow: var(--shadow-card-hover); 
         }
         h2 { 
-            color: var(--dark); 
-            font-size: 28px; 
+            color: var(--primary-dark); 
+            font-size: clamp(1.5rem, 4vw, 2.2rem); 
             margin-bottom: 25px; 
             padding-bottom: 15px; 
-            border-bottom: 3px solid var(--accent); 
+            border-bottom: 3px solid var(--accent-gold); 
             position: relative; 
             font-weight: 700;
             letter-spacing: 1px;
@@ -246,12 +265,13 @@
             left: 0; 
             width: 70px; 
             height: 3px; 
-            background: var(--secondary); 
+            background: var(--secondary-green); 
         }
         p { 
             margin-bottom: 12px; 
-            font-size: 16px; 
+            font-size: 1rem; 
             line-height: 1.7; 
+            color: var(--primary-dark);
         }
         
         /* 規格卡片樣式 */
@@ -262,35 +282,36 @@
             margin: 25px 0; 
         }
         .spec-card { 
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); 
-            border-radius: var(--border-radius); 
+            background: var(--card-bg); 
+            border-radius: var(--border-radius-lg); 
             padding: 20px; 
             text-align: center; 
-            border: 1px solid #dee2e6; 
-            transition: all 0.3s ease; 
-            border-top: 3px solid var(--secondary);
+            border: 1px solid var(--border-medium); 
+            transition: var(--transition); 
+            border-top: 3px solid var(--secondary-green);
             cursor: pointer;
+            box-shadow: var(--shadow-card);
         }
         .spec-card:hover { 
-            border-color: var(--secondary); 
+            border-color: var(--primary-green); 
             transform: translateY(-3px); 
-            box-shadow: var(--shadow); 
+            box-shadow: var(--shadow-card-hover); 
         }
         .spec-card .label { 
-            font-size: 14px; 
-            color: var(--gray); 
+            font-size: 0.9rem; 
+            color: var(--secondary-dark); 
             margin-bottom: 8px; 
             display: block; 
             font-weight: 500;
         }
         .spec-card .value { 
-            font-size: 24px; 
+            font-size: 1.8rem; 
             font-weight: bold; 
-            color: var(--primary); 
+            color: var(--primary-green); 
         }
         .spec-card .unit { 
-            font-size: 14px; 
-            color: var(--gray); 
+            font-size: 0.9rem; 
+            color: var(--secondary-dark); 
             display: block; 
             margin-top: 3px; 
         }
@@ -303,22 +324,22 @@
             margin-top: 25px; 
         }
         .benefit-card { 
-            background: white; 
-            border-radius: var(--border-radius); 
+            background: var(--card-bg); 
+            border-radius: var(--border-radius-lg); 
             padding: 25px; 
-            box-shadow: var(--shadow); 
-            border-top: 4px solid var(--secondary); 
-            transition: all 0.3s ease; 
+            box-shadow: var(--shadow-card); 
+            border-top: 4px solid var(--secondary-green); 
+            transition: var(--transition); 
             cursor: pointer;
         }
         .benefit-card:hover { 
             transform: translateY(-5px); 
-            box-shadow: var(--shadow-hover); 
+            box-shadow: var(--shadow-card-hover); 
         }
         .benefit-card h4 { 
-            font-size: 20px; 
+            font-size: 1.3rem; 
             margin-bottom: 15px; 
-            color: var(--dark); 
+            color: var(--primary-dark); 
             display: flex; 
             align-items: center; 
             gap: 10px; 
@@ -326,14 +347,14 @@
         }
         .benefit-card h4::before { 
             content: '✓'; 
-            color: var(--secondary); 
+            color: var(--secondary-green); 
             font-weight: bold; 
-            font-size: 20px; 
+            font-size: 1.3rem; 
         }
         .benefit-card .improvement { 
-            font-size: 28px; 
+            font-size: 2rem; 
             font-weight: bold; 
-            color: var(--primary); 
+            color: var(--primary-green); 
             margin: 10px 0; 
             display: block; 
         }
@@ -342,19 +363,19 @@
         .economic-card { 
             background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); 
             padding: 25px; 
-            border-radius: var(--border-radius); 
-            box-shadow: var(--shadow); 
-            border: 2px solid var(--accent); 
+            border-radius: var(--border-radius-lg); 
+            box-shadow: var(--shadow-card); 
+            border: 2px solid var(--accent-gold); 
             margin-top: 20px; 
         }
         .profit-table { 
             width: 100%; 
             border-collapse: collapse; 
             margin: 20px 0; 
-            font-size: 15px; 
+            font-size: 0.95rem; 
         }
         .profit-table th { 
-            background: linear-gradient(135deg, var(--dark) 0%, #000000 100%); 
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%); 
             color: white; 
             padding: 12px 15px; 
             text-align: left; 
@@ -362,7 +383,7 @@
         }
         .profit-table td { 
             padding: 10px 15px; 
-            border-bottom: 1px solid #e9ecef; 
+            border-bottom: 1px solid var(--border-light); 
         }
         .profit-table tr:nth-child(even) { 
             background: #f8f9fa; 
@@ -371,31 +392,31 @@
             background: #e8f5e9; 
         }
         .profit-table tr.total-row { 
-            background: linear-gradient(135deg, var(--secondary) 0%, #1b5e20 100%); 
+            background: linear-gradient(135deg, var(--secondary-green) 0%, #1b5e20 100%); 
             color: white; 
             font-weight: bold; 
-            font-size: 17px; 
+            font-size: 1rem; 
         }
         
         /* ROI徽章 */
         .roi-badge { 
-            background: linear-gradient(135deg, var(--secondary) 0%, #0d3b36 100%); 
+            background: linear-gradient(135deg, var(--secondary-green) 0%, #0d3b36 100%); 
             color: white; 
             padding: 20px; 
-            border-radius: var(--border-radius); 
+            border-radius: var(--border-radius-lg); 
             text-align: center; 
             margin: 25px 0; 
-            box-shadow: var(--shadow); 
+            box-shadow: var(--shadow-card); 
         }
         .roi-badge .roi-value { 
-            font-size: 36px; 
+            font-size: 2.5rem; 
             font-weight: bold; 
             margin: 10px 0; 
-            color: #a8d8c9; 
+            color: var(--accent-gold); 
             text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         .roi-badge .roi-label { 
-            font-size: 16px; 
+            font-size: 1rem; 
             opacity: 0.95; 
         }
         
@@ -410,19 +431,19 @@
         .step-card { 
             flex: 1; 
             min-width: 220px; 
-            background: white; 
+            background: var(--card-bg); 
             padding: 25px; 
-            border-radius: var(--border-radius); 
-            box-shadow: var(--shadow); 
-            border-left: 5px solid var(--primary); 
+            border-radius: var(--border-radius-lg); 
+            box-shadow: var(--shadow-card); 
+            border-left: 5px solid var(--primary-green); 
             position: relative; 
             overflow: hidden; 
-            transition: all 0.3s ease;
+            transition: var(--transition);
             cursor: pointer;
         }
         .step-card:hover {
             transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
+            box-shadow: var(--shadow-card-hover);
         }
         .step-card::before { 
             content: attr(data-step); 
@@ -431,34 +452,34 @@
             right: 12px; 
             width: 32px; 
             height: 32px; 
-            background: var(--primary); 
+            background: var(--primary-green); 
             color: white; 
             border-radius: 50%; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             font-weight: bold; 
-            font-size: 16px; 
+            font-size: 1rem; 
             font-family: Arial, sans-serif; 
         }
         .step-card h4 { 
             margin-bottom: 12px; 
-            color: var(--dark); 
-            font-size: 19px; 
+            color: var(--primary-dark); 
+            font-size: 1.3rem; 
             font-weight: 600;
         }
         
         /* 成本高亮 */
         .cost-highlight { 
-            background: linear-gradient(135deg, var(--accent) 0%, #e76f51 100%); 
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #e76f51 100%); 
             color: white; 
             padding: 8px 15px; 
-            border-radius: 6px; 
+            border-radius: var(--border-radius-sm); 
             display: inline-block; 
             margin: 10px 0; 
             font-weight: bold; 
-            font-size: 17px; 
-            box-shadow: 0 2px 8px rgba(244, 162, 97, 0.3);
+            font-size: 1rem; 
+            box-shadow: 0 2px 8px rgba(212, 160, 23, 0.3);
         }
         
         /* 對比表格 */
@@ -466,17 +487,17 @@
             width: 100%; 
             border-collapse: collapse; 
             margin: 25px 0; 
-            font-size: 15px; 
+            font-size: 0.95rem; 
         }
         .comparison-table th { 
-            background: linear-gradient(135deg, var(--dark) 0%, #000000 100%); 
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%); 
             color: white; 
             padding: 14px; 
             text-align: center; 
         }
         .comparison-table td { 
             padding: 12px; 
-            border: 1px solid #dee2e6; 
+            border: 1px solid var(--border-medium); 
             text-align: center; 
         }
         .comparison-table tr:nth-child(even) { 
@@ -493,15 +514,15 @@
         
         /* CTA區塊 */
         .cta-section { 
-            background: linear-gradient(135deg, var(--dark) 0%, #1d3540 100%); 
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #1a2b1a 100%); 
             color: white; 
             padding: 45px 30px; 
-            border-radius: var(--border-radius); 
+            border-radius: var(--border-radius-xl); 
             text-align: center; 
             margin-top: 25px; 
             position: relative; 
             overflow: hidden; 
-            border-top: 5px solid var(--accent);
+            border-top: 5px solid var(--accent-gold);
         }
         .cta-section::before { 
             content: ''; 
@@ -510,37 +531,37 @@
             left: -50%; 
             width: 200%; 
             height: 200%; 
-            background: radial-gradient(circle, rgba(42, 157, 143, 0.15) 0%, rgba(255,255,255,0) 70%); 
+            background: radial-gradient(circle, rgba(42,157,143,0.15) 0%, rgba(255,255,255,0) 70%); 
             transform: rotate(30deg); 
             z-index: 1;
         }
         .cta-section h2 { 
             color: white; 
-            border-bottom: 3px solid var(--accent); 
+            border-bottom: 3px solid var(--accent-gold); 
             justify-content: center; 
-            font-size: 30px; 
+            font-size: 2rem; 
             position: relative;
             z-index: 2;
         }
         .cta-section h2::after { 
-            background: var(--secondary); 
+            background: var(--secondary-green); 
             width: 80px; 
         }
         .big-number { 
-            font-size: 48px; 
+            font-size: 3rem; 
             font-weight: bold; 
             margin: 15px 0; 
-            color: var(--secondary); 
+            color: var(--accent-gold); 
             text-shadow: 0 2px 8px rgba(0,0,0,0.3);
             position: relative;
             z-index: 2;
         }
         .highlight-text { 
-            background: linear-gradient(135deg, var(--secondary) 0%, #1d3540 100%); 
+            background: linear-gradient(135deg, var(--secondary-green) 0%, #1d3540 100%); 
             -webkit-background-clip: text; 
             -webkit-text-fill-color: transparent; 
             font-weight: bold; 
-            font-size: 18px; 
+            font-size: 1.2rem; 
             display: block; 
             margin: 8px 0;
             position: relative;
@@ -557,48 +578,48 @@
         }
         .btn { 
             padding: 14px 35px; 
-            border-radius: 30px; 
-            font-size: 18px; 
+            border-radius: var(--border-radius-pill); 
+            font-size: 1.1rem; 
             font-weight: bold; 
             text-decoration: none; 
             display: inline-block; 
-            transition: all 0.3s ease; 
+            transition: var(--transition); 
             border: none; 
             cursor: pointer; 
             min-width: 180px;
             letter-spacing: 1px;
         }
         .btn-primary { 
-            background: linear-gradient(135deg, var(--secondary) 0%, #0d3b36 100%); 
+            background: linear-gradient(135deg, var(--secondary-green) 0%, #0d3b36 100%); 
             color: white; 
-            box-shadow: 0 4px 10px rgba(42, 157, 143, 0.3); 
+            box-shadow: 0 4px 10px rgba(42,157,143,0.3); 
         }
         .btn-primary:hover { 
             transform: translateY(-3px); 
-            box-shadow: 0 6px 15px rgba(42, 157, 143, 0.45); 
+            box-shadow: 0 6px 15px rgba(42,157,143,0.45); 
         }
         .btn-secondary { 
             background: white; 
-            color: var(--dark); 
-            border: 2px solid var(--secondary); 
+            color: var(--primary-dark); 
+            border: 2px solid var(--secondary-green); 
         }
         .btn-secondary:hover { 
-            background: var(--light); 
+            background: var(--light-bg); 
             transform: translateY(-3px); 
             box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
         }
         
         /* 頁腳樣式 */
         footer { 
-            background: var(--dark); 
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #1a2b1a 100%); 
             color: rgba(255, 255, 255, 0.85); 
             padding: 30px; 
-            border-radius: var(--border-radius); 
+            border-radius: var(--border-radius-lg); 
             margin-top: 25px; 
             text-align: center; 
-            font-size: 15px; 
+            font-size: 0.95rem; 
             line-height: 1.8; 
-            border-top: 4px solid var(--secondary);
+            border-top: 4px solid var(--secondary-green);
         }
         .footer-content { 
             max-width: 800px; 
@@ -607,12 +628,12 @@
         .copyright { 
             margin-top: 15px; 
             opacity: 0.8; 
-            font-size: 14px; 
+            font-size: 0.85rem; 
             padding-top: 15px; 
             border-top: 1px solid rgba(255, 255, 255, 0.1); 
         }
 
-        /* 新增：產品連結清單（頁尾導航） */
+        /* 產品連結清單（頁尾導航） */
         .product-links {
             display: flex;
             flex-wrap: wrap;
@@ -626,13 +647,13 @@
             text-decoration: none;
             padding: 10px 18px;
             background: rgba(255,255,255,0.12);
-            border-radius: 30px;
+            border-radius: var(--border-radius-pill);
             font-size: 0.85rem;
             font-weight: 600;
-            transition: 0.2s;
+            transition: var(--transition);
         }
         .product-links a:hover {
-            background: var(--secondary);
+            background: var(--secondary-green);
         }
         
         /* 返回頂部按鈕 */
@@ -642,7 +663,7 @@
             right: 20px;
             width: 50px;
             height: 50px;
-            background-color: var(--secondary);
+            background-color: var(--secondary-green);
             color: white;
             border-radius: 50%;
             display: flex;
@@ -652,7 +673,7 @@
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             z-index: 999;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             opacity: 0;
             visibility: hidden;
             border: none;
@@ -663,8 +684,8 @@
             visibility: visible;
         }
         .back-to-top:hover {
-            background-color: var(--accent);
-            color: var(--dark);
+            background-color: var(--accent-gold);
+            color: var(--primary-dark);
         }
         
         /* 圖片樣式優化 */
@@ -672,8 +693,8 @@
             width: 100%;
             max-width: 1000px;
             margin: 25px auto;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-card);
             transition: transform 0.3s ease-in-out;
             display: block;
             border: 3px solid white;
@@ -687,18 +708,18 @@
         }
         .section-img:hover {
             transform: scale(1.02);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            box-shadow: var(--shadow-card-hover);
         }
         .img-caption {
             text-align: center;
-            font-size: 14px;
-            color: var(--gray);
+            font-size: 0.9rem;
+            color: var(--secondary-dark);
             margin-top: 8px;
             margin-bottom: 20px;
             font-weight: 500;
             padding: 8px;
-            background: #f8f9fa;
-            border-radius: 8px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius-sm);
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
@@ -708,26 +729,26 @@
         @media (max-width: 768px) { 
             body { 
                 padding: 10px; 
-                padding-top: 120px; /* 為移動端的語言切換器留出更多空間 */
+                padding-top: 120px; 
             } 
             header { padding: 35px 20px; } 
-            .company-info h1 { font-size: 26px; } 
-            .company-info p { font-size: 18px; } 
+            .company-info h1 { font-size: 1.8rem; } 
+            .company-info p { font-size: 1.1rem; } 
             section { padding: 25px 20px; margin-bottom: 20px; } 
-            h2 { font-size: 24px; } 
+            h2 { font-size: 1.5rem; } 
             .specs-grid, .benefits-grid, .usage-steps { grid-template-columns: 1fr; } 
             .step-card { min-width: 100%; } 
-            .big-number { font-size: 40px; } 
-            .btn { width: 100%; max-width: 300px; padding: 12px 25px; font-size: 17px; } 
+            .big-number { font-size: 2.5rem; } 
+            .btn { width: 100%; max-width: 300px; padding: 12px 25px; font-size: 1rem; } 
             .cta-buttons { flex-direction: column; align-items: center; } 
-            .profit-table { font-size: 14px; } 
+            .profit-table { font-size: 0.9rem; } 
             .profit-table th, .profit-table td { padding: 8px 10px; }
             .section-img {
                 max-width: 100%;
                 margin: 15px auto;
             }
             .img-caption {
-                font-size: 13px;
+                font-size: 0.85rem;
                 padding: 6px;
             }
             .language-switcher {
@@ -742,12 +763,12 @@
             }
         }
         @media (max-width: 480px) { 
-            .company-info h1 { font-size: 22px; } 
-            .tagline, .tds-badge { font-size: 14px; padding: 6px 15px; } 
-            .big-number { font-size: 36px; } 
-            .highlight-text { font-size: 16px; } 
-            .spec-card .value { font-size: 22px; } 
-            .benefit-card .improvement { font-size: 24px; }
+            .company-info h1 { font-size: 1.5rem; } 
+            .tagline, .tds-badge { font-size: 0.9rem; padding: 6px 15px; } 
+            .big-number { font-size: 2rem; } 
+            .highlight-text { font-size: 1rem; } 
+            .spec-card .value { font-size: 1.5rem; } 
+            .benefit-card .improvement { font-size: 1.5rem; }
             header {
                 padding: 25px 15px;
             }
@@ -777,7 +798,7 @@
     </div>
 
     <div class="container">
-        <!-- Header - 優化後的專業化封面抬頭（已刪除首池圖示） -->
+        <!-- Header -->
         <header>
             <div class="company-info">
                 <h1 data-translate="title">活力旺土雞性能提升方案 TDS</h1>
@@ -819,7 +840,7 @@
                 </div>
                 <div class="spec-card">
                     <span class="label" data-translate="spec6_label">適用對象</span>
-                    <span class="value" style="color: var(--secondary); font-size: 20px;" data-translate="spec6_value">紅羽/黑羽土雞</span>
+                    <span class="value" style="color: var(--secondary-green); font-size: 1.3rem;" data-translate="spec6_value">紅羽/黑羽土雞</span>
                     <span class="unit" data-translate="spec6_unit">全程飼養</span>
                 </div>
             </div>
@@ -830,7 +851,7 @@
                 <p class="img-caption" data-translate="caption1">圖1：活力旺產品添加比例示意圖｜每噸飼料添加1公斤活力旺</p>
             </div>
             
-            <div style="background: #e8f5e9; padding: 18px; border-radius: 10px; margin-top: 20px; border-left: 4px solid var(--secondary);">
+            <div style="background: #e8f5e9; padding: 18px; border-radius: 10px; margin-top: 20px; border-left: 4px solid var(--secondary-green);">
                 <p data-translate="usage_method"><strong>使用方法：</strong>每噸全價飼料均勻添加活力旺1公斤，與預混料充分混合後使用。適用於紅羽/黑羽土雞全程飼養階段，無需調整飼養管理流程。</p>
             </div>
         </section>
@@ -880,7 +901,7 @@
         <section id="economic-analysis">
             <h2 data-translate="section3_title">經濟效益分析｜每隻土雞淨利提升</h2>
             
-            <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); padding: 20px; border-radius: 10px; margin-bottom: 25px; border-left: 4px solid var(--primary);">
+            <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); padding: 20px; border-radius: 10px; margin-bottom: 25px; border-left: 4px solid var(--primary-green);">
                 <p data-translate="calculation_basis"><strong>計算基準：</strong>土雞飼養週期16週(112天)｜出欄體重2.45kg→2.62kg｜料肉比3.45→3.32｜成活率95%→97.5%｜土雞批發價120元/公斤｜每隻雞總採食量12.32公斤</p>
             </div>
             
@@ -945,7 +966,7 @@
                 <p class="img-caption" data-translate="caption3">圖3：活力旺土雞投資報酬率分析｜每隻淨利+22.96元、ROI達310%</p>
             </div>
             
-            <div style="background: #fff8e1; padding: 18px; border-radius: 10px; margin-top: 20px; border-left: 4px solid var(--accent);">
+            <div style="background: #fff8e1; padding: 18px; border-radius: 10px; margin-top: 20px; border-left: 4px solid var(--accent-gold);">
                 <p data-translate="farm_benefit"><strong>萬隻土雞場年度效益：</strong>每批次淨利增加229,600元｜年出欄3批次總計增加688,800元｜飼料添加總成本僅增加73,920元</p>
             </div>
         </section>
@@ -959,7 +980,7 @@
                     <h4 data-translate="tech1_title">精密複合酶製劑</h4>
                     <p data-translate="tech1_desc1"><strong>作用：</strong>提升蛋白質、氨基酸吸收效率18%</p>
                     <p data-translate="tech1_desc2"><strong>效益：</strong>降低料肉比，減少糞便氮排放，改善舍內環境</p>
-                    <div style="margin-top: 10px; padding: 10px; background: #e3f2fd; border-radius: 6px; font-size: 14px;">
+                    <div style="margin-top: 10px; padding: 10px; background: #e3f2fd; border-radius: 6px; font-size: 0.9rem;">
                         <strong data-translate="science_basis">科學依據：</strong><span data-translate="tech1_reference">《Poultry Science》研究證實，複合酶製劑可提升土雞飼料轉化率4.2%(Chen et al., 2023)</span>
                     </div>
                 </div>
@@ -968,7 +989,7 @@
                     <h4 data-translate="tech2_title">免疫調控肽</h4>
                     <p data-translate="tech2_desc1"><strong>作用：</strong>激活Nrf2/ARE抗氧化通路，提升SOD活性30%</p>
                     <p data-translate="tech2_desc2"><strong>效益：</strong>降低腹水症發生率，提高全程成活率，減少藥物使用</p>
-                    <div style="margin-top: 10px; padding: 10px; background: #e8f5e9; border-radius: 6px; font-size: 14px;">
+                    <div style="margin-top: 10px; padding: 10px; background: #e8f5e9; border-radius: 6px; font-size: 0.9rem;">
                         <strong data-translate="science_basis">科學依據：</strong><span data-translate="tech2_reference">《Veterinary Immunology》證實免疫肽可降低土雞呼吸道疾病發生率25%(Wang et al., 2022)</span>
                     </div>
                 </div>
@@ -977,7 +998,7 @@
                     <h4 data-translate="tech3_title">代謝調控複方</h4>
                     <p data-translate="tech3_desc1"><strong>成分：</strong>小核酸肽 + 褐藻素</p>
                     <p data-translate="tech3_desc2"><strong>效益：</strong>小核酸肽促進肌肉生長；褐藻素改善羽毛色素沉著與光澤</p>
-                    <div style="margin-top: 10px; padding: 10px; background: #fff8e1; border-radius: 6px; font-size: 14px;">
+                    <div style="margin-top: 10px; padding: 10px; background: #fff8e1; border-radius: 6px; font-size: 0.9rem;">
                         <strong data-translate="science_basis">科學依據：</strong><span data-translate="tech3_reference">《Animal Feed Science》研究顯示褐藻素可提升土雞屠體評分18%(Liu et al., 2023)</span>
                     </div>
                 </div>
@@ -1017,7 +1038,7 @@
                 </div>
             </div>
             
-            <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); padding: 18px; border-radius: 10px; margin-top: 20px; border-left: 4px solid var(--secondary);">
+            <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); padding: 18px; border-radius: 10px; margin-top: 20px; border-left: 4px solid var(--secondary-green);">
                 <p data-translate="tech_support"><strong>技術支援：</strong>首池提供全程技術指導，包括添加比例校準、效果追蹤、數據分析，確保效益最大化。</p>
             </div>
         </section>
@@ -1084,18 +1105,16 @@
             <div class="highlight-text" data-translate="cta_highlight2">飼料添加成本僅增加 7.39 萬元</div>
             
             <div class="cta-buttons">
-                <!-- 修改電話按鈕 href 為 tel:+886913866080 -->
                 <a class="btn btn-primary" href="tel:+886913866080" data-translate="cta_btn1">📞 立即技術諮詢</a>
                 <a class="btn btn-secondary" href="#" data-translate="cta_btn2">📋 獲取試用方案</a>
             </div>
         </section>
 
-        <!-- Footer (已修改：加入產品連結清單、返回頂部按鈕) -->
+        <!-- Footer -->
         <footer>
             <div class="footer-content">
                 <p data-translate="footer_company"><strong>首池有限公司</strong>｜精密營養 &times; 生物技術 &times; 永續畜牧</p>
                 
-                <!-- 新增產品連結清單（包含首頁及其他方案） -->
                 <ul class="product-links">
                     <li><a href="index.html" data-translate="home">🏠 首頁</a></li>
                     <li><a href="活力旺種公豬精液品質提升方案.html" data-translate="boar">🐗 種公豬</a></li>
@@ -1119,23 +1138,18 @@
     <div class="back-to-top" id="backToTop" title="返回頂部">↑</div>
 
     <script>
-        // 多語言翻譯數據 (已補齊新增的產品連結鍵值)
+        // 完整多語言翻譯數據
         const translations = {
             'zh-TW': {
-                // 標題和副標題
                 'title': '活力旺土雞性能提升方案 TDS',
                 'subtitle': '紅羽/黑羽土雞專用｜增重提速・料肉比優化・羽毛光澤提升',
                 'tagline': 'Precision Nutrition · Advanced Biotechnology · Sustainable Poultry Farming',
                 'tds_badge': 'Technical Data Sheet｜技術資料表',
-                
-                // 圖片說明
                 'caption1': '圖1：活力旺產品添加比例示意圖｜每噸飼料添加1公斤活力旺',
                 'caption2': '圖2：活力旺土雞性能提升效益對比｜增重+5-8%、料肉比-3-5%、成活率+2-3%',
                 'caption3': '圖3：活力旺土雞投資報酬率分析｜每隻淨利+22.96元、ROI達310%',
                 'caption4': '圖4：活力旺核心技術三層協同作用｜消化吸收、免疫調控、代謝優化',
                 'caption5': '圖5：傳統飼養 vs 活力旺方案｜養殖模式轉型帶來價值提升',
-                
-                // 產品規格
                 'section1_title': '產品規格與添加參數',
                 'spec1_label': '每噸飼料添加量',
                 'spec1_unit': '公斤/噸',
@@ -1150,30 +1164,26 @@
                 'spec6_label': '適用對象',
                 'spec6_value': '紅羽/黑羽土雞',
                 'spec6_unit': '全程飼養',
-                'usage_method': '使用方法：每噸全價飼料均勻添加活力旺1公斤，與預混料充分混合後使用。適用於紅羽/黑羽土雞全程飼養階段，無需調整飼養管理流程。',
-                
-                // 核心效益
+                'usage_method': '<strong>使用方法：</strong>每噸全價飼料均勻添加活力旺1公斤，與預混料充分混合後使用。適用於紅羽/黑羽土雞全程飼養階段，無需調整飼養管理流程。',
                 'section2_title': '核心效益｜土雞性能全面提升',
                 'benefit1_title': '增重效率提升',
                 'benefit1_improvement': '+5-8%',
                 'benefit1_desc': '小核酸肽促進肌肉蛋白合成，提高飼料轉化效率，出欄體重顯著增加',
-                'benefit1_data': '實測數據：16週齡出欄體重從2.45kg提升至2.60-2.65kg',
+                'benefit1_data': '<strong>實測數據：</strong>16週齡出欄體重從2.45kg提升至2.60-2.65kg',
                 'benefit2_title': '料肉比優化',
                 'benefit2_improvement': '-3-5%',
                 'benefit2_desc': '精密複合酶提升營養吸收率18%，降低飼料浪費，每公斤增重節省飼料',
-                'benefit2_data': '實測數據：料肉比從3.45:1優化至3.30-3.35:1',
+                'benefit2_data': '<strong>實測數據：</strong>料肉比從3.45:1優化至3.30-3.35:1',
                 'benefit3_title': '成活率提升',
                 'benefit3_improvement': '+2-3%',
                 'benefit3_desc': '免疫調控肽+褐藻素強化免疫系統，降低腹水症、呼吸道疾病發生率',
-                'benefit3_data': '實測數據：全程成活率從95%提升至97-98%',
+                'benefit3_data': '<strong>實測數據：</strong>全程成活率從95%提升至97-98%',
                 'benefit4_title': '羽毛品質改善',
                 'benefit4_improvement': '顯著提升',
                 'benefit4_desc': '褐藻素提供天然色素與抗氧化物質，羽毛緊實光澤，減少啄羽行為',
-                'benefit4_data': '實測數據：屠體評分提升15%，市場溢價能力增強',
-                
-                // 經濟效益
+                'benefit4_data': '<strong>實測數據：</strong>屠體評分提升15%，市場溢價能力增強',
                 'section3_title': '經濟效益分析｜每隻土雞淨利提升',
-                'calculation_basis': '計算基準：土雞飼養週期16週(112天)｜出欄體重2.45kg→2.62kg｜料肉比3.45→3.32｜成活率95%→97.5%｜土雞批發價120元/公斤｜每隻雞總採食量12.32公斤',
+                'calculation_basis': '<strong>計算基準：</strong>土雞飼養週期16週(112天)｜出欄體重2.45kg→2.62kg｜料肉比3.45→3.32｜成活率95%→97.5%｜土雞批發價120元/公斤｜每隻雞總採食量12.32公斤',
                 'table_header1': '效益項目',
                 'table_header2': '改善幅度',
                 'table_header3': '每隻雞經濟價值(NTD)',
@@ -1200,41 +1210,38 @@
                 'roi_label1': '每隻土雞投資報酬率 (ROI)',
                 'roi_value': '310%',
                 'roi_label2': '每投入1元，創造4.1元淨收益｜投資回收期 <7天',
-                'farm_benefit': '萬隻土雞場年度效益：每批次淨利增加229,600元｜年出欄3批次總計增加688,800元｜飼料添加總成本僅增加73,920元',
-                
-                // 技術機制
+                'farm_benefit': '<strong>萬隻土雞場年度效益：</strong>每批次淨利增加229,600元｜年出欄3批次總計增加688,800元｜飼料添加總成本僅增加73,920元',
                 'section4_title': '核心技術機制｜三層協同作用',
                 'tech1_title': '精密複合酶製劑',
-                'tech1_desc1': '作用：提升蛋白質、氨基酸吸收效率18%',
-                'tech1_desc2': '效益：降低料肉比，減少糞便氮排放，改善舍內環境',
+                'tech1_desc1': '<strong>作用：</strong>提升蛋白質、氨基酸吸收效率18%',
+                'tech1_desc2': '<strong>效益：</strong>降低料肉比，減少糞便氮排放，改善舍內環境',
                 'tech2_title': '免疫調控肽',
-                'tech2_desc1': '作用：激活Nrf2/ARE抗氧化通路，提升SOD活性30%',
-                'tech2_desc2': '效益：降低腹水症發生率，提高全程成活率，減少藥物使用',
+                'tech2_desc1': '<strong>作用：</strong>激活Nrf2/ARE抗氧化通路，提升SOD活性30%',
+                'tech2_desc2': '<strong>效益：</strong>降低腹水症發生率，提高全程成活率，減少藥物使用',
                 'tech3_title': '代謝調控複方',
-                'tech3_desc1': '成分：小核酸肽 + 褐藻素',
-                'tech3_desc2': '效益：小核酸肽促進肌肉生長；褐藻素改善羽毛色素沉著與光澤',
+                'tech3_desc1': '<strong>成分：</strong>小核酸肽 + 褐藻素',
+                'tech3_desc2': '<strong>效益：</strong>小核酸肽促進肌肉生長；褐藻素改善羽毛色素沉著與光澤',
                 'science_basis': '科學依據：',
                 'tech1_reference': '《Poultry Science》研究證實，複合酶製劑可提升土雞飼料轉化率4.2%(Chen et al., 2023)',
                 'tech2_reference': '《Veterinary Immunology》證實免疫肽可降低土雞呼吸道疾病發生率25%(Wang et al., 2022)',
                 'tech3_reference': '《Animal Feed Science》研究顯示褐藻素可提升土雞屠體評分18%(Liu et al., 2023)',
-                
-                // 實施方案
                 'section5_title': '三階段導入方案｜低風險驗證',
                 'stage1_title': '小群驗證(2週)',
-                'stage1_desc1': '規模：200隻土雞',
-                'stage1_desc2': '投入成本：NTD 1,478',
-                'stage1_desc3': '驗證指標：採食量、糞便形態、精神狀態觀察',
+                'stage1_desc1': '<strong>規模：</strong>200隻土雞',
+                'stage1_desc2': '<strong>投入成本：</strong><span class="cost-highlight">NTD 1,478</span>',
+                'stage1_cost': 'NTD 1,478',
+                'stage1_desc3': '<strong>驗證指標：</strong>採食量、糞便形態、精神狀態觀察',
                 'stage2_title': '批次驗證(8週)',
-                'stage2_desc1': '規模：1,000隻土雞',
-                'stage2_desc2': '投入成本：NTD 7,392',
-                'stage2_desc3': '驗證指標：體重抽測、料肉比計算、成活率統計',
+                'stage2_desc1': '<strong>規模：</strong>1,000隻土雞',
+                'stage2_desc2': '<strong>投入成本：</strong><span class="cost-highlight">NTD 7,392</span>',
+                'stage2_cost': 'NTD 7,392',
+                'stage2_desc3': '<strong>驗證指標：</strong>體重抽測、料肉比計算、成活率統計',
                 'stage3_title': '全場導入(持續)',
-                'stage3_desc1': '規模：全場土雞',
-                'stage3_desc2': '投入成本：每萬隻雞/批次 NTD 73,920',
-                'stage3_desc3': '核心效益：每萬隻雞淨利增加229,600元',
-                'tech_support': '技術支援：首池提供全程技術指導，包括添加比例校準、效果追蹤、數據分析，確保效益最大化。',
-                
-                // 對比表格
+                'stage3_desc1': '<strong>規模：</strong>全場土雞',
+                'stage3_desc2': '<strong>投入成本：</strong>每萬隻雞/批次 NTD 73,920',
+                'stage3_cost1': '每萬隻雞/批次 NTD 73,920',
+                'stage3_desc3': '<strong>核心效益：</strong>每萬隻雞淨利增加229,600元',
+                'tech_support': '<strong>技術支援：</strong>首池提供全程技術指導，包括添加比例校準、效果追蹤、數據分析，確保效益最大化。',
                 'section6_title': '傳統飼養 vs 活力旺方案',
                 'comparison_header1': '評估項目',
                 'comparison_header2': '傳統飼養模式',
@@ -1254,8 +1261,6 @@
                 'comparison5_col1': '環境影響',
                 'comparison5_col2': '糞便氮含量高，環保壓力大',
                 'comparison5_col3': '降低氮排放15%，綠色養殖',
-                
-                // CTA部分
                 'cta_title': '立即提升土雞養殖獲利能力',
                 'cta_big_number1': '+22.96',
                 'cta_desc1': '每隻土雞淨利潤增加(NTD)',
@@ -1265,9 +1270,7 @@
                 'cta_highlight2': '飼料添加成本僅增加 7.39 萬元',
                 'cta_btn1': '📞 立即技術諮詢',
                 'cta_btn2': '📋 獲取試用方案',
-                
-                // 頁腳及產品連結
-                'footer_company': '首池有限公司｜精密營養 × 生物技術 × 永續畜牧',
+                'footer_company': '<strong>首池有限公司</strong>｜精密營養 × 生物技術 × 永續畜牧',
                 'footer_disclaimer': '本技術資料表數據基於台灣土雞養殖場實測結果，實際效果因管理條件略有差異',
                 'footer_copyright': '© 2024 首池有限公司 版權所有｜本技術資料內容為商業機密，未經授權禁止轉載',
                 'home': '🏠 首頁',
@@ -1282,20 +1285,15 @@
                 'broiler': '🍗 白肉雞'
             },
             'zh-CN': {
-                // 標題和副標題
                 'title': '活力旺土鸡性能提升方案 TDS',
                 'subtitle': '红羽/黑羽土鸡专用｜增重提速・料肉比优化・羽毛光泽提升',
                 'tagline': '精准营养 · 先进生物技术 · 可持续家禽养殖',
                 'tds_badge': '技术资料表｜Technical Data Sheet',
-                
-                // 圖片說明
                 'caption1': '图1：活力旺产品添加比例示意图｜每吨饲料添加1公斤活力旺',
                 'caption2': '图2：活力旺土鸡性能提升效益对比｜增重+5-8%、料肉比-3-5%、成活率+2-3%',
                 'caption3': '图3：活力旺土鸡投资报酬率分析｜每只净利+5.03元、ROI达310%',
                 'caption4': '图4：活力旺核心技术三层协同作用｜消化吸收、免疫调控、代谢优化',
                 'caption5': '图5：传统饲养 vs 活力旺方案｜养殖模式转型带来价值提升',
-                
-                // 產品規格
                 'section1_title': '产品规格与添加参数',
                 'spec1_label': '每吨饲料添加量',
                 'spec1_unit': '公斤/吨',
@@ -1310,30 +1308,26 @@
                 'spec6_label': '适用对象',
                 'spec6_value': '红羽/黑羽土鸡',
                 'spec6_unit': '全程饲养',
-                'usage_method': '使用方法：每吨全价饲料均匀添加活力旺1公斤，与预混料充分混合后使用。适用于红羽/黑羽土鸡全程饲养阶段，无需调整饲养管理流程。',
-                
-                // 核心效益
+                'usage_method': '<strong>使用方法：</strong>每吨全价饲料均匀添加活力旺1公斤，与预混料充分混合后使用。适用于红羽/黑羽土鸡全程饲养阶段，无需调整饲养管理流程。',
                 'section2_title': '核心效益｜土鸡性能全面提升',
                 'benefit1_title': '增重效率提升',
                 'benefit1_improvement': '+5-8%',
                 'benefit1_desc': '小核酸肽促进肌肉蛋白合成，提高饲料转化效率，出栏体重显著增加',
-                'benefit1_data': '实测数据：16周龄出栏体重从2.45kg提升至2.60-2.65kg',
+                'benefit1_data': '<strong>实测数据：</strong>16周龄出栏体重从2.45kg提升至2.60-2.65kg',
                 'benefit2_title': '料肉比优化',
                 'benefit2_improvement': '-3-5%',
                 'benefit2_desc': '精密复合酶提升营养吸收率18%，降低饲料浪费，每公斤增重节省饲料',
-                'benefit2_data': '实测数据：料肉比从3.45:1优化至3.30-3.35:1',
+                'benefit2_data': '<strong>实测数据：</strong>料肉比从3.45:1优化至3.30-3.35:1',
                 'benefit3_title': '成活率提升',
                 'benefit3_improvement': '+2-3%',
                 'benefit3_desc': '免疫调控肽+褐藻素强化免疫系统，降低腹水症、呼吸道疾病发生率',
-                'benefit3_data': '实测数据：全程成活率从95%提升至97-98%',
+                'benefit3_data': '<strong>实测数据：</strong>全程成活率从95%提升至97-98%',
                 'benefit4_title': '羽毛品质改善',
                 'benefit4_improvement': '显著提升',
                 'benefit4_desc': '褐藻素提供天然色素与抗氧化物质，羽毛紧实光泽，减少啄羽行为',
-                'benefit4_data': '实测数据：屠体评分提升15%，市场溢价能力增强',
-                
-                // 經濟效益
+                'benefit4_data': '<strong>实测数据：</strong>屠体评分提升15%，市场溢价能力增强',
                 'section3_title': '经济效益分析｜每只土鸡净利提升',
-                'calculation_basis': '计算基准：土鸡饲养周期16周(112天)｜出栏体重2.45kg→2.62kg｜料肉比3.45→3.32｜成活率95%→97.5%｜土鸡批发价26.3元/公斤｜每只鸡总采食量12.32公斤',
+                'calculation_basis': '<strong>计算基准：</strong>土鸡饲养周期16周(112天)｜出栏体重2.45kg→2.62kg｜料肉比3.45→3.32｜成活率95%→97.5%｜土鸡批发价26.3元/公斤｜每只鸡总采食量12.32公斤',
                 'table_header1': '效益项目',
                 'table_header2': '改善幅度',
                 'table_header3': '每只鸡经济价值(CNY)',
@@ -1360,41 +1354,38 @@
                 'roi_label1': '每只土鸡投资报酬率 (ROI)',
                 'roi_value': '310%',
                 'roi_label2': '每投入1元，创造4.1元净收益｜投资回收期 <7天',
-                'farm_benefit': '万只土鸡场年度效益：每批次净利润增加50,300元｜年出栏3批次总计增加150,900元｜饲料添加总成本仅增加16,200元',
-                
-                // 技術機制
+                'farm_benefit': '<strong>万只土鸡场年度效益：</strong>每批次净利润增加50,300元｜年出栏3批次总计增加150,900元｜饲料添加总成本仅增加16,200元',
                 'section4_title': '核心技术机制｜三层协同作用',
                 'tech1_title': '精密复合酶制剂',
-                'tech1_desc1': '作用：提升蛋白质、氨基酸吸收效率18%',
-                'tech1_desc2': '效益：降低料肉比，减少粪便氮排放，改善舍内环境',
+                'tech1_desc1': '<strong>作用：</strong>提升蛋白质、氨基酸吸收效率18%',
+                'tech1_desc2': '<strong>效益：</strong>降低料肉比，减少粪便氮排放，改善舍内环境',
                 'tech2_title': '免疫调控肽',
-                'tech2_desc1': '作用：激活Nrf2/ARE抗氧化通路，提升SOD活性30%',
-                'tech2_desc2': '效益：降低腹水症发生率，提高全程成活率，减少药物使用',
+                'tech2_desc1': '<strong>作用：</strong>激活Nrf2/ARE抗氧化通路，提升SOD活性30%',
+                'tech2_desc2': '<strong>效益：</strong>降低腹水症发生率，提高全程成活率，减少药物使用',
                 'tech3_title': '代谢调控复方',
-                'tech3_desc1': '成分：小核酸肽 + 褐藻素',
-                'tech3_desc2': '效益：小核酸肽促进肌肉生长；褐藻素改善羽毛色素沉着与光泽',
+                'tech3_desc1': '<strong>成分：</strong>小核酸肽 + 褐藻素',
+                'tech3_desc2': '<strong>效益：</strong>小核酸肽促进肌肉生长；褐藻素改善羽毛色素沉着与光泽',
                 'science_basis': '科学依据：',
                 'tech1_reference': '《Poultry Science》研究证实，复合酶制剂可提升土鸡饲料转化率4.2%(Chen et al., 2023)',
                 'tech2_reference': '《Veterinary Immunology》证实免疫肽可降低土鸡呼吸道疾病发生率25%(Wang et al., 2022)',
                 'tech3_reference': '《Animal Feed Science》研究显示褐藻素可提升土鸡屠体评分18%(Liu et al., 2023)',
-                
-                // 實施方案
                 'section5_title': '三阶段导入方案｜低风险验证',
                 'stage1_title': '小群验证(2周)',
-                'stage1_desc1': '规模：200只土鸡',
-                'stage1_desc2': '投入成本：CNY 324',
-                'stage1_desc3': '验证指标：采食量、粪便形态、精神状态观察',
+                'stage1_desc1': '<strong>规模：</strong>200只土鸡',
+                'stage1_desc2': '<strong>投入成本：</strong><span class="cost-highlight">CNY 324</span>',
+                'stage1_cost': 'CNY 324',
+                'stage1_desc3': '<strong>验证指标：</strong>采食量、粪便形态、精神状态观察',
                 'stage2_title': '批次验证(8周)',
-                'stage2_desc1': '规模：1,000只土鸡',
-                'stage2_desc2': '投入成本：CNY 1,620',
-                'stage2_desc3': '验证指标：体重抽测、料肉比计算、成活率统计',
+                'stage2_desc1': '<strong>规模：</strong>1,000只土鸡',
+                'stage2_desc2': '<strong>投入成本：</strong><span class="cost-highlight">CNY 1,620</span>',
+                'stage2_cost': 'CNY 1,620',
+                'stage2_desc3': '<strong>验证指标：</strong>体重抽测、料肉比计算、成活率统计',
                 'stage3_title': '全场导入(持续)',
-                'stage3_desc1': '规模：全场土鸡',
-                'stage3_desc2': '投入成本：每万只鸡/批次 CNY 16,200',
-                'stage3_desc3': '核心效益：每万只鸡净利润增加50,300元',
-                'tech_support': '技术支持：首池提供全程技术指导，包括添加比例校准、效果追踪、数据分析，确保效益最大化。',
-                
-                // 對比表格
+                'stage3_desc1': '<strong>规模：</strong>全场土鸡',
+                'stage3_desc2': '<strong>投入成本：</strong>每万只鸡/批次 CNY 16,200',
+                'stage3_cost1': '每万只鸡/批次 CNY 16,200',
+                'stage3_desc3': '<strong>核心效益：</strong>每万只鸡净利润增加50,300元',
+                'tech_support': '<strong>技术支持：</strong>首池提供全程技术指导，包括添加比例校准、效果追踪、数据分析，确保效益最大化。',
                 'section6_title': '传统饲养 vs 活力旺方案',
                 'comparison_header1': '评估项目',
                 'comparison_header2': '传统饲养模式',
@@ -1414,8 +1405,6 @@
                 'comparison5_col1': '环境影响',
                 'comparison5_col2': '粪便氮含量高，环保压力大',
                 'comparison5_col3': '降低氮排放15%，绿色养殖',
-                
-                // CTA部分
                 'cta_title': '立即提升土鸡养殖获利能力',
                 'cta_big_number1': '+5.03',
                 'cta_desc1': '每只土鸡净利润增加(CNY)',
@@ -1425,9 +1414,7 @@
                 'cta_highlight2': '饲料添加成本仅增加 1.62 万元',
                 'cta_btn1': '📞 立即技术咨询',
                 'cta_btn2': '📋 获取试用方案',
-                
-                // 頁腳及產品連結
-                'footer_company': '首池有限公司｜精准营养 × 生物技术 × 可持续畜牧',
+                'footer_company': '<strong>首池有限公司</strong>｜精准营养 × 生物技术 × 可持续畜牧',
                 'footer_disclaimer': '本技术资料表数据基于台湾土鸡养殖场实测结果，实际效果因管理条件略有差异',
                 'footer_copyright': '© 2024 首池有限公司 版权所有｜本技术资料内容为商业机密，未经授权禁止转载',
                 'home': '🏠 首页',
@@ -1442,20 +1429,15 @@
                 'broiler': '🍗 白肉鸡'
             },
             'en': {
-                // 標題和副標題
                 'title': 'Vitality Boost Native Chicken Performance Enhancement TDS',
                 'subtitle': 'For Red/Black Feather Native Chickens｜Weight Gain Acceleration・FCR Optimization・Feather Gloss Improvement',
                 'tagline': 'Precision Nutrition · Advanced Biotechnology · Sustainable Poultry Farming',
                 'tds_badge': 'Technical Data Sheet',
-                
-                // 圖片說明
                 'caption1': 'Figure 1: Vitality Boost Product Addition Ratio｜Add 1kg per ton of feed',
                 'caption2': 'Figure 2: Native Chicken Performance Improvement Benefits｜Weight Gain +5-8%、FCR -3-5%、Survival Rate +2-3%',
                 'caption3': 'Figure 3: Native Chicken ROI Analysis｜Net Profit +$0.73 per bird、ROI 310%',
                 'caption4': 'Figure 4: Core Technology Three-layer Synergistic Mechanism｜Digestion & Absorption, Immune Regulation, Metabolic Optimization',
                 'caption5': 'Figure 5: Traditional Farming vs Vitality Boost Program｜Value Enhancement through Farming Model Transformation',
-                
-                // 產品規格
                 'section1_title': 'Product Specifications & Addition Parameters',
                 'spec1_label': 'Addition per ton of feed',
                 'spec1_unit': 'kg/ton',
@@ -1470,30 +1452,26 @@
                 'spec6_label': 'Target Audience',
                 'spec6_value': 'Red/Black Feather Native Chickens',
                 'spec6_unit': 'Full-cycle feeding',
-                'usage_method': 'Usage: Add 1kg of Vitality Boost per ton of complete feed, mix thoroughly with premix. Suitable for full-cycle feeding of red/black feather native chickens, no need to adjust farming management procedures.',
-                
-                // 核心效益
+                'usage_method': '<strong>Usage:</strong> Add 1kg of Vitality Boost per ton of complete feed, mix thoroughly with premix. Suitable for full-cycle feeding of red/black feather native chickens, no need to adjust farming management procedures.',
                 'section2_title': 'Core Benefits｜Comprehensive Native Chicken Performance Enhancement',
                 'benefit1_title': 'Weight Gain Efficiency Improvement',
                 'benefit1_improvement': '+5-8%',
                 'benefit1_desc': 'Small nucleic acid peptides promote muscle protein synthesis, improve feed conversion efficiency, significantly increase slaughter weight',
-                'benefit1_data': 'Field data: 16-week slaughter weight increased from 2.45kg to 2.60-2.65kg',
+                'benefit1_data': '<strong>Field data:</strong> 16-week slaughter weight increased from 2.45kg to 2.60-2.65kg',
                 'benefit2_title': 'FCR Optimization',
                 'benefit2_improvement': '-3-5%',
                 'benefit2_desc': 'Precision compound enzymes improve nutrient absorption rate by 18%, reduce feed waste, save feed per kg weight gain',
-                'benefit2_data': 'Field data: FCR improved from 3.45:1 to 3.30-3.35:1',
+                'benefit2_data': '<strong>Field data:</strong> FCR improved from 3.45:1 to 3.30-3.35:1',
                 'benefit3_title': 'Survival Rate Improvement',
                 'benefit3_improvement': '+2-3%',
                 'benefit3_desc': 'Immune regulatory peptides + fucoidan strengthen immune system, reduce incidence of ascites and respiratory diseases',
-                'benefit3_data': 'Field data: Full-cycle survival rate increased from 95% to 97-98%',
+                'benefit3_data': '<strong>Field data:</strong> Full-cycle survival rate increased from 95% to 97-98%',
                 'benefit4_title': 'Feather Quality Improvement',
                 'benefit4_improvement': 'Significantly Improved',
                 'benefit4_desc': 'Fucoidan provides natural pigments and antioxidants, feathers become tight and glossy, reducing feather pecking behavior',
-                'benefit4_data': 'Field data: Carcass score increased by 15%, enhancing market premium ability',
-                
-                // 經濟效益
+                'benefit4_data': '<strong>Field data:</strong> Carcass score increased by 15%, enhancing market premium ability',
                 'section3_title': 'Economic Benefit Analysis｜Net Profit per Native Chicken',
-                'calculation_basis': 'Calculation basis: Native chicken farming cycle 16 weeks (112 days)｜Slaughter weight 2.45kg→2.62kg｜FCR 3.45→3.32｜Survival rate 95%→97.5%｜Native chicken wholesale price $3.84/kg｜Total feed intake per bird 12.32kg',
+                'calculation_basis': '<strong>Calculation basis:</strong> Native chicken farming cycle 16 weeks (112 days)｜Slaughter weight 2.45kg→2.62kg｜FCR 3.45→3.32｜Survival rate 95%→97.5%｜Native chicken wholesale price $3.84/kg｜Total feed intake per bird 12.32kg',
                 'table_header1': 'Benefit Item',
                 'table_header2': 'Improvement',
                 'table_header3': 'Economic Value per Bird (USD)',
@@ -1520,41 +1498,38 @@
                 'roi_label1': 'Return on Investment (ROI) per Native Chicken',
                 'roi_value': '310%',
                 'roi_label2': 'For every $1 invested, creates $4.1 net profit｜Payback period <7 days',
-                'farm_benefit': '10,000-bird farm annual benefit: Net profit increase $7,300 per batch｜Annual 3 batches total increase $21,900｜Feed additive cost increase only $2,370',
-                
-                // 技術機制
+                'farm_benefit': '<strong>10,000-bird farm annual benefit:</strong> Net profit increase $7,300 per batch｜Annual 3 batches total increase $21,900｜Feed additive cost increase only $2,370',
                 'section4_title': 'Core Technology Mechanism｜Three-layer Synergistic Action',
                 'tech1_title': 'Precision Compound Enzymes',
-                'tech1_desc1': 'Function: Improves protein, amino acid absorption efficiency by 18%',
-                'tech1_desc2': 'Benefit: Reduces FCR, decreases fecal nitrogen emissions, improves housing environment',
+                'tech1_desc1': '<strong>Function:</strong> Improves protein, amino acid absorption efficiency by 18%',
+                'tech1_desc2': '<strong>Benefit:</strong> Reduces FCR, decreases fecal nitrogen emissions, improves housing environment',
                 'tech2_title': 'Immune Regulatory Peptides',
-                'tech2_desc1': 'Function: Activates Nrf2/ARE antioxidant pathway, increases SOD activity by 30%',
-                'tech2_desc2': 'Benefit: Reduces ascites incidence, improves full-cycle survival rate, decreases medication use',
+                'tech2_desc1': '<strong>Function:</strong> Activates Nrf2/ARE antioxidant pathway, increases SOD activity by 30%',
+                'tech2_desc2': '<strong>Benefit:</strong> Reduces ascites incidence, improves full-cycle survival rate, decreases medication use',
                 'tech3_title': 'Metabolic Regulation Compound',
-                'tech3_desc1': 'Components: Small nucleic acid peptides + Fucoidan',
-                'tech3_desc2': 'Benefit: Small nucleic acid peptides promote muscle growth; Fucoidan improves feather pigmentation and gloss',
+                'tech3_desc1': '<strong>Components:</strong> Small nucleic acid peptides + Fucoidan',
+                'tech3_desc2': '<strong>Benefit:</strong> Small nucleic acid peptides promote muscle growth; Fucoidan improves feather pigmentation and gloss',
                 'science_basis': 'Scientific basis:',
                 'tech1_reference': '《Poultry Science》research confirms compound enzymes can improve native chicken feed conversion rate by 4.2%(Chen et al., 2023)',
                 'tech2_reference': '《Veterinary Immunology》confirms immune peptides can reduce native chicken respiratory disease incidence by 25%(Wang et al., 2022)',
                 'tech3_reference': '《Animal Feed Science》research shows fucoidan can improve native chicken carcass score by 18%(Liu et al., 2023)',
-                
-                // 實施方案
                 'section5_title': 'Three-stage Implementation Plan｜Low-risk Verification',
                 'stage1_title': 'Small Group Trial (2 weeks)',
-                'stage1_desc1': 'Scale: 200 native chickens',
-                'stage1_desc2': 'Investment cost: USD 47',
-                'stage1_desc3': 'Verification indicators: Feed intake, fecal form, mental status observation',
+                'stage1_desc1': '<strong>Scale:</strong> 200 native chickens',
+                'stage1_desc2': '<strong>Investment cost:</strong> <span class="cost-highlight">USD 47</span>',
+                'stage1_cost': 'USD 47',
+                'stage1_desc3': '<strong>Verification indicators:</strong> Feed intake, fecal form, mental status observation',
                 'stage2_title': 'Batch Trial (8 weeks)',
-                'stage2_desc1': 'Scale: 1,000 native chickens',
-                'stage2_desc2': 'Investment cost: USD 237',
-                'stage2_desc3': 'Verification indicators: Weight sampling, FCR calculation, survival rate statistics',
+                'stage2_desc1': '<strong>Scale:</strong> 1,000 native chickens',
+                'stage2_desc2': '<strong>Investment cost:</strong> <span class="cost-highlight">USD 237</span>',
+                'stage2_cost': 'USD 237',
+                'stage2_desc3': '<strong>Verification indicators:</strong> Weight sampling, FCR calculation, survival rate statistics',
                 'stage3_title': 'Full Farm Implementation (Continuous)',
-                'stage3_desc1': 'Scale: All native chickens on farm',
-                'stage3_desc2': 'Investment cost: USD 2,370 per 10,000 birds/batch',
-                'stage3_desc3': 'Core benefit: Net profit increase $7,300 per 10,000 birds',
-                'tech_support': 'Technical support: Shou Chi provides full-process technical guidance, including addition ratio calibration, effect tracking, data analysis to ensure maximum benefit.',
-                
-                // 對比表格
+                'stage3_desc1': '<strong>Scale:</strong> All native chickens on farm',
+                'stage3_desc2': '<strong>Investment cost:</strong> USD 2,370 per 10,000 birds/batch',
+                'stage3_cost1': 'USD 2,370 per 10,000 birds/batch',
+                'stage3_desc3': '<strong>Core benefit:</strong> Net profit increase $7,300 per 10,000 birds',
+                'tech_support': '<strong>Technical support:</strong> Shou Chi provides full-process technical guidance, including addition ratio calibration, effect tracking, data analysis to ensure maximum benefit.',
                 'section6_title': 'Traditional Farming vs Vitality Boost Program',
                 'comparison_header1': 'Evaluation Item',
                 'comparison_header2': 'Traditional Farming Model',
@@ -1574,8 +1549,6 @@
                 'comparison5_col1': 'Environmental Impact',
                 'comparison5_col2': 'High fecal nitrogen content, environmental pressure',
                 'comparison5_col3': 'Reduce nitrogen emissions by 15%, green farming',
-                
-                // CTA部分
                 'cta_title': 'Enhance Native Chicken Farming Profitability Now',
                 'cta_big_number1': '+0.73',
                 'cta_desc1': 'Net profit increase per native chicken (USD)',
@@ -1585,9 +1558,7 @@
                 'cta_highlight2': 'Feed additive cost increase only $2,370',
                 'cta_btn1': '📞 Get Technical Consultation',
                 'cta_btn2': '📋 Request Trial Program',
-                
-                // 頁腳及產品連結
-                'footer_company': 'Shou Chi Co., Ltd.｜Precision Nutrition × Biotechnology × Sustainable Livestock',
+                'footer_company': '<strong>Shou Chi Co., Ltd.</strong>｜Precision Nutrition × Biotechnology × Sustainable Livestock',
                 'footer_disclaimer': 'This technical data sheet is based on field test results from Taiwan native chicken farms, actual effects may vary slightly due to management conditions',
                 'footer_copyright': '© 2024 Shou Chi Co., Ltd. All Rights Reserved｜This technical data content is confidential, unauthorized reproduction prohibited',
                 'home': '🏠 Home',
@@ -1625,7 +1596,6 @@
 
         // 語言切換功能
         function switchLanguage(lang) {
-            // 更新按鈕狀態
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if (btn.getAttribute('data-lang') === lang) {
@@ -1633,15 +1603,13 @@
                 }
             });
             
-            // 更新文字內容
             document.querySelectorAll('[data-translate]').forEach(element => {
                 const key = element.getAttribute('data-translate');
-                if (translations[lang] && translations[lang][key]) {
+                if (translations[lang] && translations[lang][key] !== undefined) {
                     element.innerHTML = translations[lang][key];
                 }
             });
             
-            // 更新貨幣數值
             updateCurrencyValues(lang);
         }
 
@@ -1653,14 +1621,11 @@
             
             document.querySelectorAll('[data-value]').forEach(element => {
                 const originalValue = parseFloat(element.getAttribute('data-value'));
-                
-                // 檢查是否為百分比數值
                 const elementText = element.textContent || element.innerText;
                 const isPercentage = elementText.includes('%') || 
                                    element.classList.contains('roi-value') ||
-                                   element.classList.contains('big-number') && elementText.includes('%');
+                                   (element.classList.contains('big-number') && elementText.includes('%'));
                 
-                // 檢查是否為成本數值
                 const parentText = element.parentElement.textContent || element.parentElement.innerText;
                 const isCost = parentText.includes('成本') || 
                              parentText.includes('Cost') ||
@@ -1668,25 +1633,15 @@
                              element.classList.contains('cost-highlight') && originalValue > 100;
                 
                 if (!isNaN(originalValue) && !isPercentage) {
-                    let convertedValue;
+                    let convertedValue = Math.round(originalValue * rate * 100) / 100;
                     
-                    // 如果是成本數值，保持負數
                     const currentText = element.textContent || element.innerText;
-                    const hasMinus = currentText.includes('-');
+                    const hasPlus = currentText.includes('+');
+                    const hasMinusSymbol = currentText.includes('-');
                     
-                    if (isCost && !hasMinus) {
-                        convertedValue = Math.round(originalValue * rate * 100) / 100;
-                    } else {
-                        convertedValue = Math.round(originalValue * rate * 100) / 100;
-                    }
-                    
-                    // 格式化數字，添加千位分隔符
                     let formattedValue;
                     if (convertedValue >= 1000) {
-                        formattedValue = convertedValue.toLocaleString('en-US', { 
-                            minimumFractionDigits: 0,
-                            maximumFractionDigits: 0
-                        });
+                        formattedValue = convertedValue.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
                     } else if (convertedValue >= 100) {
                         formattedValue = convertedValue.toFixed(0);
                     } else if (convertedValue >= 1) {
@@ -1695,16 +1650,10 @@
                         formattedValue = convertedValue.toFixed(3);
                     }
                     
-                    // 更新元素內容，保留原始格式
-                    const currentTextContent = element.textContent || element.innerText;
-                    const hasPlus = currentTextContent.includes('+');
-                    const hasMinusSymbol = currentTextContent.includes('-');
-                    
                     let newText = formattedValue;
                     if (hasPlus && convertedValue >= 0) newText = '+' + newText;
                     if (hasMinusSymbol && convertedValue < 0) newText = '-' + newText.replace('-', '');
                     
-                    // 添加貨幣符號（除了百分比）
                     if (!isPercentage && 
                         !element.classList.contains('value') && 
                         !element.classList.contains('improvement') &&
@@ -1732,11 +1681,9 @@
 
         // 初始化
         document.addEventListener('DOMContentLoaded', function() {
-            // 添加滾動事件監聽器
             window.addEventListener('scroll', handleScroll);
-            handleScroll(); // 初始檢查
+            handleScroll();
             
-            // 語言切換按鈕事件
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const lang = this.getAttribute('data-lang');
@@ -1744,20 +1691,12 @@
                 });
             });
             
-            // 設置卡片點擊功能
             setupCardClicks();
-            
-            // 設置默認語言
             switchLanguage('zh-TW');
 
-            // 返回頂部按鈕邏輯
             const backToTop = document.getElementById('backToTop');
             window.addEventListener('scroll', function() {
-                if (window.scrollY > 300) {
-                    backToTop.classList.add('show');
-                } else {
-                    backToTop.classList.remove('show');
-                }
+                backToTop.classList.toggle('show', window.scrollY > 300);
             });
             backToTop.addEventListener('click', function() {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
