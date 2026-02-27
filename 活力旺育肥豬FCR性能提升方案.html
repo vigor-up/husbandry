@@ -1,646 +1,721 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <style>
-    /* 防止文字選取 */
-    body {
-        -webkit-user-select: none;  /* Safari */
-        -moz-user-select: none;     /* Firefox */
-        -ms-user-select: none;      /* IE/Edge */
-        user-select: none;           /* 標準語法 */
-    }
-
-    /* 針對圖片：禁止拖曳、禁止長按菜單，但保留點擊事件（由父層處理） */
-    img {
-        -webkit-touch-callout: none; /* iOS 長按選單 */
-        -webkit-user-drag: none;     /* Chrome 拖曳 */
-        user-drag: none;
-        pointer-events: none;         /* 讓圖片本身無法被點擊，但父容器可接收點擊 */
-    }
-
-    /* 圖片的容器需設定 cursor: pointer 提示可點擊 */
-    .img-container {
-        cursor: pointer;
-    }
-</style>
-
-<!-- 簡易 Lightbox 結構 -->
-<div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; justify-content:center; align-items:center; flex-direction:column;" onclick="this.style.display='none'">
-    <img id="lightbox-img" src="" style="max-width:90%; max-height:80%; object-fit:contain; border-radius:8px;">
-    <div id="lightbox-caption" style="color:white; margin-top:16px; font-size:1rem;"></div>
-</div>
-
-<script>
-    // 1. 禁止右鍵選單 (含手機長按)
-    document.addEventListener('contextmenu', e => e.preventDefault());
-
-    // 2. 禁止複製快捷鍵 (Ctrl+C, Ctrl+X)
-    document.addEventListener('copy', e => e.preventDefault());
-    document.addEventListener('cut', e => e.preventDefault());
-
-    // 3. 禁止選取事件 (滑鼠拖曳選取)
-    document.addEventListener('selectstart', e => e.preventDefault());
-
-    // 4. 輕量 Lightbox 功能：所有 .img-container 內的圖片點擊放大
-    function openLightbox(element) {
-        const img = element.querySelector('img');
-        if (!img) return;
-        const caption = element.querySelector('.img-title')?.innerText || '';
-        const lb = document.getElementById('lightbox');
-        const lbImg = document.getElementById('lightbox-img');
-        const lbCaption = document.getElementById('lightbox-caption');
-        lbImg.src = img.src;
-        lbCaption.innerText = caption;
-        lb.style.display = 'flex';
-    }
-
-    // 為所有 .img-container 綁定點擊事件
-    document.querySelectorAll('.img-container').forEach(container => {
-        container.addEventListener('click', function() {
-            openLightbox(this);
-        });
-    });
-</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>活力旺®育肥豬FCR性能提升方案｜140kg高效益規格</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
+        /* ===== 設計系統變數 (基於 beilisu_json.json) ===== */
         :root {
-            --primary: #e67e22;
-            --secondary: #d35400;
-            --dark: #2c3e50;
-            --light: #f8f9fa;
-            --warning: #f1c40f;
-            --success: #27ae60;
-            --blue: #3498db;
-            --gray-100: #f8f9fc;
-            --gray-200: #e9ecef;
-            --gray-300: #dee2e6;
-            --border-radius: 16px;
-            --card-radius: 20px;
-            --shadow-sm: 0 4px 12px rgba(0,0,0,0.04);
-            --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
-            --shadow-lg: 0 16px 32px rgba(0,0,0,0.12);
-            --safe-area-inset-top: env(safe-area-inset-top);
-            --safe-area-inset-bottom: env(safe-area-inset-bottom);
+            /* 顏色 */
+            --primary-green: #2a7a2a;
+            --secondary-green: #1b5e1b;
+            --accent-gold: #d4a017;
+            --accent-light: #f5f0e1;
+            --primary-dark: #2e3b2e;
+            --secondary-dark: #4a5a4a;
+            --light-bg: #f9fff9;
+            --card-bg: #ffffff;
+            --border-light: rgba(0, 0, 0, 0.05);
+            --border-dark: rgba(0, 0, 0, 0.1);
+            --header-gradient-start: rgba(42, 122, 42, 0.95);
+            --header-gradient-end: rgba(27, 94, 27, 0.95);
+            --footer-gradient-start: #2e3b2e;
+            --footer-gradient-end: #1a2b1a;
+            --stat-item-bg: rgba(255, 255, 255, 0.15);
+            --stat-border: rgba(255, 255, 255, 0.2);
+            --product-category-bg: var(--primary-green);
+            --product-category-text: #ffffff;
+            --btn-gradient-start: var(--primary-green);
+            --btn-gradient-end: var(--secondary-green);
+            --btn-text: #ffffff;
+            --footer-text: rgba(255, 255, 255, 0.85);
+            --footer-link: rgba(255, 255, 255, 0.75);
+            --footer-link-hover: var(--accent-gold);
+            --copyright-text: rgba(255, 255, 255, 0.6);
+
+            /* 字體 */
+            --font-heading: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+            --font-body: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+
+            /* 字級 (保留 clamp 以便響應) */
+            --fs-base: 16px;
+            --fs-h1: clamp(2rem, 6vw, 3.5rem);
+            --fs-company: clamp(1.25rem, 3.5vw, 1.75rem);
+            --fs-tagline: clamp(1.1rem, 2.8vw, 1.4rem);
+            --fs-stat-value: clamp(1.8rem, 4.5vw, 2.5rem);
+            --fs-stat-label: clamp(0.85rem, 2.2vw, 0.95rem);
+            --fs-section-title: clamp(1.8rem, 4.5vw, 2.8rem);
+            --fs-section-subtitle: clamp(1.1rem, 2.5vw, 1.25rem);
+            --fs-product-title: clamp(1.2rem, 3vw, 1.5rem);
+            --fs-product-subtitle: clamp(0.9rem, 2.2vw, 1rem);
+            --fs-benefit: clamp(0.95rem, 2.3vw, 1.05rem);
+            --fs-btn: clamp(0.95rem, 2.3vw, 1.05rem);
+            --fs-footer-heading: clamp(1.2rem, 3vw, 1.4rem);
+            --fs-footer-link: clamp(0.95rem, 2.3vw, 1.05rem);
+            --fs-copyright: clamp(0.85rem, 2.2vw, 0.95rem);
+
+            /* 字重 */
+            --fw-light: 300;
+            --fw-normal: 400;
+            --fw-medium: 500;
+            --fw-semibold: 600;
+            --fw-bold: 700;
+            --fw-extrabold: 800;
+
+            /* 圓角 */
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --radius-pill: 30px;
+            --radius-circle: 50%;
+
+            /* 陰影 */
+            --shadow-card: 0 8px 30px rgba(0, 40, 0, 0.08);
+            --shadow-card-hover: 0 12px 40px rgba(42, 122, 42, 0.15);
+            --shadow-header: 0 4px 20px rgba(0, 30, 0, 0.1);
+            --shadow-btn: 0 6px 20px rgba(42, 122, 42, 0.2);
+
+            /* 間距 */
+            --space-xs: 8px;
+            --space-sm: 12px;
+            --space-md: 16px;
+            --space-lg: 20px;
+            --space-xl: 24px;
+            --space-2xl: 28px;
+            --space-3xl: 32px;
+            --space-4xl: 40px;
+            --space-5xl: 48px;
+            --space-6xl: 60px;
+
+            /* 過渡 */
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+
+            /* 安全區域 */
+            --safe-top: env(safe-area-inset-top, 0px);
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
         }
+
+        /* ===== 重置 & 全域 ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            font-size: var(--fs-base);
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
             -webkit-font-smoothing: antialiased;
         }
-        html {
-            font-size: 15px;
-            scroll-behavior: smooth;
-        }
+
         body {
-            font-family: 'Microsoft JhengHei', '微軟正黑體', 'Noto Sans TC', 'PingFang TC', 'Helvetica Neue', sans-serif;
-            background-color: #f9fbfd;
-            color: var(--dark);
-            line-height: 1.6;
+            font-family: var(--font-body);
+            background: var(--light-bg);
+            color: var(--primary-dark);
+            line-height: 1.7;
             overflow-x: hidden;
-            -webkit-text-size-adjust: 100%;
+            min-height: 100vh;
+            padding-top: var(--safe-top);
+            padding-bottom: var(--safe-bottom);
+            position: relative;
         }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(212, 160, 23, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(42, 122, 42, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
         .container {
             width: 100%;
-            max-width: 100%;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 0 16px;
+            padding: 0 clamp(20px, 5vw, 40px);
         }
 
-        /* 語言切換器 - 固定右上角 */
+        /* ===== 語言切換器 ===== */
         .language-switcher {
             position: fixed;
-            top: 12px;
-            right: 12px;
+            top: calc(20px + var(--safe-top));
+            right: clamp(20px, 5vw, 40px);
             z-index: 1000;
             display: flex;
-            gap: 4px;
-            background: white;
-            padding: 6px;
-            border-radius: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border: 1px solid var(--primary);
-            max-width: 90%;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px 12px;
+            border-radius: var(--radius-pill);
+            box-shadow: var(--shadow-header);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-dark);
+            transition: var(--transition);
         }
+
         .lang-btn {
-            padding: 6px 12px;
-            border: none;
-            border-radius: 16px;
             background: transparent;
-            color: var(--dark);
-            font-weight: 500;
+            border: 1px solid transparent;
+            padding: 10px 16px;
+            border-radius: var(--radius-pill);
             cursor: pointer;
-            transition: all 0.3s ease;
+            font-weight: var(--fw-semibold);
             font-size: 0.85rem;
+            transition: var(--transition);
+            color: var(--secondary-dark);
             white-space: nowrap;
-            flex: 1;
-        }
-        .lang-btn.active {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-        }
-        .lang-btn:hover:not(.active) {
-            background: #f1f5f9;
-        }
-
-        /* 頁頭 - 滿版底圖＋深色覆蓋 */
-        header {
-            background: linear-gradient(rgba(230, 126, 34, 0.92), rgba(211, 84, 0, 0.95)), url('assets/finisher-pig-feeding.jpg');
-            background-size: cover;
-            background-position: center 30%;
-            color: white;
-            padding: 40px 0 30px;
-            text-align: center;
-            position: relative;
-            margin-top: 50px;
-            min-height: 40vh;
-            display: flex;
-            align-items: center;
-        }
-        header .container {
-            padding: 0 20px;
-        }
-        h1 {
-            font-size: 1.6rem;
-            margin-bottom: 12px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            letter-spacing: 0.5px;
-            line-height: 1.3;
-        }
-        .subtitle {
-            font-size: 0.95rem;
-            opacity: 0.95;
-            margin: 0 auto 18px;
-            line-height: 1.5;
-            padding: 0 10px;
-        }
-        .tagline {
-            background: linear-gradient(90deg, var(--warning), #e67e22);
-            color: var(--dark);
-            padding: 12px 20px;
-            border-radius: 20px;
-            display: inline-block;
-            font-weight: bold;
-            margin: 15px auto;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            font-size: 0.95rem;
             letter-spacing: 0.3px;
-            max-width: 90%;
         }
 
-        /* 主要區塊 - 淡入動畫 */
-        section {
-            padding: 40px 0;
-            opacity: 0;
-            transform: translateY(15px);
-            transition: all 0.5s ease;
+        .lang-btn.active {
+            background: var(--primary-green);
+            color: white;
+            border-color: var(--primary-green);
+            box-shadow: 0 4px 12px rgba(42, 122, 42, 0.2);
         }
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
+
+        /* ===== 頁頭 ===== */
+        header {
+            background: linear-gradient(135deg, var(--header-gradient-start), var(--header-gradient-end));
+            color: white;
+            position: relative;
+            overflow: hidden;
+            padding: clamp(60px, 15vw, 120px) 0 clamp(80px, 15vw, 120px);
+            padding-top: calc(clamp(60px, 15vw, 120px) + var(--safe-top));
+            margin-bottom: 40px;
+            text-align: center;
         }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(212, 160, 23, 0.1) 0%, transparent 20%);
+            pointer-events: none;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: var(--fs-h1);
+            font-weight: var(--fw-extrabold);
+            margin-bottom: var(--space-md);
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, #ffffff, var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: var(--fs-tagline);
+            font-weight: var(--fw-light);
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto var(--space-lg);
+            line-height: 1.6;
+        }
+
+        .tagline {
+            background: linear-gradient(90deg, var(--accent-gold), #e67e22);
+            color: var(--primary-dark);
+            padding: var(--space-sm) var(--space-xl);
+            border-radius: var(--radius-pill);
+            display: inline-block;
+            font-weight: var(--fw-bold);
+            box-shadow: var(--shadow-btn);
+            font-size: var(--fs-btn);
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== 章節標題 ===== */
         .section-title {
             text-align: center;
-            font-size: 1.4rem;
-            color: var(--primary);
-            margin-bottom: 30px;
+            font-size: var(--fs-section-title);
+            color: var(--primary-dark);
+            margin-bottom: var(--space-5xl);
             position: relative;
-            font-weight: 700;
-            letter-spacing: 0.3px;
-            padding: 0 10px;
+            font-weight: var(--fw-bold);
+            letter-spacing: -0.5px;
         }
+
         .section-title::after {
-            content: "";
+            content: '';
             display: block;
-            width: 60px;
+            width: clamp(80px, 20vw, 120px);
             height: 4px;
-            background: var(--warning);
-            margin: 15px auto;
-            border-radius: 2px;
+            background: linear-gradient(90deg, var(--primary-green), var(--accent-gold));
+            margin: var(--space-md) auto 0;
+            border-radius: var(--radius-sm);
         }
 
-        /* 卡片通用樣式 - 手機優化 */
+        /* ===== 卡片通用 ===== */
         .card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px 20px;
-            box-shadow: var(--shadow-md);
-            transition: all 0.3s ease;
-            margin-bottom: 25px;
-            border-top: 4px solid var(--secondary);
-            cursor: pointer;
-            -webkit-tap-highlight-color: rgba(0,0,0,0.05);
-        }
-        .card:hover, .card:active {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-            border-top-color: var(--warning);
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl) var(--space-lg);
+            box-shadow: var(--shadow-card);
+            transition: var(--transition);
+            margin-bottom: var(--space-xl);
+            border: 1px solid var(--border-dark);
+            border-top: 4px solid var(--secondary-green);
         }
 
-        /* 圖片區塊樣式 */
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-card-hover);
+            border-top-color: var(--accent-gold);
+        }
+
+        /* ===== 圖片容器 ===== */
         .img-container {
             width: 100%;
-            margin: 25px 0;
-            text-align: center;
-        }
-        .responsive-img {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: var(--shadow-md);
-            transition: all 0.3s ease;
-        }
-        .responsive-img:hover {
-            transform: scale(1.02);
-            box-shadow: var(--shadow-lg);
-        }
-        .img-title {
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin: 15px 0 8px;
-            color: var(--dark);
-            padding: 0 10px;
-        }
-        .img-desc {
-            font-size: 0.9rem;
-            color: #6c7a9c;
-            margin-bottom: 15px;
-            padding: 0 10px;
+            margin: var(--space-xl) 0;
+            cursor: pointer;
+            border-radius: var(--radius-md);
+            overflow: hidden;
         }
 
-        /* 影片區塊 */
-        .video-block {
-            width: 100%;
-            margin: 25px 0;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-            background: #000;
-        }
-        .video-block video {
+        .responsive-img {
             width: 100%;
             height: auto;
             display: block;
+            transition: transform 0.8s ease;
         }
-        .video-caption {
-            padding: 12px 16px;
-            background: var(--dark);
-            color: white;
-            font-size: 0.9rem;
+
+        .img-container:hover .responsive-img {
+            transform: scale(1.02);
+        }
+
+        .img-title {
+            font-size: var(--fs-product-subtitle);
+            font-weight: var(--fw-semibold);
+            color: var(--primary-dark);
+            margin-top: var(--space-sm);
             text-align: center;
-            border-top: 1px solid var(--gray-300);
         }
 
-        /* 網格佈局 - 手機單列，平板/桌機多欄 */
-        .grid {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-top: 25px;
+        /* ===== 機制卡片 ===== */
+        .mechanism-card {
+            background: linear-gradient(135deg, #fef9e7, #fff8e1);
+            border-left: 4px solid var(--primary-green);
+            padding: var(--space-md) var(--space-lg);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            margin: var(--space-md) 0;
+            box-shadow: var(--shadow-card);
         }
 
-        /* 表格樣式 - 橫向滾動 */
+        .mechanism-title {
+            font-weight: var(--fw-bold);
+            color: var(--primary-green);
+            margin-bottom: var(--space-xs);
+            font-size: var(--fs-product-subtitle);
+        }
+
+        /* ===== 表格 ===== */
         .table-container {
             width: 100%;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
-            margin: 20px 0;
-            border-radius: 10px;
+            margin: var(--space-lg) 0;
+            border-radius: var(--radius-md);
         }
+
         table {
             width: 100%;
             min-width: 600px;
             border-collapse: collapse;
             background: white;
-            border-radius: 10px;
+            border-radius: var(--radius-md);
             overflow: hidden;
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow-card);
         }
+
         th {
-            background: linear-gradient(120deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
             color: white;
-            padding: 14px 12px;
+            padding: var(--space-md) var(--space-sm);
             text-align: center;
-            font-weight: 600;
-            font-size: 0.85rem;
-            white-space: nowrap;
+            font-weight: var(--fw-semibold);
+            font-size: 0.9rem;
         }
+
         td {
-            padding: 12px 10px;
-            border-bottom: 1px solid #eaeaea;
+            padding: var(--space-sm) var(--space-xs);
+            border-bottom: 1px solid var(--border-light);
             text-align: center;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
+
         tr:last-child td {
             border-bottom: none;
         }
+
         tr:hover td {
-            background-color: #fef5e7;
-        }
-        .highlight {
-            color: var(--warning);
-            font-weight: bold;
-            font-size: 1rem;
-        }
-        .positive {
-            color: var(--success);
-            font-weight: bold;
-        }
-        .negative {
-            color: #d32f2f;
-            font-weight: bold;
+            background-color: rgba(212, 160, 23, 0.05);
         }
 
-        /* ROI高亮區塊 */
-        .roi-highlight {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            border-radius: 15px;
-            padding: 35px 20px;
+        /* ===== 參數卡片（2/4欄） ===== */
+        .param-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            margin: var(--space-xl) 0;
+        }
+
+        @media (min-width: 768px) {
+            .param-cards {
+                grid-template-columns: repeat(4, 1fr);
+                gap: var(--space-lg);
+            }
+        }
+
+        .param-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg) var(--space-sm);
             text-align: center;
-            margin: 40px 0;
-            box-shadow: 0 10px 25px rgba(230, 126, 34, 0.25);
+            box-shadow: var(--shadow-card);
+            border-top: 3px solid var(--accent-gold);
+            transition: var(--transition);
+            cursor: default;
+        }
+
+        .param-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .param-label {
+            font-size: 0.85rem;
+            color: var(--secondary-dark);
+            margin-bottom: var(--space-xs);
+        }
+
+        .param-value {
+            font-size: 1.8rem;
+            font-weight: var(--fw-bold);
+            color: var(--primary-green);
+            margin: var(--space-xs) 0;
+        }
+
+        /* ===== ROI 高亮區塊 ===== */
+        .roi-highlight {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            border-radius: var(--radius-xl);
+            padding: var(--space-3xl) var(--space-xl);
+            text-align: center;
+            margin: var(--space-4xl) 0;
+            box-shadow: var(--shadow-card-hover);
             position: relative;
             overflow: hidden;
         }
+
         .roi-highlight::before {
-            content: "";
+            content: '';
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
             z-index: 0;
         }
+
         .roi-value {
-            font-size: 2.8rem;
-            font-weight: bold;
-            margin: 20px 0;
-            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            font-size: 3.5rem;
+            font-weight: var(--fw-extrabold);
+            margin: var(--space-md) 0;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.2);
             position: relative;
             z-index: 1;
             background: linear-gradient(90deg, #ffeb3b, #ffc107, #ffeb3b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            line-height: 1.2;
         }
 
-        /* 參數卡片 - 手機2列，平板/桌機4列 */
-        .param-cards {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin: 25px 0;
-        }
-        .param-card {
-            background: white;
-            border-radius: 10px;
-            padding: 18px 12px;
-            text-align: center;
-            box-shadow: var(--shadow-sm);
-            border-top: 3px solid var(--warning);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .param-card:hover, .param-card:active {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-        }
-        .param-label {
-            font-size: 0.8rem;
-            color: #6c7a9c;
-            margin-bottom: 5px;
-        }
-        .param-value {
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: var(--primary);
-            margin: 5px 0;
-        }
-
-        /* 機制卡片（三大載體） */
-        .mechanism-card {
-            background: linear-gradient(135deg, #fef9e7, #fff8e1);
-            border-left: 4px solid var(--primary);
-            padding: 18px 16px;
-            border-radius: 0 10px 10px 0;
-            margin: 18px 0;
-            box-shadow: var(--shadow-sm);
-        }
-        .mechanism-title {
-            font-weight: bold;
-            color: var(--primary);
-            margin-bottom: 8px;
-            font-size: 1rem;
-        }
-        .gene-highlight {
-            background: linear-gradient(120deg, rgba(241,196,15,0.2), rgba(241,196,15,0.3));
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-        }
-
-        /* 實施步驟 - 手機單列，平板/桌機三欄 */
-        .steps {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-top: 30px;
-        }
-        .step {
-            background: white;
-            border-radius: 12px;
-            padding: 25px 20px;
-            text-align: center;
-            box-shadow: var(--shadow-md);
-            border-top: 5px solid var(--warning);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .step:hover, .step:active {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-        .step-number {
-            display: inline-block;
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, var(--warning), #e67e22);
-            color: var(--dark);
-            border-radius: 50%;
-            line-height: 45px;
-            font-weight: bold;
-            margin-bottom: 18px;
-            font-size: 1.4rem;
-            box-shadow: 0 4px 10px rgba(241,196,15,0.4);
-        }
-
-        /* CTA 區塊 */
-        .cta-block {
-            background: linear-gradient(145deg, #2c3e50, #1a2c3a);
-            color: white;
-            padding: 40px 25px;
-            border-radius: 28px;
-            text-align: center;
-            margin: 45px 0;
-        }
-        .cta-block .big-number {
-            font-size: 2.8rem;
-            font-weight: 900;
-            color: var(--warning);
-            margin: 12px 0;
-        }
+        /* ===== 按鈕 ===== */
         .btn {
-            padding: 14px 28px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.1rem;
+            padding: var(--space-md) var(--space-xl);
+            border-radius: var(--radius-pill);
+            font-weight: var(--fw-bold);
+            font-size: var(--fs-btn);
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: var(--space-sm);
             text-decoration: none;
-            transition: 0.2s;
-            margin: 6px;
+            transition: var(--transition);
+            margin: var(--space-xs);
             border: none;
             cursor: pointer;
+            min-width: 200px;
         }
+
         .btn-primary {
-            background: linear-gradient(145deg, var(--warning), #f39c12);
-            color: var(--dark);
-            box-shadow: 0 8px 20px rgba(241,196,15,0.4);
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            box-shadow: var(--shadow-btn);
         }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, var(--secondary-green), var(--primary-green));
+        }
+
         .btn-secondary {
             background: transparent;
             border: 2px solid rgba(255,255,255,0.9);
             color: white;
         }
-        .btn:hover {
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
             transform: scale(1.05);
         }
 
-        /* 頁尾 */
-        footer {
-            background: linear-gradient(135deg, var(--dark), #1a252f);
-            color: rgba(255,255,255,0.85);
-            text-align: center;
-            padding: 40px 0 25px;
-            margin-top: 50px;
-        }
-        .product-links {
+        /* ===== 步驟區塊 ===== */
+        .steps {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-            margin: 25px 0;
-            list-style: none;
-        }
-        .product-links a {
-            color: white;
-            text-decoration: none;
-            padding: 10px 18px;
-            background: rgba(255,255,255,0.12);
-            border-radius: 30px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: 0.2s;
-        }
-        .product-links a:hover {
-            background: var(--primary);
+            flex-direction: column;
+            gap: var(--space-lg);
+            margin-top: var(--space-3xl);
         }
 
-        /* 數據來源框 */
-        .data-source {
-            background: linear-gradient(135deg, #e8f5e9, #d4edda);
-            border-left: 4px solid var(--success);
-            padding: 15px 18px;
-            border-radius: 0 10px 10px 0;
-            margin: 20px 0;
-            font-size: 0.9rem;
-            box-shadow: 0 2px 8px rgba(54, 179, 126, 0.15);
-        }
-        .data-source strong {
-            color: var(--success);
-        }
-
-        /* 響應式：平板/桌機 */
         @media (min-width: 768px) {
-            .container {
-                max-width: 1200px;
-                padding: 0 25px;
-            }
-            .language-switcher {
-                top: 20px;
-                right: 20px;
-                gap: 8px;
-                padding: 8px;
-                border-radius: 30px;
-            }
-            .lang-btn {
-                padding: 8px 18px;
-                font-size: 0.95rem;
-            }
-            header {
-                padding: 60px 0 40px;
-                margin-top: 70px;
-                min-height: 50vh;
-            }
-            h1 {
-                font-size: 2.4rem;
-            }
-            .subtitle {
-                font-size: 1.2rem;
-                max-width: 850px;
-            }
-            .tagline {
-                padding: 16px 35px;
-                font-size: 1.1rem;
-            }
-            section {
-                padding: 60px 0;
-            }
-            .section-title {
-                font-size: 2rem;
-                margin-bottom: 50px;
-            }
-            .grid {
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                gap: 30px;
-            }
-            .param-cards {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 25px;
-            }
             .steps {
                 flex-direction: row;
                 flex-wrap: wrap;
-                gap: 30px;
-            }
-            .step {
-                flex: 1;
-                min-width: 280px;
-                padding: 35px 30px;
-            }
-            .roi-highlight {
-                padding: 60px 40px;
-                margin: 60px 0;
-            }
-            .roi-value {
-                font-size: 4rem;
+                gap: var(--space-xl);
             }
         }
 
-        /* 圖片點擊放大 */
+        .step {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            text-align: center;
+            box-shadow: var(--shadow-card);
+            border-top: 5px solid var(--accent-gold);
+            transition: var(--transition);
+            flex: 1 1 280px;
+        }
+
+        .step:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--accent-gold), #e67e22);
+            color: var(--primary-dark);
+            border-radius: var(--radius-circle);
+            line-height: 45px;
+            font-weight: var(--fw-bold);
+            margin-bottom: var(--space-md);
+            font-size: 1.4rem;
+            box-shadow: 0 4px 10px rgba(212, 160, 23, 0.3);
+        }
+
+        /* ===== CTA 區塊 ===== */
+        .cta-block {
+            background: linear-gradient(135deg, var(--primary-dark), #1a2b1a);
+            color: white;
+            padding: var(--space-4xl) var(--space-xl);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            margin: var(--space-4xl) 0;
+        }
+
+        .cta-block .big-number {
+            font-size: 3rem;
+            font-weight: var(--fw-extrabold);
+            color: var(--accent-gold);
+            margin: var(--space-md) 0;
+        }
+
+        /* ===== 頁尾 ===== */
+        footer {
+            background: linear-gradient(135deg, var(--footer-gradient-start), var(--footer-gradient-end));
+            color: var(--footer-text);
+            padding: var(--space-4xl) 0 var(--space-2xl);
+            margin-top: var(--space-4xl);
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-green), var(--accent-gold));
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-4xl);
+            margin-bottom: var(--space-4xl);
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (min-width: 640px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .footer-content {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            }
+        }
+
+        .footer-section {
+            width: 100%;
+        }
+
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        @media (min-width: 640px) {
+            .footer-logo {
+                align-items: flex-start;
+                text-align: left;
+            }
+        }
+
+        .footer-logo-img {
+            width: clamp(120px, 25vw, 160px);
+            height: clamp(120px, 25vw, 160px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-md);
+            filter: drop-shadow(0 4px 16px rgba(0,0,0,0.3));
+        }
+
+        .footer-logo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .footer-section h3 {
+            font-size: var(--fs-footer-heading);
+            margin-bottom: var(--space-lg);
+            color: white;
+            font-weight: var(--fw-bold);
+            letter-spacing: 0.5px;
+            position: relative;
+            padding-bottom: var(--space-sm);
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-gold), transparent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: var(--space-sm);
+            transition: var(--transition);
+        }
+
+        .footer-links li:hover {
+            transform: translateX(5px);
+        }
+
+        .footer-links a {
+            color: var(--footer-link);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: 8px 0;
+            min-height: 40px;
+            font-size: var(--fs-footer-link);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-links a::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 0;
+            background: var(--accent-gold);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .footer-links a:hover::before {
+            height: 70%;
+        }
+
+        .footer-links a:hover {
+            color: var(--footer-link-hover);
+            padding-left: 10px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: var(--space-3xl);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: var(--fs-copyright);
+            color: var(--copyright-text);
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== Lightbox ===== */
         .lightbox {
             display: none;
             position: fixed;
@@ -649,55 +724,91 @@
             z-index: 9999;
             justify-content: center;
             align-items: center;
-            cursor: zoom-out;
             flex-direction: column;
+            cursor: zoom-out;
         }
+
         .lightbox img {
             max-width: 90%;
             max-height: 80%;
             object-fit: contain;
-            border-radius: 12px;
-            box-shadow: 0 0 40px rgba(0,0,0,0.5);
-        }
-        .lightbox .caption {
-            color: white;
-            margin-top: 20px;
-            font-size: 1.1rem;
-            max-width: 80%;
-            text-align: center;
+            border-radius: var(--radius-md);
         }
 
-        .fade-in { opacity: 0; transform: translateY(20px); transition: 0.6s; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .lightbox .caption {
+            color: white;
+            margin-top: var(--space-md);
+            font-size: var(--fs-product-subtitle);
+            text-align: center;
+            max-width: 80%;
+        }
+
+        /* ===== 動畫 ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== 響應式微調 ===== */
+        @media (max-width: 480px) {
+            .param-value {
+                font-size: 1.4rem;
+            }
+            .roi-value {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* 滾動條 (選用) */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-gold));
+            border-radius: 10px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
     </style>
 </head>
 <body>
     <!-- 語言切換器 -->
     <div class="language-switcher">
-        <button class="lang-btn active" data-lang="zh-TW" data-rate="1.0000">繁(NTD)</button>
+        <button class="lang-btn active" data-lang="zh-TW" data-rate="1.000">繁(NTD)</button>
         <button class="lang-btn" data-lang="zh-CN" data-rate="0.2192">简(CNY)</button>
         <button class="lang-btn" data-lang="en" data-rate="0.0320">EN(USD)</button>
     </div>
 
     <!-- 頁頭 -->
     <header>
-        <div class="container">
+        <div class="container header-content">
             <h1 data-translate="title">🐗 活力旺®育肥豬 · FCR 2.8→<2.0</h1>
             <p class="subtitle" data-translate="subtitle">三大機密載體｜重組蛋白酶‧小核酸‧褐藻素 · 50萬頭實證</p>
             <div class="tagline" data-translate="highlight_badge">🏆 單頭淨利+2,328元 | ROI 1102% | 50萬頭實證</div>
         </div>
     </header>
 
-    <div class="container">
-        <!-- ===== 1. 三大機密載體（學術擴充機轉）===== -->
+    <main class="container">
+        <!-- ===== 1. 三大機密載體 ===== -->
         <section class="fade-in">
             <h2 class="section-title" data-translate="confidential_title">🔬 活力旺® 育肥專利配方 – 三大機密載體</h2>
             <div class="card">
-                <!-- 重組蛋白酶 -->
-                <div style="margin-bottom: 30px;">
-                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                <!-- 重組蛋白酶 (已修改為蛋白草萃取物) -->
+                <div style="margin-bottom: var(--space-2xl);">
+                    <div style="display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm);">
                         <span style="font-size: 2rem;">🧪</span>
-                        <h3 style="font-size: 1.3rem; color: var(--primary);" data-translate="protease_title">1. 「重組蛋白酶」—— 蛋白草萃取物</h3>
+                        <h3 style="font-size: var(--fs-product-title); color: var(--primary-green);" data-translate="protease_title">1. 「重組蛋白酶」—— 蛋白草萃取物</h3>
                     </div>
                     <p data-translate="protease_desc"><strong>降FCR、能量重分配</strong> · AMPK/mTOR訊號軸 · FCR 2.8→<2.0 · 每頭省88kg飼料</p>
                     <div class="mechanism-card">
@@ -706,14 +817,14 @@
                     </div>
                     <div class="img-container" onclick="openLightbox(this)">
                         <img src="assets/protease-complex.jpg" alt="重組蛋白酶分子結構" class="responsive-img" loading="lazy">
-                        <div class="img-title" data-translate="protease_caption">重組蛋白酶 ·3D結構示意</div>
+                        <div class="img-title" data-translate="protease_caption">重組蛋白酶 · 蛋白草萃取物3D結構示意</div>
                     </div>
                 </div>
                 <!-- 小核酸 -->
-                <div style="margin-bottom: 30px;">
-                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                <div style="margin-bottom: var(--space-2xl);">
+                    <div style="display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm);">
                         <span style="font-size: 2rem;">🧬</span>
-                        <h3 style="font-size: 1.3rem; color: var(--primary);" data-translate="rna_title">2. 「小核酸」—— 非編碼RNA片段</h3>
+                        <h3 style="font-size: var(--fs-product-title); color: var(--primary-green);" data-translate="rna_title">2. 「小核酸」—— 非編碼RNA片段</h3>
                     </div>
                     <p data-translate="rna_desc"><strong>背脂率↓30%、出肉率↑</strong> · IGF2基因調控 · 背脂<2.0cm · 出肉率>82%</p>
                     <div class="mechanism-card">
@@ -727,9 +838,9 @@
                 </div>
                 <!-- 褐藻素 -->
                 <div>
-                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                    <div style="display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm);">
                         <span style="font-size: 2rem;">🌿</span>
-                        <h3 style="font-size: 1.3rem; color: var(--primary);" data-translate="fucoxanthin_title">3. 「褐藻素」—— 藻源性類胡蘿蔔素</h3>
+                        <h3 style="font-size: var(--fs-product-title); color: var(--primary-green);" data-translate="fucoxanthin_title">3. 「褐藻素」—— 藻源性類胡蘿蔔素</h3>
                     </div>
                     <p data-translate="fucoxanthin_desc"><strong>抗病毒免疫力、抗應激</strong> · Nrf2路徑 · 屠宰失重↓1.2%</p>
                     <div class="mechanism-card">
@@ -742,8 +853,8 @@
                     </div>
                 </div>
                 <!-- 效能總表 -->
-                <div style="overflow-x:auto; margin-top: 30px;">
-                    <table style="background: #fef5e7;">
+                <div class="table-container" style="margin-top: var(--space-xl);">
+                    <table>
                         <thead><tr><th data-translate="benefit_item">效能項目</th><th data-translate="mechanism">對應載體</th><th data-translate="performance">實證績效</th><th data-translate="literature">文獻來源</th></tr></thead>
                         <tbody>
                             <tr><td data-translate="benefit1">降FCR</td><td data-translate="carrier1">重組蛋白酶</td><td>2.8 → <2.0</td><td>PMID:37008356,40652548</td></tr>
@@ -757,12 +868,12 @@
             </div>
         </section>
 
-        <!-- ===== 2. 屠宰場實證（北/中/南）===== -->
+        <!-- ===== 2. 屠宰場實證 ===== -->
         <section class="fade-in">
             <h2 class="section-title" data-translate="slaughter_title">📋 全台三大產區屠宰場實證（2025-2026）</h2>
             <div class="card">
-                <div style="background: var(--gray-100); padding: 18px; border-radius: 10px; margin-bottom: 20px; border-left: 6px solid var(--success);">
-                    <p style="font-weight: 700; font-size: 1rem;" data-translate="slaughter_scope">📍 北部(桃竹苗)·中部(彰雲嘉)·南部(屏東) 23場 · 47,826頭</p>
+                <div style="background: var(--accent-light); padding: var(--space-md); border-radius: var(--radius-md); margin-bottom: var(--space-lg); border-left: 6px solid var(--success);">
+                    <p style="font-weight: var(--fw-bold);" data-translate="slaughter_scope">📍 北部(桃竹苗)·中部(彰雲嘉)·南部(屏東) 23場 · 47,826頭</p>
                 </div>
                 <div class="img-container" onclick="openLightbox(this)">
                     <img src="assets/slaughterhouse-data.jpg" alt="屠宰場背脂超音波實測" class="responsive-img" loading="lazy">
@@ -778,49 +889,29 @@
                         </tbody>
                     </table>
                 </div>
-                <p style="margin-top: 20px; background: #e3f2fd; padding: 14px; border-radius: 10px; font-weight: 600;" data-translate="slaughter_conclusion">🔬 屠體評級提升1~2等級 · 中部溢價達4.0元/公斤</p>
+                <p style="margin-top: var(--space-lg); background: #e3f2fd; padding: var(--space-md); border-radius: var(--radius-md); font-weight: var(--fw-semibold);" data-translate="slaughter_conclusion">🔬 屠體評級提升1~2等級 · 中部溢價達4.0元/公斤</p>
             </div>
         </section>
 
-        <!-- ===== 3. 核心規格對比：30→140kg 高性能參數 ===== -->
+        <!-- ===== 3. 核心規格對比 ===== -->
         <section class="fade-in">
             <h2 class="section-title" data-translate="spec_title">⚙️ 育肥規格｜30→140kg 高性能參數</h2>
             <div class="param-cards">
-                <div class="param-card">
-                    <div class="param-label" data-translate="metric_fcr_title">飼料轉換率 (FCR)</div>
-                    <div class="param-value"><span class="metric-old">2.8</span> <span data-translate="fcr_new"><2.0</span></div>
-                    <div style="color: var(--success); font-weight: 700;" data-translate="fcr_improve">↓ 28.6%</div>
-                    <div style="font-size: 0.8rem;" data-translate="fcr_desc">省88kg/頭 · 1,320元</div>
-                </div>
-                <div class="param-card">
-                    <div class="param-label" data-translate="metric_yield_title">出肉率</div>
-                    <div class="param-value"><span class="metric-old"><80%</span> <span data-translate="yield_new">>80%</span></div>
-                    <div style="color: var(--success); font-weight: 700;" data-translate="yield_improve">↑ 3.9~5.2%</div>
-                    <div style="font-size: 0.8rem;" data-translate="yield_desc">+7kg屠體 · +700元</div>
-                </div>
-                <div class="param-card">
-                    <div class="param-label" data-translate="metric_bf_title">背脂厚度</div>
-                    <div class="param-value"><span class="metric-old">>2.5cm</span> <span data-translate="bf_new"><2.0cm</span></div>
-                    <div style="color: var(--success); font-weight: 700;" data-translate="bf_improve">↓ 30%</div>
-                    <div style="font-size: 0.8rem;" data-translate="bf_desc">溢價3~5元/kg · +420元</div>
-                </div>
-                <div class="param-card">
-                    <div class="param-label" data-translate="metric_weight_title">出欄體重</div>
-                    <div class="param-value"><span class="metric-old"><130kg</span> <span data-translate="weight_new">>140kg</span></div>
-                    <div style="color: var(--success); font-weight: 700;" data-translate="weight_improve">↑ 10kg+</div>
-                    <div style="font-size: 0.8rem;" data-translate="weight_desc">雪花溢價2.5元/kg</div>
-                </div>
+                <div class="param-card"><div class="param-label" data-translate="metric_fcr_title">飼料轉換率 (FCR)</div><div class="param-value"><span class="metric-old">2.8</span> <span data-translate="fcr_new"><2.0</span></div><div style="color: var(--success); font-weight: var(--fw-bold);" data-translate="fcr_improve">↓ 28.6%</div><div style="font-size: 0.8rem;" data-translate="fcr_desc">省88kg/頭 · 1,320元</div></div>
+                <div class="param-card"><div class="param-label" data-translate="metric_yield_title">出肉率</div><div class="param-value"><span class="metric-old"><80%</span> <span data-translate="yield_new">>80%</span></div><div style="color: var(--success); font-weight: var(--fw-bold);" data-translate="yield_improve">↑ 3.9~5.2%</div><div style="font-size: 0.8rem;" data-translate="yield_desc">+7kg屠體 · +700元</div></div>
+                <div class="param-card"><div class="param-label" data-translate="metric_bf_title">背脂厚度</div><div class="param-value"><span class="metric-old">>2.5cm</span> <span data-translate="bf_new"><2.0cm</span></div><div style="color: var(--success); font-weight: var(--fw-bold);" data-translate="bf_improve">↓ 30%</div><div style="font-size: 0.8rem;" data-translate="bf_desc">溢價3~5元/kg · +420元</div></div>
+                <div class="param-card"><div class="param-label" data-translate="metric_weight_title">出欄體重</div><div class="param-value"><span class="metric-old"><130kg</span> <span data-translate="weight_new">>140kg</span></div><div style="color: var(--success); font-weight: var(--fw-bold);" data-translate="weight_improve">↑ 10kg+</div><div style="font-size: 0.8rem;" data-translate="weight_desc">雪花溢價2.5元/kg</div></div>
             </div>
             <div class="img-container" onclick="openLightbox(this)">
                 <img src="assets/heavy-pigs-140kg.jpg" alt="140kg杜洛克肉豬" class="responsive-img" loading="lazy">
                 <div class="img-title" data-translate="heavy_pig_caption">雲林示範場 · 140kg杜洛克 · 背脂1.9cm</div>
             </div>
             <div class="img-container" onclick="openLightbox(this)">
-                <img src="assets/feed-efficiency-triptych.jpg" alt="FCR 2.8 vs 2.4 vs <2.0 三格對比" class="responsive-img" loading="lazy">
+                <img src="assets/feed-efficiency-triptych.jpg" alt="FCR 2.8 vs 2.4 vs <2.0" class="responsive-img" loading="lazy">
                 <div class="img-title" data-translate="fcr_triptych_caption">左FCR 2.8 · 中FCR 2.4 · 右FCR <2.0｜台灣現代化豬舍</div>
             </div>
             <div class="img-container" onclick="openLightbox(this)">
-                <img src="assets/feed-efficiency.jpg" alt="飼料效率輔助圖表" class="responsive-img" loading="lazy">
+                <img src="assets/feed-efficiency.jpg" alt="飼料效率圖表" class="responsive-img" loading="lazy">
                 <div class="img-title" data-translate="fcr_chart_caption">飼料轉換效率對比 · 節省88kg飼料</div>
             </div>
         </section>
@@ -829,8 +920,8 @@
         <section class="fade-in">
             <h2 class="section-title" data-translate="profit_title">💰 單頭效益精算｜飼料+屠體+背脂+肉質</h2>
             <div class="card">
-                <div style="background:#fff3e0; padding:16px; border-radius:10px; margin-bottom:20px;">
-                    <p style="font-size:0.95rem;"><strong data-translate="calc_basis">📐 基準：</strong><span data-translate="calc_detail">30→140kg · FCR 2.8→2.0 · 飼料15元/kg · 屠體100元/kg · 背脂溢價3元/kg · 品牌溢價100元/頭</span></p>
+                <div style="background: #fff3e0; padding: var(--space-md); border-radius: var(--radius-md); margin-bottom: var(--space-lg);">
+                    <p style="font-size: 0.95rem;"><strong data-translate="calc_basis">📐 基準：</strong><span data-translate="calc_detail">30→140kg · FCR 2.8→2.0 · 飼料15元/kg · 屠體100元/kg · 背脂溢價3元/kg · 品牌溢價100元/頭</span></p>
                 </div>
                 <div class="table-container">
                     <table>
@@ -840,16 +931,16 @@
                             <tr><td data-translate="carcass_gain">屠體增重</td><td data-translate="yield_gain_detail">出肉率77%→81% · +7kg</td><td><span class="currency" data-base-value="700">700</span></td></tr>
                             <tr><td data-translate="bf_premium">背脂溢價</td><td data-translate="bf_premium_detail">背脂2.5→1.8cm · A級</td><td><span class="currency" data-base-value="420">420</span></td></tr>
                             <tr><td data-translate="quality_premium">肉質溢價</td><td data-translate="quality_detail">肌間脂肪3.2%</td><td><span class="currency" data-base-value="100">100</span></td></tr>
-                            <tr style="background:#ffeaa7;"><td><strong data-translate="total_benefit">總效益</strong></td><td>—</td><td><strong><span class="currency" data-base-value="2540">2,540</span></strong></td></tr>
+                            <tr style="background: var(--accent-light);"><td><strong data-translate="total_benefit">總效益</strong></td><td>—</td><td><strong><span class="currency" data-base-value="2540">2,540</span></strong></td></tr>
                             <tr><td data-translate="add_cost">添加成本</td><td data-translate="add_cost_detail">220kg × 0.96元</td><td><span class="currency" data-base-value="-211.2">-211.2</span></td></tr>
-                            <tr style="background:linear-gradient(145deg,var(--primary),var(--secondary)); color:white;"><td><strong data-translate="net_profit">每頭淨利</strong></td><td>—</td><td><strong><span class="currency" data-base-value="2328.8">2,328.8</span></strong></td></tr>
+                            <tr style="background: linear-gradient(135deg, var(--primary-green), var(--secondary-green)); color: white;"><td><strong data-translate="net_profit">每頭淨利</strong></td><td>—</td><td><strong><span class="currency" data-base-value="2328.8">2,328.8</span></strong></td></tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="roi-highlight">
-                    <h3 style="font-size:1.3rem; margin-bottom:12px;" data-translate="roi_title">ROI —— 1102%</h3>
+                    <h3 style="font-size: 1.5rem; margin-bottom: var(--space-sm);" data-translate="roi_title">ROI —— 1102%</h3>
                     <div class="roi-value" data-value="1102">1,102%</div>
-                    <p style="font-size:1.1rem; margin:15px 0;" data-translate="roi_desc">💰 每投入1元，回收12元 · 回收期4.2天</p>
+                    <p style="font-size: 1.2rem; margin: var(--space-md) 0;" data-translate="roi_desc">💰 每投入1元，回收12元 · 回收期4.2天</p>
                 </div>
             </div>
         </section>
@@ -857,18 +948,18 @@
         <!-- ===== 5. 屠體影片 ===== -->
         <section class="fade-in">
             <h2 class="section-title" data-translate="video_title">🎥 屠體評級實錄｜背脂與瘦肉實測</h2>
-            <div class="video-block">
-                <video src="assets/carcass-video.mp4" controls playsinline poster="assets/slaughterhouse-data.jpg">
+            <div class="video-block" style="border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-card); background: #000;">
+                <video src="assets/carcass-video.mp4" controls playsinline poster="assets/slaughterhouse-data.jpg" style="width: 100%; display: block;">
                     您的瀏覽器不支援影片播放。
                 </video>
-                <div class="video-caption" data-translate="video_caption">屠體分級現場 · 背脂厚度1.8cm · 瘦肉率>68%</div>
+                <div style="padding: var(--space-sm); background: var(--primary-dark); color: white; text-align: center; font-size: 0.9rem;" data-translate="video_caption">屠體分級現場 · 背脂厚度1.8cm · 瘦肉率>68%</div>
             </div>
         </section>
 
         <!-- ===== 6. 雪花肉＆ROI圖表 ===== -->
         <section class="fade-in">
             <div class="img-container" onclick="openLightbox(this)">
-                <img src="assets/marbling-raw-pork.jpg" alt="豬里肌雪花肉 · 肌間脂肪3.2%" class="responsive-img" loading="lazy">
+                <img src="assets/marbling-raw-pork.jpg" alt="豬里肌雪花肉" class="responsive-img" loading="lazy">
                 <div class="img-title" data-translate="marbling_caption">肌內脂肪達3.2% · 大理石紋明顯 · 品牌豬口感</div>
             </div>
             <div class="img-container" onclick="openLightbox(this)">
@@ -892,51 +983,76 @@
 
         <!-- ===== 8. 見證與CTA ===== -->
         <section class="fade-in">
-            <div style="display: grid; gap: 20px; margin: 30px 0;">
+            <div style="display: grid; gap: var(--space-lg); margin: var(--space-3xl) 0;">
                 <div class="card">
-                    <p style="font-size:1rem; line-height:1.6;" data-translate="testimonial1">「原本擔心養太重被扣錢，活力旺養到143kg背脂才1.8cm，牌價+4元/公斤，一頭多賣2,500元！」</p>
-                    <div style="margin-top: 16px; font-weight: 700;" data-translate="testimonial1_author">雲林 · 吳勝華</div>
-                    <div style="color: #777; font-size:0.85rem;" data-translate="testimonial1_meta">1,200頭一貫場 · 2026.01</div>
+                    <p style="font-size: 1rem; line-height: 1.6;" data-translate="testimonial1">「原本擔心養太重被扣錢，活力旺養到143kg背脂才1.8cm，牌價+4元/公斤，一頭多賣2,500元！」</p>
+                    <div style="margin-top: var(--space-md); font-weight: var(--fw-bold);" data-translate="testimonial1_author">雲林 · 吳勝華</div>
+                    <div style="color: #777; font-size: 0.85rem;" data-translate="testimonial1_meta">1,200頭一貫場 · 2026.01</div>
                 </div>
                 <div class="card">
-                    <p style="font-size:1rem; line-height:1.6;" data-translate="testimonial2">「南部屠宰場主動簽約每公斤+3.5元，全場1,800頭都走140kg規格。」</p>
-                    <div style="margin-top: 16px; font-weight: 700;" data-translate="testimonial2_author">屏東 · 陳信男</div>
-                    <div style="color: #777; font-size:0.85rem;" data-translate="testimonial2_meta">契養戶 · 年出欄3500頭</div>
+                    <p style="font-size: 1rem; line-height: 1.6;" data-translate="testimonial2">「南部屠宰場主動簽約每公斤+3.5元，全場1,800頭都走140kg規格。」</p>
+                    <div style="margin-top: var(--space-md); font-weight: var(--fw-bold);" data-translate="testimonial2_author">屏東 · 陳信男</div>
+                    <div style="color: #777; font-size: 0.85rem;" data-translate="testimonial2_meta">契養戶 · 年出欄3500頭</div>
                 </div>
             </div>
 
             <div class="cta-block">
-                <h2 style="font-size:1.8rem; color:white;" data-translate="cta_title">🚀 試算您牧場的1102% ROI</h2>
+                <h2 style="font-size: 1.8rem; color: white;" data-translate="cta_title">🚀 試算您牧場的1102% ROI</h2>
                 <div class="big-number"><span class="currency" data-base-value="2328.8">NTD 2,328.8</span></div>
-                <p style="font-size:1.2rem;" data-translate="cta_sub1">每頭額外淨利 × 您的規模</p>
-                <div class="big-number" style="font-size:2.4rem;"><span class="roi-percent" data-base-value="1102">1102%</span></div>
-                <p style="font-size:1.2rem;" data-translate="cta_sub2">業界最高 · 4.2天回本</p>
-                <div style="margin:25px 0;">
+                <p style="font-size: 1.2rem;" data-translate="cta_sub1">每頭額外淨利 × 您的規模</p>
+                <div style="margin: var(--space-lg) 0;">
                     <a class="btn btn-primary" href="tel:+886913866080" data-translate="cta_btn1">📞 免費ROI試算｜限場8折</a>
                     <a class="btn btn-secondary" href="#" data-translate="cta_btn2">📋 領取140kg實證手冊</a>
                 </div>
-                <p style="opacity:0.9; font-size:0.9rem;" data-translate="cta_footnote">* 50萬頭田間實證 · 23屠宰場 · 首池無效退費</p>
+                <p style="opacity: 0.9; font-size: 0.9rem;" data-translate="cta_footnote">* 50萬頭田間實證 · 23屠宰場 · 首池無效退費</p>
             </div>
         </section>
-    </div>
+    </main>
 
     <!-- 頁尾 -->
     <footer>
         <div class="container">
-            <p style="font-size:1.1rem; margin-bottom:16px;"><strong data-translate="footer_company">首池有限公司</strong>｜<span data-translate="footer_slogan">育肥豬140kg高效方案 · 屠宰溢價領導品牌</span></p>
-            <ul class="product-links">
-                <li><a href="index.html">🏠 <span data-translate="home">主頁</span></a></li>
-                <li><a href="活力旺種公豬精液品質提升方案.html">🐗 <span data-translate="boar">種公豬</span></a></li>
-                <li><a href="活力旺懷孕期母豬生產性能優化方案.html">🤰 <span data-translate="preg_sow">懷孕母豬</span></a></li>
-                <li><a href="活力旺哺乳母豬性能提升方案.html">🍼 <span data-translate="lact_sow">哺乳母豬</span></a></li>
-                <li><a href="活力旺仔豬人工乳性能提升方案.html">🐷 <span data-translate="piglet">仔豬</span></a></li>
-                <li><a href="活力旺育肥豬性能提升方案.html">📈 <span data-translate="finisher">育肥豬</span></a></li>
-                <li><a href="活力旺種雞性能提升方案.html">🐔 <span data-translate="breeder">種雞</span></a></li>
-                <li><a href="活力旺蛋雞性能提升方案.html">🥚 <span data-translate="layer">蛋雞</span></a></li>
-                <li><a href="活力旺土雞性能提升方案.html">🌾 <span data-translate="native">土雞</span></a></li>
-                <li><a href="活力旺白肉雞FCR性能提升方案.html">🍗 <span data-translate="broiler">白肉雞</span></a></li>
-            </ul>
-            <p style="opacity:0.8; font-size:0.85rem;" data-translate="footer_copyright">© 2026 首池有限公司 · 引用PubMed/國科會文獻 · 圖片實拍</p>
+            <div class="footer-content">
+                <div class="footer-section footer-logo">
+                    <div class="footer-logo-img">
+                        <img src="assets/logo.png" alt="活力旺logo" loading="lazy">
+                    </div>
+                    <h3 data-translate="vitality_pro">活力旺</h3>
+                    <p style="opacity: 0.8; font-size: 0.95rem;" data-translate="footer_tagline">精準營養解決方案</p>
+                </div>
+                <div class="footer-section">
+                    <h3 data-translate="company_name">首池有限公司</h3>
+                    <p data-translate="tagline">精準營養 · 先進生物技術 · 永續農業</p>
+                </div>
+                <div class="footer-section">
+                    <h3 data-translate="products_title">產品方案</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">🏠 <span data-translate="home">主頁</span></a></li>
+                        <li><a href="boar-semen-quality.html">🐗 <span data-translate="boar">種公豬</span></a></li>
+                        <li><a href="pregnant-sow-optimization.html">🤰 <span data-translate="preg_sow">懷孕母豬</span></a></li>
+                        <li><a href="nursing-sow-improvement.html">🍼 <span data-translate="lact_sow">哺乳母豬</span></a></li>
+                        <li><a href="piglet-milk-replacer.html">🐷 <span data-translate="piglet">仔豬</span></a></li>
+                        <li><a href="finisher-pig-fcr.html">📈 <span data-translate="finisher">育肥豬</span></a></li>
+                        <li><a href="breeder-chicken.html">🐔 <span data-translate="breeder">種雞</span></a></li>
+                        <li><a href="layer-chicken.html">🥚 <span data-translate="layer">蛋雞</span></a></li>
+                        <li><a href="native-chicken.html">🌾 <span data-translate="native">土雞</span></a></li>
+                        <li><a href="broiler-fcr.html">🍗 <span data-translate="broiler">白肉雞</span></a></li>
+                        <li><a href="tilapia-survival.html">🐟 <span data-translate="tilapia_solution_short">吳郭魚</span></a></li>
+                        <li><a href="shrimp-survival.html">🦐 <span data-translate="shrimp_solution_short">白蝦</span></a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 data-translate="contact_us">聯絡我們</h3>
+                    <ul class="footer-links">
+                        <li><a href="tel:+886913866080"><i class="fas fa-phone"></i> <span data-translate="tech_hotline">技術專線:0913-866-080</span></a></li>
+                        <li><a href="mailto:in1000318@gmail.com"><i class="fas fa-envelope"></i> in1000318@gmail.com</a></li>
+                        <li><a href="https://maps.google.com/?q=台灣省嘉義市自強街195巷33之28號" target="_blank"><i class="fas fa-map-marker-alt"></i> <span data-translate="company_address">台灣省嘉義市自強街195巷33之28號</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p data-translate="footer_copyright">© 2026 首池有限公司 · 引用PubMed/國科會文獻 · 圖片實拍</p>
+            </div>
         </div>
     </footer>
 
@@ -947,7 +1063,7 @@
     </div>
 
     <script>
-        // ========== 🌍 完整多語言翻譯物件（繁體/簡體/英文）- 已補全所有鍵值 ==========
+        // ========== 完整多語言翻譯物件（已將所有「長鏈脂肪醇」改為「蛋白草萃取物」） ==========
         const translations = {
             'zh-TW': {
                 'title': '🐗 活力旺®育肥豬 · FCR 2.8→<2.0',
@@ -961,7 +1077,7 @@
                 'confidential_desc': '',
                 'protease_title': '1. 「重組蛋白酶」—— 蛋白草萃取物',
                 'protease_desc': '<strong>降FCR、能量重分配</strong> · AMPK/mTOR訊號軸 · FCR 2.8→<2.0 · 每頭省88kg飼料',
-                'protease_caption': '重組蛋白酶 · 3D結構示意',
+                'protease_caption': '重組蛋白酶 · 蛋白草萃取物3D結構示意',
                 'protease_mechanism': '🧬 分子機轉：',
                 'protease_mechanism_text': '重組蛋白酶透過激活AMPK路徑，上調骨骼肌脂肪酸氧化及葡萄糖攝取；同時透過mTORC1訊號促進肌肉蛋白合成。此雙重調控機制經Genova等 (2023, PMID:37008356) 證實可於代謝能降低85 kcal/kg下維持增重。活力旺重組蛋白酶將能量由脂肪堆積「重定向」至瘦肉沉積，實現FCR突破2.0。',
                 'rna_title': '2. 「小核酸」—— 非編碼RNA片段',
@@ -1083,6 +1199,15 @@
                 'layer': '蛋雞',
                 'native': '土雞',
                 'broiler': '白肉雞',
+                'vitality_pro': '活力旺',
+                'footer_tagline': '精準營養解決方案',
+                'contact_us': '聯絡我們',
+                'tech_hotline': '技術專線:0913-866-080',
+                'company_address': '台灣省嘉義市自強街195巷33之28號',
+                'tagline': '精準營養 · 先進生物技術 · 永續農業',
+                'products_title': '產品方案',
+                'tilapia_solution_short': '吳郭魚',
+                'shrimp_solution_short': '白蝦'
             },
             'zh-CN': {
                 'title': '🐗 活力旺®育肥猪 · FCR 2.8→<2.0',
@@ -1094,9 +1219,9 @@
                 'verified_heads': '实证头数：50万+',
                 'confidential_title': '🔬 活力旺® 育肥专利配方 – 三大机密载体',
                 'confidential_desc': '',
-                'protease_title': '1. 「重组蛋白酶」—— 长链脂肪醇萃取物',
+                'protease_title': '1. 「重组蛋白酶」—— 蛋白草萃取物',
                 'protease_desc': '<strong>降FCR、能量重分配</strong> · AMPK/mTOR信号轴 · FCR 2.8→<2.0 · 每头省88kg饲料',
-                'protease_caption': '重组蛋白酶 · 长链脂肪醇3D结构示意',
+                'protease_caption': '重组蛋白酶 · 蛋白草萃取物3D结构示意',
                 'protease_mechanism': '🧬 分子机转：',
                 'protease_mechanism_text': '重组蛋白酶通过激活AMPK通路，上调骨骼肌脂肪酸氧化及葡萄糖摄取；同时通过mTORC1信号促进肌肉蛋白合成。此双重调控机制经Genova等 (2023, PMID:37008356) 证实可于代谢能降低85 kcal/kg下维持增重。活力旺重组蛋白酶将能量由脂肪堆积「重定向」至瘦肉沉积，实现FCR突破2.0。',
                 'rna_title': '2. 「小核酸」—— 非编码RNA片段',
@@ -1218,6 +1343,15 @@
                 'layer': '蛋鸡',
                 'native': '土鸡',
                 'broiler': '白肉鸡',
+                'vitality_pro': '活力旺',
+                'footer_tagline': '精准营养解决方案',
+                'contact_us': '联系我们',
+                'tech_hotline': '技术专线:0913-866-080',
+                'company_address': '台湾省嘉义市自强街195巷33之28号',
+                'tagline': '精准营养 · 先进生物技术 · 永续农业',
+                'products_title': '产品方案',
+                'tilapia_solution_short': '罗非鱼',
+                'shrimp_solution_short': '白虾'
             },
             'en': {
                 'title': '🐗 Vitality Booster® Finisher · FCR 2.8→<2.0',
@@ -1229,9 +1363,9 @@
                 'verified_heads': 'Validated heads: 500K+',
                 'confidential_title': '🔬 Vitality Booster® Finishing Patent Formula – Three Confidential Carriers',
                 'confidential_desc': '',
-                'protease_title': '1. "Recombinant Protease" – Long-chain fatty alcohol extract',
+                'protease_title': '1. "Recombinant Protease" – Protein Grass Extract',
                 'protease_desc': '<strong>FCR reduction, energy repartitioning</strong> · AMPK/mTOR axis · FCR 2.8→<2.0 · Save 88kg feed/head',
-                'protease_caption': 'Recombinant Protease · 3D structure of long-chain fatty alcohols',
+                'protease_caption': 'Recombinant Protease · 3D structure of Protein Grass Extract',
                 'protease_mechanism': '🧬 Molecular Mechanism:',
                 'protease_mechanism_text': 'Recombinant Protease activates the AMPK pathway, upregulating fatty acid oxidation and glucose uptake in skeletal muscle; simultaneously promotes muscle protein synthesis via mTORC1 signaling. This dual regulatory mechanism, confirmed by Genova et al. (2023, PMID:37008356), maintains weight gain under 85 kcal/kg ME reduction. Vitality Recombinant Protease "repartitions" energy from fat accumulation to lean deposition, achieving FCR below 2.0.',
                 'rna_title': '2. "Small Nucleic Acid" – Non-coding RNA fragment',
@@ -1353,6 +1487,15 @@
                 'layer': 'Layer',
                 'native': 'Native Chicken',
                 'broiler': 'Broiler',
+                'vitality_pro': 'Vitality Pro',
+                'footer_tagline': 'Precision Nutrition Solutions',
+                'contact_us': 'Contact Us',
+                'tech_hotline': 'Technical Hotline: +886-913-866-080',
+                'company_address': 'No. 33-28, Lane 195, Ziqiang Street, Chiayi City, Taiwan',
+                'tagline': 'Precision Nutrition · Advanced Biotechnology · Sustainable Agriculture',
+                'products_title': 'Product Plans',
+                'tilapia_solution_short': 'Tilapia',
+                'shrimp_solution_short': 'Shrimp'
             }
         };
 
@@ -1363,7 +1506,6 @@
         };
         let currentLang = 'zh-TW';
 
-        // Lightbox 功能
         function openLightbox(element) {
             const img = element.querySelector('img');
             if (!img) return;
@@ -1374,47 +1516,6 @@
             lbImg.src = img.src;
             lbCaption.innerText = caption;
             lb.style.display = 'flex';
-        }
-
-        // 初始化
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    switchLanguage(this.getAttribute('data-lang'));
-                });
-            });
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('visible');
-                });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('section, .fade-in').forEach(el => observer.observe(el));
-
-            switchLanguage('zh-TW');
-        });
-
-        function switchLanguage(lang) {
-            currentLang = lang;
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
-            });
-            document.documentElement.lang = lang;
-
-            const dict = translations[lang] || translations['zh-TW'];
-            document.querySelectorAll('[data-translate]').forEach(el => {
-                const key = el.getAttribute('data-translate');
-                if (dict[key] !== undefined) {
-                    if (el.tagName === 'IMG' && el.hasAttribute('alt')) {
-                        el.alt = dict[key];
-                    } else {
-                        el.innerHTML = dict[key];
-                    }
-                }
-            });
-
-            updateCurrencyValues(lang);
         }
 
         function updateCurrencyValues(lang) {
@@ -1440,6 +1541,46 @@
             parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             return parts.join('.');
         }
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+            document.documentElement.lang = lang;
+
+            const dict = translations[lang] || translations['zh-TW'];
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if (dict[key] !== undefined) {
+                    if (el.tagName === 'IMG' && el.hasAttribute('alt')) {
+                        el.alt = dict[key];
+                    } else {
+                        el.innerHTML = dict[key];
+                    }
+                }
+            });
+
+            updateCurrencyValues(lang);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    switchLanguage(this.getAttribute('data-lang'));
+                });
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+            switchLanguage('zh-TW');
+        });
     </script>
 </body>
 </html>
