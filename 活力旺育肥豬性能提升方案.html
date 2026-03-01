@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>活力旺®育肥豬FCR性能提升方案｜140kg高效益規格</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ===== 設計系統變數 (基於 beilisu_json.json) ===== */
+        :root {
+            /* 顏色 */
+            --primary-green: #2a7a2a;
+            --secondary-green: #1b5e1b;
+            --accent-gold: #d4a017;
+            --accent-light: #f5f0e1;
+            --primary-dark: #2e3b2e;
+            --secondary-dark: #4a5a4a;
+            --light-bg: #f9fff9;
+            --card-bg: #ffffff;
+            --border-light: rgba(0, 0, 0, 0.05);
+            --border-dark: rgba(0, 0, 0, 0.1);
+            --header-gradient-start: rgba(42, 122, 42, 0.95);
+            --header-gradient-end: rgba(27, 94, 27, 0.95);
+            --footer-gradient-start: #2e3b2e;
+            --footer-gradient-end: #1a2b1a;
+            --stat-item-bg: rgba(255, 255, 255, 0.15);
+            --stat-border: rgba(255, 255, 255, 0.2);
+            --product-category-bg: var(--primary-green);
+            --product-category-text: #ffffff;
+            --btn-gradient-start: var(--primary-green);
+            --btn-gradient-end: var(--secondary-green);
+            --btn-text: #ffffff;
+            --footer-text: rgba(255, 255, 255, 0.85);
+            --footer-link: rgba(255, 255, 255, 0.75);
+            --footer-link-hover: var(--accent-gold);
+            --copyright-text: rgba(255, 255, 255, 0.6);
+
+            /* 字體 */
+            --font-heading: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+            --font-body: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+
+            /* 字級 (保留 clamp 以便響應) */
+            --fs-base: 16px;
+            --fs-h1: clamp(2rem, 6vw, 3.5rem);
+            --fs-company: clamp(1.25rem, 3.5vw, 1.75rem);
+            --fs-tagline: clamp(1.1rem, 2.8vw, 1.4rem);
+            --fs-stat-value: clamp(1.8rem, 4.5vw, 2.5rem);
+            --fs-stat-label: clamp(0.85rem, 2.2vw, 0.95rem);
+            --fs-section-title: clamp(1.8rem, 4.5vw, 2.8rem);
+            --fs-section-subtitle: clamp(1.1rem, 2.5vw, 1.25rem);
+            --fs-product-title: clamp(1.2rem, 3vw, 1.5rem);
+            --fs-product-subtitle: clamp(0.9rem, 2.2vw, 1rem);
+            --fs-benefit: clamp(0.95rem, 2.3vw, 1.05rem);
+            --fs-btn: clamp(0.95rem, 2.3vw, 1.05rem);
+            --fs-footer-heading: clamp(1.2rem, 3vw, 1.4rem);
+            --fs-footer-link: clamp(0.95rem, 2.3vw, 1.05rem);
+            --fs-copyright: clamp(0.85rem, 2.2vw, 0.95rem);
+
+            /* 字重 */
+            --fw-light: 300;
+            --fw-normal: 400;
+            --fw-medium: 500;
+            --fw-semibold: 600;
+            --fw-bold: 700;
+            --fw-extrabold: 800;
+
+            /* 圓角 */
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --radius-pill: 30px;
+            --radius-circle: 50%;
+
+            /* 陰影 */
+            --shadow-card: 0 8px 30px rgba(0, 40, 0, 0.08);
+            --shadow-card-hover: 0 12px 40px rgba(42, 122, 42, 0.15);
+            --shadow-header: 0 4px 20px rgba(0, 30, 0, 0.1);
+            --shadow-btn: 0 6px 20px rgba(42, 122, 42, 0.2);
+
+            /* 間距 */
+            --space-xs: 8px;
+            --space-sm: 12px;
+            --space-md: 16px;
+            --space-lg: 20px;
+            --space-xl: 24px;
+            --space-2xl: 28px;
+            --space-3xl: 32px;
+            --space-4xl: 40px;
+            --space-5xl: 48px;
+            --space-6xl: 60px;
+
+            /* 過渡 */
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+
+            /* 安全區域 */
+            --safe-top: env(safe-area-inset-top, 0px);
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        /* ===== 重置 & 全域 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            font-size: var(--fs-base);
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--light-bg);
+            color: var(--primary-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding-top: var(--safe-top);
+            padding-bottom: var(--safe-bottom);
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(212, 160, 23, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(42, 122, 42, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 clamp(20px, 5vw, 40px);
+        }
+
+        /* ===== 語言切換器 ===== */
+        .language-switcher {
+            position: fixed;
+            top: calc(20px + var(--safe-top));
+            right: clamp(20px, 5vw, 40px);
+            z-index: 1000;
+            display: flex;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px 12px;
+            border-radius: var(--radius-pill);
+            box-shadow: var(--shadow-header);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-dark);
+            transition: var(--transition);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            padding: 10px 16px;
+            border-radius: var(--radius-pill);
+            cursor: pointer;
+            font-weight: var(--fw-semibold);
+            font-size: 0.85rem;
+            transition: var(--transition);
+            color: var(--secondary-dark);
+            white-space: nowrap;
+            letter-spacing: 0.3px;
+        }
+
+        .lang-btn.active {
+            background: var(--primary-green);
+            color: white;
+            border-color: var(--primary-green);
+            box-shadow: 0 4px 12px rgba(42, 122, 42, 0.2);
+        }
+
+        /* ===== 頁頭 ===== */
+        header {
+            background: linear-gradient(135deg, var(--header-gradient-start), var(--header-gradient-end));
+            color: white;
+            position: relative;
+            overflow: hidden;
+            padding: clamp(60px, 15vw, 120px) 0 clamp(80px, 15vw, 120px);
+            padding-top: calc(clamp(60px, 15vw, 120px) + var(--safe-top));
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(212, 160, 23, 0.1) 0%, transparent 20%);
+            pointer-events: none;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: var(--fs-h1);
+            font-weight: var(--fw-extrabold);
+            margin-bottom: var(--space-md);
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, #ffffff, var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: var(--fs-tagline);
+            font-weight: var(--fw-light);
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto var(--space-lg);
+            line-height: 1.6;
+        }
+
+        .tagline {
+            background: linear-gradient(90deg, var(--accent-gold), #e67e22);
+            color: var(--primary-dark);
+            padding: var(--space-sm) var(--space-xl);
+            border-radius: var(--radius-pill);
+            display: inline-block;
+            font-weight: var(--fw-bold);
+            box-shadow: var(--shadow-btn);
+            font-size: var(--fs-btn);
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== 章節標題 ===== */
+        .section-title {
+            text-align: center;
+            font-size: var(--fs-section-title);
+            color: var(--primary-dark);
+            margin-bottom: var(--space-5xl);
+            position: relative;
+            font-weight: var(--fw-bold);
+            letter-spacing: -0.5px;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: clamp(80px, 20vw, 120px);
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-green), var(--accent-gold));
+            margin: var(--space-md) auto 0;
+            border-radius: var(--radius-sm);
+        }
+
+        /* ===== 卡片通用 ===== */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl) var(--space-lg);
+            box-shadow: var(--shadow-card);
+            transition: var(--transition);
+            margin-bottom: var(--space-xl);
+            border: 1px solid var(--border-dark);
+            border-top: 4px solid var(--secondary-green);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-card-hover);
+            border-top-color: var(--accent-gold);
+        }
+
+        /* ===== 圖片容器 ===== */
+        .img-container {
+            width: 100%;
+            margin: var(--space-xl) 0;
+            cursor: pointer;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .responsive-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.8s ease;
+        }
+
+        .img-container:hover .responsive-img {
+            transform: scale(1.02);
+        }
+
+        .img-title {
+            font-size: var(--fs-product-subtitle);
+            font-weight: var(--fw-semibold);
+            color: var(--primary-dark);
+            margin-top: var(--space-sm);
+            text-align: center;
+        }
+
+        /* ===== 機制卡片 ===== */
+        .mechanism-card {
+            background: linear-gradient(135deg, #fef9e7, #fff8e1);
+            border-left: 4px solid var(--primary-green);
+            padding: var(--space-md) var(--space-lg);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            margin: var(--space-md) 0;
+            box-shadow: var(--shadow-card);
+        }
+
+        .mechanism-title {
+            font-weight: var(--fw-bold);
+            color: var(--primary-green);
+            margin-bottom: var(--space-xs);
+            font-size: var(--fs-product-subtitle);
+        }
+
+        /* ===== 表格 ===== */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: var(--space-lg) 0;
+            border-radius: var(--radius-md);
+        }
+
+        table {
+            width: 100%;
+            min-width: 600px;
+            border-collapse: collapse;
+            background: white;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+        }
+
+        th {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            padding: var(--space-md) var(--space-sm);
+            text-align: center;
+            font-weight: var(--fw-semibold);
+            font-size: 0.9rem;
+        }
+
+        td {
+            padding: var(--space-sm) var(--space-xs);
+            border-bottom: 1px solid var(--border-light);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: rgba(212, 160, 23, 0.05);
+        }
+
+        /* ===== 參數卡片（2/4欄） ===== */
+        .param-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            margin: var(--space-xl) 0;
+        }
+
+        @media (min-width: 768px) {
+            .param-cards {
+                grid-template-columns: repeat(4, 1fr);
+                gap: var(--space-lg);
+            }
+        }
+
+        .param-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg) var(--space-sm);
+            text-align: center;
+            box-shadow: var(--shadow-card);
+            border-top: 3px solid var(--accent-gold);
+            transition: var(--transition);
+            cursor: default;
+        }
+
+        .param-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .param-label {
+            font-size: 0.85rem;
+            color: var(--secondary-dark);
+            margin-bottom: var(--space-xs);
+        }
+
+        .param-value {
+            font-size: 1.8rem;
+            font-weight: var(--fw-bold);
+            color: var(--primary-green);
+            margin: var(--space-xs) 0;
+        }
+
+        /* ===== ROI 高亮區塊 ===== */
+        .roi-highlight {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            border-radius: var(--radius-xl);
+            padding: var(--space-3xl) var(--space-xl);
+            text-align: center;
+            margin: var(--space-4xl) 0;
+            box-shadow: var(--shadow-card-hover);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .roi-highlight::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+            z-index: 0;
+        }
+
+        .roi-value {
+            font-size: 3.5rem;
+            font-weight: var(--fw-extrabold);
+            margin: var(--space-md) 0;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(90deg, #ffeb3b, #ffc107, #ffeb3b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== 按鈕 ===== */
+        .btn {
+            padding: var(--space-md) var(--space-xl);
+            border-radius: var(--radius-pill);
+            font-weight: var(--fw-bold);
+            font-size: var(--fs-btn);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            text-decoration: none;
+            transition: var(--transition);
+            margin: var(--space-xs);
+            border: none;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            box-shadow: var(--shadow-btn);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, var(--secondary-green), var(--primary-green));
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.9);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+            transform: scale(1.05);
+        }
+
+        /* ===== 步驟區塊 ===== */
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+            margin-top: var(--space-3xl);
+        }
+
+        @media (min-width: 768px) {
+            .steps {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: var(--space-xl);
+            }
+        }
+
+        .step {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            text-align: center;
+            box-shadow: var(--shadow-card);
+            border-top: 5px solid var(--accent-gold);
+            transition: var(--transition);
+            flex: 1 1 280px;
+        }
+
+        .step:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--accent-gold), #e67e22);
+            color: var(--primary-dark);
+            border-radius: var(--radius-circle);
+            line-height: 45px;
+            font-weight: var(--fw-bold);
+            margin-bottom: var(--space-md);
+            font-size: 1.4rem;
+            box-shadow: 0 4px 10px rgba(212, 160, 23, 0.3);
+        }
+
+        /* ===== CTA 區塊 ===== */
+        .cta-block {
+            background: linear-gradient(135deg, var(--primary-dark), #1a2b1a);
+            color: white;
+            padding: var(--space-4xl) var(--space-xl);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            margin: var(--space-4xl) 0;
+        }
+
+        .cta-block .big-number {
+            font-size: 3rem;
+            font-weight: var(--fw-extrabold);
+            color: var(--accent-gold);
+            margin: var(--space-md) 0;
+        }
+
+        /* ===== 頁尾 ===== */
+        footer {
+            background: linear-gradient(135deg, var(--footer-gradient-start), var(--footer-gradient-end));
+            color: var(--footer-text);
+            padding: var(--space-4xl) 0 var(--space-2xl);
+            margin-top: var(--space-4xl);
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-green), var(--accent-gold));
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-4xl);
+            margin-bottom: var(--space-4xl);
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (min-width: 640px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .footer-content {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            }
+        }
+
+        .footer-section {
+            width: 100%;
+        }
+
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        @media (min-width: 640px) {
+            .footer-logo {
+                align-items: flex-start;
+                text-align: left;
+            }
+        }
+
+        .footer-logo-img {
+            width: clamp(120px, 25vw, 160px);
+            height: clamp(120px, 25vw, 160px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-md);
+            filter: drop-shadow(0 4px 16px rgba(0,0,0,0.3));
+        }
+
+        .footer-logo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .footer-section h3 {
+            font-size: var(--fs-footer-heading);
+            margin-bottom: var(--space-lg);
+            color: white;
+            font-weight: var(--fw-bold);
+            letter-spacing: 0.5px;
+            position: relative;
+            padding-bottom: var(--space-sm);
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-gold), transparent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: var(--space-sm);
+            transition: var(--transition);
+        }
+
+        .footer-links li:hover {
+            transform: translateX(5px);
+        }
+
+        .footer-links a {
+            color: var(--footer-link);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: 8px 0;
+            min-height: 40px;
+            font-size: var(--fs-footer-link);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-links a::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 0;
+            background: var(--accent-gold);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .footer-links a:hover::before {
+            height: 70%;
+        }
+
+        .footer-links a:hover {
+            color: var(--footer-link-hover);
+            padding-left: 10px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: var(--space-3xl);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: var(--fs-copyright);
+            color: var(--copyright-text);
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== Lightbox ===== */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            cursor: zoom-out;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80%;
+            object-fit: contain;
+            border-radius: var(--radius-md);
+        }
+
+        .lightbox .caption {
+            color: white;
+            margin-top: var(--space-md);
+            font-size: var(--fs-product-subtitle);
+            text-align: center;
+            max-width: 80%;
+        }
+
+        /* ===== 動畫 ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== 響應式微調 ===== */
+        @media (max-width: 480px) {
+            .param-value {
+                font-size: 1.4rem;
+            }
+            .roi-value {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* 滾動條 (選用) */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-gold));
+            border-radius: 10px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+    </style>
+</head>
+<body>
+    <!-- 語言切換器 -->
+    <div class="language-switcher">
+        <button class="lang-btn active" data-lang="zh-TW" data-rate="1.000">繁(NTD)</button>
+        <button class="lang-btn" data-lang="zh-CN" data-rate="0.2192">简(CNY)</button>
+        <button class="lang-btn" data-lang="en" data-rate="0.0320">EN(USD)</button>
+    </div>
+
+    <!-- 頁頭 -->
+    <header>
+        <div class="container header-content">
+            <h1 data-translate="title">🐗 活力旺®育肥豬 · FCR 2.8→<2.0</h1>
+            <p class="subtitle" data-translate="subtitle">三大機密載體｜重組蛋白酶‧小核酸‧褐藻素 · 50萬頭實證</p>
+            <div class="tagline" data-translate="highlight_badge">🏆 單頭淨利+2,328元 | ROI 1102% | 50萬頭實證</div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- ===== 1. 三大機密載體 ===== -->
+        <section class="fade-in">
+            <h2 class="section-title" data-translate="confidential_title">🔬 活力旺® 育肥專利配方 – 三大機密載體</h2>
+            <div class="card">
+                <!-- 重組蛋白酶 (已修改為蛋白草萃取物) -->
+                <div style="margin-bottom: var(--space-2xl);">
+                    <div style="display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm);">
+                        <span style="font-size: 2rem;">🧪</span>
+                        <h3 style="font-size: var(--fs-product-title); color: var(--primary-green);" data-translate="protease_title">1. 「重組蛋白酶」—— 蛋白草萃取物</h3>
+                    </div>
+                    <p data-translate="protease_desc"><strong>降FCR、能量重分配</strong> · AMPK/mTOR訊號軸 · FCR 2.8→<2.0 · 每頭省88kg飼料</p>
+                    <div class="mechanism-card">
+                        <span class="mechanism-title" data-translate="protease_mechanism">🧬 分子機轉：</span>
+                        <span data-translate="protease_mechanism_text">重組蛋白酶透過激活AMPK路徑，上調骨骼肌脂肪酸氧化及葡萄糖攝取；同時透過mTORC1訊號促進肌肉蛋白合成。此雙重調控機制經Genova等 (2023, PMID:37008356) 證實可於代謝能降低85 kcal/kg下維持增重。活力旺重組蛋白酶將能量由脂肪堆積「重定向」至瘦肉沉積，實現FCR突破2.0。</span>
+                    </div>
+                    <div class="img-container" onclick="openLightbox(this)">
+                        <img src="assets/protease-complex.jpg" alt="重組蛋白酶分子結構" class="responsive-img" loading="lazy">
+                        <div class="img-title" data-translate="protease_caption">重組蛋白酶 · 3D結構示意</div>
+                    </div>
+                </div>
+                <!-- 小核酸 -->
+                <div style="margin-bottom: var(--space-2xl);">
+                    <div style="display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm);">
+                        <span style="font-size: 2rem;">🧬</span>
+                        <h3 style="font-size: var(--fs-product-title); color: var(--primary-green);" data-translate="rna_title">2. 「小核酸」—— 非編碼RNA片段</h3>
+                    </div>
+                    <p data-translate="rna_desc"><strong>背脂率↓30%、出肉率↑</strong> · IGF2基因調控 · 背脂<2.0cm · 出肉率>82%</p>
+                    <div class="mechanism-card">
+                        <span class="mechanism-title" data-translate="rna_mechanism">🧬 表觀遺傳調控：</span>
+                        <span data-translate="rna_mechanism_text">活力旺小核酸片段靶向IGF2基因啟動子區域，模擬「A等位基因」優勢表現型，顯著下調脂肪生成轉錄因子。Liu等 (2019, PMID:31159441) 證實microRNA可直接調控豬隻背脂沉積。Yu等 (2020, PMID:32782789) 指出高直鏈澱粉比例可上調FAS/SCD基因表現，提高肌內脂肪(IMF)達3.2%以上。活力旺小核酸整合此雙重路徑：皮下脂肪抑制、肌內脂肪定向沉積，同時達成瘦肉率提升與雪花肉生成。</span>
+                    </div>
+                    <div class="img-container" onclick="openLightbox(this)">
+                        <img src="assets/rna-nucleic.jpg" alt="小核酸表觀遺傳調控" class="responsive-img" loading="lazy">
+                        <div class="img-title" data-translate="rna_caption">小核酸 · 非編碼RNA與DNA結合示意</div>
+                    </div>
+                </div>
+                <!-- 褐藻素 -->
+                <div>
+                    <div style="display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm);">
+                        <span style="font-size: 2rem;">🌿</span>
+                        <h3 style="font-size: var(--fs-product-title); color: var(--primary-green);" data-translate="fucoxanthin_title">3. 「褐藻素」—— 藻源性類胡蘿蔔素</h3>
+                    </div>
+                    <p data-translate="fucoxanthin_desc"><strong>抗病毒免疫力、抗應激</strong> · Nrf2路徑 · 屠宰失重↓1.2%</p>
+                    <div class="mechanism-card">
+                        <span class="mechanism-title" data-translate="fucoxanthin_mechanism">🌿 抗氧化與腸道健康：</span>
+                        <span data-translate="fucoxanthin_mechanism_text">褐藻素透過激活Nrf2/KEAP1抗氧化反應元件，提升SOD、GPx活性，有效清除自由基。Liotta等 (2019, PMID:31861062) 發現多酚類物質可降低背脂厚度、提高MUFA與ω-3 PUFA濃度。Ferrer等 (2022, PMID:36308921) 觀察到皮下脂肪MUFA/SFA比例上升。褐藻素憑藉獨特雙親分子結構，嵌入細胞膜淬滅單重態氧，降低運輸緊迫及屠宰失重，同時維護腸道屏障完整性，減少發炎因子IL-6、IL-1β表現。</span>
+                    </div>
+                    <div class="img-container" onclick="openLightbox(this)">
+                        <img src="assets/astaxanthin-algae.jpg" alt="褐藻素巨藻實拍" class="responsive-img" loading="lazy">
+                        <div class="img-title" data-translate="fucoxanthin_caption">褐藻素 · 天然巨藻萃取來源</div>
+                    </div>
+                </div>
+                <!-- 效能總表 -->
+                <div class="table-container" style="margin-top: var(--space-xl);">
+                    <table>
+                        <thead><tr><th data-translate="benefit_item">效能項目</th><th data-translate="mechanism">對應載體</th><th data-translate="performance">實證績效</th><th data-translate="literature">文獻來源</th></tr></thead>
+                        <tbody>
+                            <tr><td data-translate="benefit1">降FCR</td><td data-translate="carrier1">重組蛋白酶</td><td>2.8 → <2.0</td><td>PMID:37008356,40652548</td></tr>
+                            <tr><td data-translate="benefit2">背脂率下降</td><td data-translate="carrier2">小核酸</td><td>>2.5cm → <2.0cm</td><td>PMID:31159441,32782789</td></tr>
+                            <tr><td data-translate="benefit3">出肉率＞80%</td><td><span data-translate="carrier1">重組蛋白酶</span>+<span data-translate="carrier2">小核酸</span></td><td>77% → 82.5%</td><td>PMID:32782789,40652548</td></tr>
+                            <tr><td data-translate="benefit4">抗病毒・免疫力</td><td data-translate="carrier3">褐藻素</td><td>IL-6↓42%</td><td>PMID:31861062,36308921</td></tr>
+                            <tr><td data-translate="benefit5">抗應激・耐運輸</td><td data-translate="carrier3">褐藻素</td><td>失重減少1.2%</td><td>PMID:31861062,37008356</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 2. 屠宰場實證 ===== -->
+        <section class="fade-in">
+            <h2 class="section-title" data-translate="slaughter_title">📋 全台三大產區屠宰場實證（2025-2026）</h2>
+            <div class="card">
+                <div style="background: var(--accent-light); padding: var(--space-md); border-radius: var(--radius-md); margin-bottom: var(--space-lg); border-left: 6px solid var(--success);">
+                    <p style="font-weight: var(--fw-bold);" data-translate="slaughter_scope">📍 北部(桃竹苗)·中部(彰雲嘉)·南部(屏東) 23場 · 47,826頭</p>
+                </div>
+                <div class="img-container" onclick="openLightbox(this)">
+                    <img src="assets/slaughterhouse-data.jpg" alt="屠宰場背脂超音波實測" class="responsive-img" loading="lazy">
+                    <div class="img-title" data-translate="slaughter_caption">彰化屠宰場屠體評級 · 背脂實測1.9cm (2026.02)</div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th data-translate="region">產區</th><th data-translate="yard_count">場數</th><th data-translate="control">對照組<br>出肉率/背脂</th><th data-translate="vitality">活力旺組<br>出肉率/背脂</th><th data-translate="improvement">改善</th><th data-translate="premium">收購溢價</th></tr></thead>
+                        <tbody>
+                            <tr><td data-translate="north">北部</td><td>7</td><td>78.2% / 2.7cm</td><td><span style="color:var(--success);font-weight:700;">82.1% / 1.9cm</span></td><td>↑3.9% / ↓0.8cm</td><td><span class="currency" data-base-value="3.2">NTD +3.2</span>/kg</td></tr>
+                            <tr><td data-translate="central">中部</td><td>10</td><td>77.6% / 2.8cm</td><td><span style="color:var(--success);font-weight:700;">81.5% / 1.8cm</span></td><td>↑3.9% / ↓1.0cm</td><td><span class="currency" data-base-value="4.0">NTD +4.0</span>/kg</td></tr>
+                            <tr><td data-translate="south">南部</td><td>6</td><td>78.9% / 2.6cm</td><td><span style="color:var(--success);font-weight:700;">82.8% / 1.8cm</span></td><td>↑3.9% / ↓0.8cm</td><td><span class="currency" data-base-value="3.5">NTD +3.5</span>/kg</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="margin-top: var(--space-lg); background: #e3f2fd; padding: var(--space-md); border-radius: var(--radius-md); font-weight: var(--fw-semibold);" data-translate="slaughter_conclusion">🔬 屠體評級提升1~2等級 · 中部溢價達4.0元/公斤</p>
+            </div>
+        </section>
+
+        <!-- ===== 3. 核心規格對比 ===== -->
+        <section class="fade-in">
+            <h2 class="section-title" data-translate="spec_title">⚙️ 育肥規格｜30→140kg 高性能參數</h2>
+            <div class="param-cards">
+                <div class="param-card"><div class="param-label" data-translate="metric_fcr_title">飼料轉換率 (FCR)</div><div class="param-value"><span class="metric-old">2.8</span> <span data-translate="fcr_new"><2.0</span></div><div style="color: var(--success); font-weight: var(--fw-bold);" data-translate="fcr_improve">↓ 28.6%</div><div style="font-size: 0.8rem;" data-translate="fcr_desc">省88kg/頭 · 1,320元</div></div>
+                <div class="param-card"><div class="param-label" data-translate="metric_yield_title">出肉率</div><div class="param-value"><span class="metric-old"><80%</span> <span data-translate="yield_new">>80%</span></div><div style="color: var(--success); font-weight: var(--fw-bold);" data-translate="yield_improve">↑ 3.9~5.2%</div><div style="font-size: 0.8rem;" data-translate="yield_desc">+7kg屠體 · +700元</div></div>
+                <div class="param-card"><div class="param-label" data-translate="metric_bf_title">背脂厚度</div><div class="param-value"><span class="metric-old">>2.5cm</span> <span data-translate="bf_new"><2.0cm</span></div><div style="color: var(--success); font-weight: var(--fw-bold);" data-translate="bf_improve">↓ 30%</div><div style="font-size: 0.8rem;" data-translate="bf_desc">溢價3~5元/kg · +420元</div></div>
+                <div class="param-card"><div class="param-label" data-translate="metric_weight_title">出欄體重</div><div class="param-value"><span class="metric-old"><130kg</span> <span data-translate="weight_new">>140kg</span></div><div style="color: var(--success); font-weight: var(--fw-bold);" data-translate="weight_improve">↑ 10kg+</div><div style="font-size: 0.8rem;" data-translate="weight_desc">雪花溢價2.5元/kg</div></div>
+            </div>
+            <div class="img-container" onclick="openLightbox(this)">
+                <img src="assets/heavy-pigs-140kg.jpg" alt="140kg杜洛克肉豬" class="responsive-img" loading="lazy">
+                <div class="img-title" data-translate="heavy_pig_caption">雲林示範場 · 140kg杜洛克 · 背脂1.9cm</div>
+            </div>
+            <div class="img-container" onclick="openLightbox(this)">
+                <img src="assets/feed-efficiency-triptych.jpg" alt="FCR 2.8 vs 2.4 vs <2.0" class="responsive-img" loading="lazy">
+                <div class="img-title" data-translate="fcr_triptych_caption">左FCR 2.8 · 中FCR 2.4 · 右FCR <2.0｜台灣現代化豬舍</div>
+            </div>
+            <div class="img-container" onclick="openLightbox(this)">
+                <img src="assets/feed-efficiency.jpg" alt="飼料效率圖表" class="responsive-img" loading="lazy">
+                <div class="img-title" data-translate="fcr_chart_caption">飼料轉換效率對比 · 節省88kg飼料</div>
+            </div>
+        </section>
+
+        <!-- ===== 4. 經濟效益精算 ===== -->
+        <section class="fade-in">
+            <h2 class="section-title" data-translate="profit_title">💰 單頭效益精算｜飼料+屠體+背脂+肉質</h2>
+            <div class="card">
+                <div style="background: #fff3e0; padding: var(--space-md); border-radius: var(--radius-md); margin-bottom: var(--space-lg);">
+                    <p style="font-size: 0.95rem;"><strong data-translate="calc_basis">📐 基準：</strong><span data-translate="calc_detail">30→140kg · FCR 2.8→2.0 · 飼料15元/kg · 屠體100元/kg · 背脂溢價3元/kg · 品牌溢價100元/頭</span></p>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th data-translate="profit_item">效益項目</th><th data-translate="improvement_range">改善幅度</th><th data-translate="value_ntd">價值（NTD/頭）</th></tr></thead>
+                        <tbody>
+                            <tr><td data-translate="feed_saving">飼料節省</td><td data-translate="fcr_saving_detail">FCR 2.8→2.0 · 省88kg</td><td><span class="currency" data-base-value="1320">1,320</span></td></tr>
+                            <tr><td data-translate="carcass_gain">屠體增重</td><td data-translate="yield_gain_detail">出肉率77%→81% · +7kg</td><td><span class="currency" data-base-value="700">700</span></td></tr>
+                            <tr><td data-translate="bf_premium">背脂溢價</td><td data-translate="bf_premium_detail">背脂2.5→1.8cm · A級</td><td><span class="currency" data-base-value="420">420</span></td></tr>
+                            <tr><td data-translate="quality_premium">肉質溢價</td><td data-translate="quality_detail">肌間脂肪3.2%</td><td><span class="currency" data-base-value="100">100</span></td></tr>
+                            <tr style="background: var(--accent-light);"><td><strong data-translate="total_benefit">總效益</strong></td><td>—</td><td><strong><span class="currency" data-base-value="2540">2,540</span></strong></td></tr>
+                            <tr><td data-translate="add_cost">添加成本</td><td data-translate="add_cost_detail">220kg × 0.96元</td><td><span class="currency" data-base-value="-211.2">-211.2</span></td></tr>
+                            <tr style="background: linear-gradient(135deg, var(--primary-green), var(--secondary-green)); color: white;"><td><strong data-translate="net_profit">每頭淨利</strong></td><td>—</td><td><strong><span class="currency" data-base-value="2328.8">2,328.8</span></strong></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="roi-highlight">
+                    <h3 style="font-size: 1.5rem; margin-bottom: var(--space-sm);" data-translate="roi_title">ROI —— 1102%</h3>
+                    <div class="roi-value" data-value="1102">1,102%</div>
+                    <p style="font-size: 1.2rem; margin: var(--space-md) 0;" data-translate="roi_desc">💰 每投入1元，回收12元 · 回收期4.2天</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 5. 屠體影片 ===== -->
+        <section class="fade-in">
+            <h2 class="section-title" data-translate="video_title">🎥 屠體評級實錄｜背脂與瘦肉實測</h2>
+            <div class="video-block" style="border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-card); background: #000;">
+                <video src="assets/carcass-video.mp4" controls playsinline poster="assets/slaughterhouse-data.jpg" style="width: 100%; display: block;">
+                    您的瀏覽器不支援影片播放。
+                </video>
+                <div style="padding: var(--space-sm); background: var(--primary-dark); color: white; text-align: center; font-size: 0.9rem;" data-translate="video_caption">屠體分級現場 · 背脂厚度1.8cm · 瘦肉率>68%</div>
+            </div>
+        </section>
+
+        <!-- ===== 6. 雪花肉＆ROI圖表 ===== -->
+        <section class="fade-in">
+            <div class="img-container" onclick="openLightbox(this)">
+                <img src="assets/marbling-raw-pork.jpg" alt="豬里肌雪花肉" class="responsive-img" loading="lazy">
+                <div class="img-title" data-translate="marbling_caption">肌內脂肪達3.2% · 大理石紋明顯 · 品牌豬口感</div>
+            </div>
+            <div class="img-container" onclick="openLightbox(this)">
+                <img src="assets/roi-infographic-1102.jpg" alt="ROI 1102% 資訊圖表" class="responsive-img" loading="lazy">
+                <div class="img-title" data-translate="roi_caption_new">📊 1元→12元 · 4.2天回本 · 日增重950g · FCR 2.8→2.0</div>
+            </div>
+        </section>
+
+        <!-- ===== 7. 產品規格 ===== -->
+        <section class="fade-in">
+            <h2 class="section-title" data-translate="product_spec_title">📋 產品規格｜每噸全價飼料添加1kg</h2>
+            <div class="param-cards">
+                <div class="param-card"><div class="param-label" data-translate="spec_dosage_label">添加量</div><div class="param-value">1</div><div>kg/噸</div><div class="spec-note" data-translate="spec_dosage_note">強化1.5kg</div></div>
+                <div class="param-card"><div class="param-label" data-translate="spec_price_label">單價</div><div class="param-value currency" data-base-value="960">NTD 960</div><div>/kg</div></div>
+                <div class="param-card"><div class="param-label" data-translate="spec_cost_label">飼料成本增</div><div class="param-value currency" data-base-value="960">NTD 960</div><div>/噸</div></div>
+                <div class="param-card"><div class="param-label" data-translate="spec_stage_label">適用階段</div><div class="param-value" data-translate="spec_stage_value">育肥全程</div><div>30-140kg</div></div>
+                <div class="param-card"><div class="param-label" data-translate="spec_feed_label">每頭耗料</div><div class="param-value">~220</div><div>kg</div><div class="spec-note" data-translate="spec_feed_note">FCR 2.0基準</div></div>
+                <div class="param-card"><div class="param-label" data-translate="spec_addcost_label">每頭成本</div><div class="param-value currency" data-base-value="211.2">NTD 211.2</div><div>/頭</div></div>
+            </div>
+        </section>
+
+        <!-- ===== 8. 見證與CTA ===== -->
+        <section class="fade-in">
+            <div style="display: grid; gap: var(--space-lg); margin: var(--space-3xl) 0;">
+                <div class="card">
+                    <p style="font-size: 1rem; line-height: 1.6;" data-translate="testimonial1">「原本擔心養太重被扣錢，活力旺養到143kg背脂才1.8cm，牌價+4元/公斤，一頭多賣2,500元！」</p>
+                    <div style="margin-top: var(--space-md); font-weight: var(--fw-bold);" data-translate="testimonial1_author">雲林 · 吳勝華</div>
+                    <div style="color: #777; font-size: 0.85rem;" data-translate="testimonial1_meta">1,200頭一貫場 · 2026.01</div>
+                </div>
+                <div class="card">
+                    <p style="font-size: 1rem; line-height: 1.6;" data-translate="testimonial2">「南部屠宰場主動簽約每公斤+3.5元，全場1,800頭都走140kg規格。」</p>
+                    <div style="margin-top: var(--space-md); font-weight: var(--fw-bold);" data-translate="testimonial2_author">屏東 · 陳信男</div>
+                    <div style="color: #777; font-size: 0.85rem;" data-translate="testimonial2_meta">契養戶 · 年出欄3500頭</div>
+                </div>
+            </div>
+
+            <div class="cta-block">
+                <h2 style="font-size: 1.8rem; color: white;" data-translate="cta_title">🚀 試算您牧場的1102% ROI</h2>
+                <div class="big-number"><span class="currency" data-base-value="2328.8">NTD 2,328.8</span></div>
+                <p style="font-size: 1.2rem;" data-translate="cta_sub1">每頭額外淨利 × 您的規模</p>
+                <div style="margin: var(--space-lg) 0;">
+                    <a class="btn btn-primary" href="tel:+886913866080" data-translate="cta_btn1">📞 免費ROI試算｜限場8折</a>
+                    <a class="btn btn-secondary" href="#" data-translate="cta_btn2">📋 領取140kg實證手冊</a>
+                </div>
+                <p style="opacity: 0.9; font-size: 0.9rem;" data-translate="cta_footnote">* 50萬頭田間實證 · 23屠宰場 · 首池無效退費</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section footer-logo">
+                    <div class="footer-logo-img">
+                        <img src="assets/logo.png" alt="活力旺logo" loading="lazy">
+                    </div>
+                    <h3 data-translate="vitality_pro">活力旺</h3>
+                    <p style="opacity: 0.8; font-size: 0.95rem;" data-translate="footer_tagline">精準營養解決方案</p>
+                </div>
+                <div class="footer-section">
+                    <h3 data-translate="company_name">首池有限公司</h3>
+                    <p data-translate="tagline">精準營養 · 先進生物技術 · 永續農業</p>
+                </div>
+                <div class="footer-section">
+                    <h3 data-translate="products_title">產品方案</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">🏠 <span data-translate="home">主頁</span></a></li>
+                        <li><a href="boar-semen-quality.html">🐗 <span data-translate="boar">種公豬</span></a></li>
+                        <li><a href="pregnant-sow-optimization.html">🤰 <span data-translate="preg_sow">懷孕母豬</span></a></li>
+                        <li><a href="nursing-sow-improvement.html">🍼 <span data-translate="lact_sow">哺乳母豬</span></a></li>
+                        <li><a href="piglet-milk-replacer.html">🐷 <span data-translate="piglet">仔豬</span></a></li>
+                        <li><a href="finisher-pig-fcr.html">📈 <span data-translate="finisher">育肥豬</span></a></li>
+                        <li><a href="breeder-chicken.html">🐔 <span data-translate="breeder">種雞</span></a></li>
+                        <li><a href="layer-chicken.html">🥚 <span data-translate="layer">蛋雞</span></a></li>
+                        <li><a href="native-chicken.html">🌾 <span data-translate="native">土雞</span></a></li>
+                        <li><a href="broiler-fcr.html">🍗 <span data-translate="broiler">白肉雞</span></a></li>
+                        <li><a href="tilapia-survival.html">🐟 <span data-translate="tilapia_solution_short">吳郭魚</span></a></li>
+                        <li><a href="shrimp-survival.html">🦐 <span data-translate="shrimp_solution_short">白蝦</span></a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 data-translate="contact_us">聯絡我們</h3>
+                    <ul class="footer-links">
+                        <li><a href="tel:+886913866080"><i class="fas fa-phone"></i> <span data-translate="tech_hotline">技術專線:0913-866-080</span></a></li>
+                        <li><a href="mailto:in1000318@gmail.com"><i class="fas fa-envelope"></i> in1000318@gmail.com</a></li>
+                        <li><a href="https://maps.google.com/?q=台灣省嘉義市自強街195巷33之28號" target="_blank"><i class="fas fa-map-marker-alt"></i> <span data-translate="company_address">台灣省嘉義市自強街195巷33之28號</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p data-translate="footer_copyright">© 2026 首池有限公司 · 引用PubMed/國科會文獻 · 圖片實拍</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox" onclick="this.style.display='none'">
+        <img id="lightbox-img" src="" alt="">
+        <div id="lightbox-caption" class="caption"></div>
+    </div>
+
+    <script>
+        // ========== 完整多語言翻譯物件（已將所有「長鏈脂肪醇」改為「蛋白草萃取物」） ==========
+        const translations = {
+            'zh-TW': {
+                'title': '🐗 活力旺®育肥豬 · FCR 2.8→<2.0',
+                'subtitle': '三大機密載體｜重組蛋白酶‧小核酸‧褐藻素 · 50萬頭實證',
+                'highlight_badge': '🏆 單頭淨利+2,328元 | ROI 1102% | 50萬頭實證',
+                'cost_label': '成本',
+                'per_kg': '公斤',
+                'dosage_label': '添加量：1公斤/噸飼料',
+                'verified_heads': '實證頭數：50萬+',
+                'confidential_title': '🔬 活力旺® 育肥專利配方 – 三大機密載體',
+                'confidential_desc': '',
+                'protease_title': '1. 「重組蛋白酶」—— 蛋白草萃取物',
+                'protease_desc': '<strong>降FCR、能量重分配</strong> · AMPK/mTOR訊號軸 · FCR 2.8→<2.0 · 每頭省88kg飼料',
+                'protease_caption': '重組蛋白酶 · 3D結構示意',
+                'protease_mechanism': '🧬 分子機轉：',
+                'protease_mechanism_text': '重組蛋白酶透過激活AMPK路徑，上調骨骼肌脂肪酸氧化及葡萄糖攝取；同時透過mTORC1訊號促進肌肉蛋白合成。此雙重調控機制經Genova等 (2023, PMID:37008356) 證實可於代謝能降低85 kcal/kg下維持增重。活力旺重組蛋白酶將能量由脂肪堆積「重定向」至瘦肉沉積，實現FCR突破2.0。',
+                'rna_title': '2. 「小核酸」—— 非編碼RNA片段',
+                'rna_desc': '<strong>背脂率↓30%、出肉率↑</strong> · IGF2基因調控 · 背脂<2.0cm · 出肉率>82%',
+                'rna_caption': '小核酸 · 非編碼RNA與DNA結合示意',
+                'rna_mechanism': '🧬 表觀遺傳調控：',
+                'rna_mechanism_text': '活力旺小核酸片段靶向IGF2基因啟動子區域，模擬「A等位基因」優勢表現型，顯著下調脂肪生成轉錄因子。Liu等 (2019, PMID:31159441) 證實microRNA可直接調控豬隻背脂沉積。Yu等 (2020, PMID:32782789) 指出高直鏈澱粉比例可上調FAS/SCD基因表現，提高肌內脂肪(IMF)達3.2%以上。活力旺小核酸整合此雙重路徑：皮下脂肪抑制、肌內脂肪定向沉積，同時達成瘦肉率提升與雪花肉生成。',
+                'fucoxanthin_title': '3. 「褐藻素」—— 藻源性類胡蘿蔔素',
+                'fucoxanthin_desc': '<strong>抗病毒免疫力、抗應激</strong> · Nrf2路徑 · 屠宰失重↓1.2%',
+                'fucoxanthin_caption': '褐藻素 · 天然巨藻萃取來源',
+                'fucoxanthin_mechanism': '🌿 抗氧化與腸道健康：',
+                'fucoxanthin_mechanism_text': '褐藻素透過激活Nrf2/KEAP1抗氧化反應元件，提升SOD、GPx活性，有效清除自由基。Liotta等 (2019, PMID:31861062) 發現多酚類物質可降低背脂厚度、提高MUFA與ω-3 PUFA濃度。Ferrer等 (2022, PMID:36308921) 觀察到皮下脂肪MUFA/SFA比例上升。褐藻素憑藉獨特雙親分子結構，嵌入細胞膜淬滅單重態氧，降低運輸緊迫及屠宰失重，同時維護腸道屏障完整性，減少發炎因子IL-6、IL-1β表現。',
+                'benefit_item': '效能項目',
+                'mechanism': '對應載體',
+                'performance': '實證績效',
+                'literature': '文獻來源',
+                'benefit1': '降FCR',
+                'benefit2': '背脂率下降',
+                'benefit3': '出肉率＞80%',
+                'benefit4': '抗病毒・免疫力',
+                'benefit5': '抗應激・耐運輸',
+                'carrier1': '重組蛋白酶',
+                'carrier2': '小核酸',
+                'carrier3': '褐藻素',
+                'slaughter_title': '📋 全台三大產區屠宰場實證（2025-2026）',
+                'slaughter_scope': '📍 北部(桃竹苗)·中部(彰雲嘉)·南部(屏東) 23場 · 47,826頭',
+                'slaughter_caption': '彰化屠宰場屠體評級 · 背脂實測1.9cm (2026.02)',
+                'region': '產區',
+                'yard_count': '場數',
+                'control': '對照組<br>出肉率/背脂',
+                'vitality': '活力旺組<br>出肉率/背脂',
+                'improvement': '改善',
+                'premium': '收購溢價',
+                'north': '北部',
+                'central': '中部',
+                'south': '南部',
+                'slaughter_note': '※ 資料為首池品管部彙整，收購溢價加權平均。',
+                'slaughter_conclusion': '🔬 屠體評級提升1~2等級 · 中部溢價達4.0元/公斤',
+                'spec_title': '⚙️ 育肥規格｜30→140kg 高性能參數',
+                'metric_fcr_title': '飼料轉換率 (FCR)',
+                'fcr_new': '<2.0',
+                'fcr_improve': '↓ 28.6%',
+                'fcr_desc': '省88kg/頭 · 1,320元',
+                'metric_yield_title': '出肉率',
+                'yield_old': '<80%',
+                'yield_new': '>80%',
+                'yield_improve': '↑ 3.9~5.2%',
+                'yield_desc': '+7kg屠體 · +700元',
+                'metric_bf_title': '背脂厚度',
+                'bf_old': '>2.5cm',
+                'bf_new': '<2.0cm',
+                'bf_improve': '↓ 30%',
+                'bf_desc': '溢價3~5元/kg · +420元',
+                'metric_weight_title': '出欄體重',
+                'weight_old': '<130kg',
+                'weight_new': '>140kg',
+                'weight_improve': '↑ 10kg+',
+                'weight_desc': '雪花溢價2.5元/kg',
+                'heavy_pig_caption': '雲林示範場 · 140kg杜洛克 · 背脂1.9cm',
+                'fcr_triptych_caption': '左FCR 2.8 · 中FCR 2.4 · 右FCR <2.0｜台灣現代化豬舍',
+                'fcr_chart_caption': '飼料轉換效率對比 · 節省88kg飼料',
+                'profit_title': '💰 單頭效益精算｜飼料+屠體+背脂+肉質',
+                'calc_basis': '📐 基準：',
+                'calc_detail': '30→140kg · FCR 2.8→2.0 · 飼料15元/kg · 屠體100元/kg · 背脂溢價3元/kg · 品牌溢價100元/頭',
+                'profit_item': '效益項目',
+                'improvement_range': '改善幅度',
+                'value_ntd': '價值（NTD/頭）',
+                'feed_saving': '飼料節省',
+                'fcr_saving_detail': 'FCR 2.8→2.0 · 省88kg',
+                'carcass_gain': '屠體增重',
+                'yield_gain_detail': '出肉率77%→81% · +7kg',
+                'bf_premium': '背脂溢價',
+                'bf_premium_detail': '背脂2.5→1.8cm · A級',
+                'quality_premium': '肉質溢價',
+                'quality_detail': '肌間脂肪3.2%',
+                'total_benefit': '總效益',
+                'add_cost': '添加成本',
+                'add_cost_detail': '220kg × 0.96元',
+                'net_profit': '每頭淨利',
+                'roi_title': 'ROI —— 1102%',
+                'roi_desc': '💰 每投入1元，回收12元 · 回收期4.2天',
+                'video_title': '🎥 屠體評級實錄｜背脂與瘦肉實測',
+                'video_caption': '屠體分級現場 · 背脂厚度1.8cm · 瘦肉率>68%',
+                'marbling_caption': '肌內脂肪達3.2% · 大理石紋明顯 · 品牌豬口感',
+                'roi_caption_new': '📊 1元→12元 · 4.2天回本 · 日增重950g · FCR 2.8→2.0',
+                'product_spec_title': '📋 產品規格｜每噸全價飼料添加1kg',
+                'spec_dosage_label': '添加量',
+                'spec_dosage_note': '強化1.5kg',
+                'spec_price_label': '單價',
+                'spec_cost_label': '飼料成本增',
+                'spec_stage_label': '適用階段',
+                'spec_stage_value': '育肥全程',
+                'spec_feed_label': '每頭耗料',
+                'spec_feed_note': 'FCR 2.0基準',
+                'spec_addcost_label': '每頭成本',
+                'testimonial1': '「原本擔心養太重被扣錢，活力旺養到143kg背脂才1.8cm，牌價+4元/公斤，一頭多賣2,500元！」',
+                'testimonial1_author': '雲林 · 吳勝華',
+                'testimonial1_meta': '1,200頭一貫場 · 2026.01',
+                'testimonial2': '「南部屠宰場主動簽約每公斤+3.5元，全場1,800頭都走140kg規格。」',
+                'testimonial2_author': '屏東 · 陳信男',
+                'testimonial2_meta': '契養戶 · 年出欄3500頭',
+                'cta_title': '🚀 試算您牧場的1102% ROI',
+                'cta_sub1': '每頭額外淨利 × 您的規模',
+                'cta_sub2': '業界最高 · 4.2天回本',
+                'cta_badges': '🐖 FCR<2.0｜🥩 出肉率>80%｜📏 背脂<2.0cm｜⚡ 出欄>140kg',
+                'cta_btn1': '📞 免費ROI試算｜限場8折',
+                'cta_btn2': '📋 領取140kg實證手冊',
+                'cta_footnote': '* 50萬頭田間實證 · 23屠宰場 · 首池無效退費',
+                'footer_company': '首池有限公司',
+                'footer_slogan': '育肥豬140kg高效方案 · 屠宰溢價領導品牌',
+                'footer_copyright': '© 2026 首池有限公司 · 引用PubMed/國科會文獻 · 圖片實拍',
+                'home': '主頁',
+                'boar': '種公豬',
+                'preg_sow': '懷孕母豬',
+                'lact_sow': '哺乳母豬',
+                'piglet': '仔豬',
+                'finisher': '育肥豬',
+                'breeder': '種雞',
+                'layer': '蛋雞',
+                'native': '土雞',
+                'broiler': '白肉雞',
+                'vitality_pro': '活力旺',
+                'footer_tagline': '精準營養解決方案',
+                'contact_us': '聯絡我們',
+                'tech_hotline': '技術專線:0913-866-080',
+                'company_address': '台灣省嘉義市自強街195巷33之28號',
+                'tagline': '精準營養 · 先進生物技術 · 永續農業',
+                'products_title': '產品方案',
+                'tilapia_solution_short': '吳郭魚',
+                'shrimp_solution_short': '白蝦'
+            },
+            'zh-CN': {
+                'title': '🐗 活力旺®育肥猪 · FCR 2.8→<2.0',
+                'subtitle': '三大机密载体｜重组蛋白酶‧小核酸‧褐藻素 · 50万头实证',
+                'highlight_badge': '🏆 单头净利+2,328元 | ROI 1102% | 50万头实证',
+                'cost_label': '成本',
+                'per_kg': '公斤',
+                'dosage_label': '添加量：1公斤/吨饲料',
+                'verified_heads': '实证头数：50万+',
+                'confidential_title': '🔬 活力旺® 育肥专利配方 – 三大机密载体',
+                'confidential_desc': '',
+                'protease_title': '1. 「重组蛋白酶」—— 蛋白草萃取物',
+                'protease_desc': '<strong>降FCR、能量重分配</strong> · AMPK/mTOR信号轴 · FCR 2.8→<2.0 · 每头省88kg饲料',
+                'protease_caption': '重组蛋白酶 · 3D结构示意',
+                'protease_mechanism': '🧬 分子机转：',
+                'protease_mechanism_text': '重组蛋白酶通过激活AMPK通路，上调骨骼肌脂肪酸氧化及葡萄糖摄取；同时通过mTORC1信号促进肌肉蛋白合成。此双重调控机制经Genova等 (2023, PMID:37008356) 证实可于代谢能降低85 kcal/kg下维持增重。活力旺重组蛋白酶将能量由脂肪堆积「重定向」至瘦肉沉积，实现FCR突破2.0。',
+                'rna_title': '2. 「小核酸」—— 非编码RNA片段',
+                'rna_desc': '<strong>背脂率↓30%、出肉率↑</strong> · IGF2基因调控 · 背脂<2.0cm · 出肉率>82%',
+                'rna_caption': '小核酸 · 非编码RNA与DNA结合示意',
+                'rna_mechanism': '🧬 表观遗传调控：',
+                'rna_mechanism_text': '活力旺小核酸片段靶向IGF2基因启动子区域，模拟「A等位基因」优势表现型，显著下调脂肪生成转录因子。Liu等 (2019, PMID:31159441) 证实microRNA可直接调控猪只背脂沉积。Yu等 (2020, PMID:32782789) 指出高直链淀粉比例可上调FAS/SCD基因表现，提高肌内脂肪(IMF)达3.2%以上。活力旺小核酸整合此双重路径：皮下脂肪抑制、肌内脂肪定向沉积，同时达成瘦肉率提升与雪花肉生成。',
+                'fucoxanthin_title': '3. 「褐藻素」—— 藻源性类胡萝卜素',
+                'fucoxanthin_desc': '<strong>抗病毒免疫力、抗应激</strong> · Nrf2路径 · 屠宰失重↓1.2%',
+                'fucoxanthin_caption': '褐藻素 · 天然巨藻萃取来源',
+                'fucoxanthin_mechanism': '🌿 抗氧化与肠道健康：',
+                'fucoxanthin_mechanism_text': '褐藻素通过激活Nrf2/KEAP1抗氧化反应元件，提升SOD、GPx活性，有效清除自由基。Liotta等 (2019, PMID:31861062) 发现多酚类物质可降低背脂厚度、提高MUFA与ω-3 PUFA浓度。Ferrer等 (2022, PMID:36308921) 观察到皮下脂肪MUFA/SFA比例上升。褐藻素凭借独特双亲分子结构，嵌入细胞膜淬灭单重态氧，降低运输紧迫及屠宰失重，同时维护肠道屏障完整性，减少发炎因子IL-6、IL-1β表现。',
+                'benefit_item': '效能项目',
+                'mechanism': '对应载体',
+                'performance': '实证绩效',
+                'literature': '文献来源',
+                'benefit1': '降FCR',
+                'benefit2': '背脂率下降',
+                'benefit3': '出肉率＞80%',
+                'benefit4': '抗病毒・免疫力',
+                'benefit5': '抗应激・耐运输',
+                'carrier1': '重组蛋白酶',
+                'carrier2': '小核酸',
+                'carrier3': '褐藻素',
+                'slaughter_title': '📋 全台三大产区屠宰场实证（2025-2026）',
+                'slaughter_scope': '📍 北部(桃竹苗)·中部(彰云嘉)·南部(屏东) 23场 · 47,826头',
+                'slaughter_caption': '彰化屠宰场屠体评级 · 背脂实测1.9cm (2026.02)',
+                'region': '产区',
+                'yard_count': '场数',
+                'control': '对照组<br>出肉率/背脂',
+                'vitality': '活力旺组<br>出肉率/背脂',
+                'improvement': '改善',
+                'premium': '收购溢价',
+                'north': '北部',
+                'central': '中部',
+                'south': '南部',
+                'slaughter_note': '※ 资料为首池品管部汇整，收购溢价加权平均。',
+                'slaughter_conclusion': '🔬 屠体评级提升1~2等级 · 中部溢价达4.0元/公斤',
+                'spec_title': '⚙️ 育肥规格｜30→140kg 高性能参数',
+                'metric_fcr_title': '饲料转换率 (FCR)',
+                'fcr_new': '<2.0',
+                'fcr_improve': '↓ 28.6%',
+                'fcr_desc': '省88kg/头 · 1,320元',
+                'metric_yield_title': '出肉率',
+                'yield_old': '<80%',
+                'yield_new': '>80%',
+                'yield_improve': '↑ 3.9~5.2%',
+                'yield_desc': '+7kg屠体 · +700元',
+                'metric_bf_title': '背脂厚度',
+                'bf_old': '>2.5cm',
+                'bf_new': '<2.0cm',
+                'bf_improve': '↓ 30%',
+                'bf_desc': '溢价3~5元/kg · +420元',
+                'metric_weight_title': '出栏体重',
+                'weight_old': '<130kg',
+                'weight_new': '>140kg',
+                'weight_improve': '↑ 10kg+',
+                'weight_desc': '雪花溢价2.5元/kg',
+                'heavy_pig_caption': '云林示范场 · 140kg杜洛克 · 背脂1.9cm',
+                'fcr_triptych_caption': '左FCR 2.8 · 中FCR 2.4 · 右FCR <2.0｜台湾现代化猪舍',
+                'fcr_chart_caption': '饲料转换效率对比 · 节省88kg饲料',
+                'profit_title': '💰 单头效益精算｜饲料+屠体+背脂+肉质',
+                'calc_basis': '📐 基准：',
+                'calc_detail': '30→140kg · FCR 2.8→2.0 · 饲料15元/kg · 屠体100元/kg · 背脂溢价3元/kg · 品牌溢价100元/头',
+                'profit_item': '效益项目',
+                'improvement_range': '改善幅度',
+                'value_ntd': '价值（NTD/头）',
+                'feed_saving': '饲料节省',
+                'fcr_saving_detail': 'FCR 2.8→2.0 · 省88kg',
+                'carcass_gain': '屠体增重',
+                'yield_gain_detail': '出肉率77%→81% · +7kg',
+                'bf_premium': '背脂溢价',
+                'bf_premium_detail': '背脂2.5→1.8cm · A级',
+                'quality_premium': '肉质溢价',
+                'quality_detail': '肌间脂肪3.2%',
+                'total_benefit': '总效益',
+                'add_cost': '添加成本',
+                'add_cost_detail': '220kg × 0.96元',
+                'net_profit': '每头净利',
+                'roi_title': 'ROI —— 1102%',
+                'roi_desc': '💰 每投入1元，回收12元 · 回收期4.2天',
+                'video_title': '🎥 屠体评级实录｜背脂与瘦肉实测',
+                'video_caption': '屠体分级现场 · 背脂厚度1.8cm · 瘦肉率>68%',
+                'marbling_caption': '肌内脂肪达3.2% · 大理石纹明显 · 品牌猪口感',
+                'roi_caption_new': '📊 1元→12元 · 4.2天回本 · 日增重950g · FCR 2.8→2.0',
+                'product_spec_title': '📋 产品规格｜每吨全价饲料添加1kg',
+                'spec_dosage_label': '添加量',
+                'spec_dosage_note': '强化1.5kg',
+                'spec_price_label': '单价',
+                'spec_cost_label': '饲料成本增',
+                'spec_stage_label': '适用阶段',
+                'spec_stage_value': '育肥全程',
+                'spec_feed_label': '每头耗料',
+                'spec_feed_note': 'FCR 2.0基准',
+                'spec_addcost_label': '每头成本',
+                'testimonial1': '「原本担心养太重被扣钱，活力旺养到143kg背脂才1.8cm，牌价+4元/公斤，一头多卖2,500元！」',
+                'testimonial1_author': '云林 · 吴胜华',
+                'testimonial1_meta': '1,200头一贯场 · 2026.01',
+                'testimonial2': '「南部屠宰场主动签约每公斤+3.5元，全场1,800头都走140kg规格。」',
+                'testimonial2_author': '屏东 · 陈信男',
+                'testimonial2_meta': '契养户 · 年出栏3500头',
+                'cta_title': '🚀 试算您牧场的1102% ROI',
+                'cta_sub1': '每头额外净利 × 您的规模',
+                'cta_sub2': '业界最高 · 4.2天回本',
+                'cta_badges': '🐖 FCR<2.0｜🥩 出肉率>80%｜📏 背脂<2.0cm｜⚡ 出栏>140kg',
+                'cta_btn1': '📞 免费ROI试算｜限场8折',
+                'cta_btn2': '📋 领取140kg实证手册',
+                'cta_footnote': '* 50万头田间实证 · 23屠宰场 · 首池无效退费',
+                'footer_company': '首池有限公司',
+                'footer_slogan': '育肥猪140kg高效方案 · 屠宰溢价领导品牌',
+                'footer_copyright': '© 2026 首池有限公司 · 引用PubMed/国科会文献 · 图片实拍',
+                'home': '主页',
+                'boar': '种公猪',
+                'preg_sow': '怀孕母猪',
+                'lact_sow': '哺乳母猪',
+                'piglet': '仔猪',
+                'finisher': '育肥猪',
+                'breeder': '种鸡',
+                'layer': '蛋鸡',
+                'native': '土鸡',
+                'broiler': '白肉鸡',
+                'vitality_pro': '活力旺',
+                'footer_tagline': '精准营养解决方案',
+                'contact_us': '联系我们',
+                'tech_hotline': '技术专线:0913-866-080',
+                'company_address': '台湾省嘉义市自强街195巷33之28号',
+                'tagline': '精准营养 · 先进生物技术 · 永续农业',
+                'products_title': '产品方案',
+                'tilapia_solution_short': '罗非鱼',
+                'shrimp_solution_short': '白虾'
+            },
+            'en': {
+                'title': '🐗 Vitality Booster® Finisher · FCR 2.8→<2.0',
+                'subtitle': 'Three Confidential Carriers | Recombinant Protease · Small Nucleic Acid · Fucoxanthin · 500K+ heads',
+                'highlight_badge': '🏆 +NTD 2,328 net profit/head | ROI 1102% | 500K+ validated',
+                'cost_label': 'Cost',
+                'per_kg': 'kg',
+                'dosage_label': 'Inclusion: 1kg/ton feed',
+                'verified_heads': 'Validated heads: 500K+',
+                'confidential_title': '🔬 Vitality Booster® Finishing Patent Formula – Three Confidential Carriers',
+                'confidential_desc': '',
+                'protease_title': '1. "Recombinant Protease" – Protein Grass Extract',
+                'protease_desc': '<strong>FCR reduction, energy repartitioning</strong> · AMPK/mTOR axis · FCR 2.8→<2.0 · Save 88kg feed/head',
+                'protease_caption': 'Recombinant Protease · 3D structure of Protein Grass Extract',
+                'protease_mechanism': '🧬 Molecular Mechanism:',
+                'protease_mechanism_text': 'Recombinant Protease activates the AMPK pathway, upregulating fatty acid oxidation and glucose uptake in skeletal muscle; simultaneously promotes muscle protein synthesis via mTORC1 signaling. This dual regulatory mechanism, confirmed by Genova et al. (2023, PMID:37008356), maintains weight gain under 85 kcal/kg ME reduction. Vitality Recombinant Protease "repartitions" energy from fat accumulation to lean deposition, achieving FCR below 2.0.',
+                'rna_title': '2. "Small Nucleic Acid" – Non-coding RNA fragment',
+                'rna_desc': '<strong>Backfat ↓30%, Carcass yield ↑</strong> · IGF2 regulation · Backfat <2.0cm · Yield >82%',
+                'rna_caption': 'Small Nucleic Acid · Non-coding RNA binding DNA',
+                'rna_mechanism': '🧬 Epigenetic Regulation:',
+                'rna_mechanism_text': 'Vitality Small Nucleic Acid fragments target the IGF2 gene promoter region, mimicking the superior "A allele" phenotype and significantly downregulating adipogenic transcription factors. Liu et al. (2019, PMID:31159441) confirmed that microRNAs directly regulate backfat deposition in pigs. Yu et al. (2020, PMID:32782789) demonstrated that a higher amylose/amylopectin ratio upregulates FAS/SCD gene expression, increasing intramuscular fat (IMF) to over 3.2%. Vitality Small Nucleic Acid integrates these dual pathways: subcutaneous fat inhibition and intramuscular fat deposition, simultaneously achieving lean yield improvement and premium marbling.',
+                'fucoxanthin_title': '3. "Fucoxanthin" – Algal-derived carotenoid',
+                'fucoxanthin_desc': '<strong>Antiviral immunity, Anti-stress</strong> · Nrf2 pathway · Slaughter shrinkage ↓1.2%',
+                'fucoxanthin_caption': 'Fucoxanthin · Natural macroalgae source',
+                'fucoxanthin_mechanism': '🌿 Antioxidant & Gut Health:',
+                'fucoxanthin_mechanism_text': 'Fucoxanthin activates the Nrf2/KEAP1 antioxidant response element, enhancing SOD and GPx activity, effectively scavenging free radicals. Liotta et al. (2019, PMID:31861062) found that polyphenolic compounds reduce backfat thickness, increase MUFA and ω-3 PUFA concentrations. Ferrer et al. (2022, PMID:36308921) observed increased subcutaneous MUFA/SFA ratios. Leveraging its unique amphipathic molecular structure, Fucoxanthin embeds into cell membranes to quench singlet oxygen, reducing transport stress and slaughter shrinkage, while maintaining intestinal barrier integrity and decreasing pro-inflammatory cytokines IL-6 and IL-1β.',
+                'benefit_item': 'Efficacy',
+                'mechanism': 'Carrier',
+                'performance': 'Performance',
+                'literature': 'Reference',
+                'benefit1': 'FCR reduction',
+                'benefit2': 'Backfat reduction',
+                'benefit3': 'Carcass yield >80%',
+                'benefit4': 'Antiviral・Immunity',
+                'benefit5': 'Anti-stress・Transport',
+                'carrier1': 'Recombinant Protease',
+                'carrier2': 'Small Nucleic Acid',
+                'carrier3': 'Fucoxanthin',
+                'slaughter_title': '📋 Slaughterhouse Validation – North/Central/South Taiwan (2025-2026)',
+                'slaughter_scope': '📍 23 contract slaughterhouses · 47,826 heads',
+                'slaughter_caption': 'Changhua slaughterhouse · Backfat 1.9cm (2026.02)',
+                'region': 'Region',
+                'yard_count': 'Yards',
+                'control': 'Control<br>Yield/BF',
+                'vitality': 'Vitality<br>Yield/BF',
+                'improvement': 'Improvement',
+                'premium': 'Premium',
+                'north': 'North',
+                'central': 'Central',
+                'south': 'South',
+                'slaughter_note': '※ Data from Shou Chih QA, weighted average premium.',
+                'slaughter_conclusion': '🔬 Carcass grade up 1-2 levels · Central premium NTD +4.0/kg',
+                'spec_title': '⚙️ Finishing Specs｜30→140kg High Performance',
+                'metric_fcr_title': 'FCR',
+                'fcr_new': '<2.0',
+                'fcr_improve': '↓ 28.6%',
+                'fcr_desc': 'Save 88kg/head · NTD 1,320',
+                'metric_yield_title': 'Carcass Yield',
+                'yield_old': '<80%',
+                'yield_new': '>80%',
+                'yield_improve': '↑ 3.9~5.2%',
+                'yield_desc': '+7kg carcass · +NTD 700',
+                'metric_bf_title': 'Backfat Thickness',
+                'bf_old': '>2.5cm',
+                'bf_new': '<2.0cm',
+                'bf_improve': '↓ 30%',
+                'bf_desc': 'Premium NTD 3-5/kg · +NTD 420',
+                'metric_weight_title': 'Slaughter Weight',
+                'weight_old': '<130kg',
+                'weight_new': '>140kg',
+                'weight_improve': '↑ 10kg+',
+                'weight_desc': 'Marbling premium NTD 2.5/kg',
+                'heavy_pig_caption': 'Yunlin demo farm · 140kg Duroc · Backfat 1.9cm',
+                'fcr_triptych_caption': 'Left FCR 2.8 · Middle FCR 2.4 · Right FCR <2.0｜Taiwan modern pig barn',
+                'fcr_chart_caption': 'FCR comparison · Save 88kg feed',
+                'profit_title': '💰 Economic Analysis per Head',
+                'calc_basis': '📐 Basis:',
+                'calc_detail': '30→140kg · FCR 2.8→2.0 · Feed NTD15/kg · Carcass NTD100/kg · Backfat premium NTD3/kg · Quality premium NTD100/head',
+                'profit_item': 'Item',
+                'improvement_range': 'Improvement',
+                'value_ntd': 'Value (NTD/head)',
+                'feed_saving': 'Feed saving',
+                'fcr_saving_detail': 'FCR 2.8→2.0 · Save 88kg',
+                'carcass_gain': 'Carcass gain',
+                'yield_gain_detail': 'Yield 77%→81% · +7kg',
+                'bf_premium': 'Backfat premium',
+                'bf_premium_detail': 'Backfat 2.5→1.8cm · Grade A',
+                'quality_premium': 'Meat quality premium',
+                'quality_detail': 'IMF 3.2%',
+                'total_benefit': 'Total benefit',
+                'add_cost': 'Additive cost',
+                'add_cost_detail': '220kg × NTD0.96',
+                'net_profit': 'Net profit/head',
+                'roi_title': 'ROI —— 1102%',
+                'roi_desc': '💰 NTD 1 → NTD 12 · Payback 4.2 days',
+                'video_title': '🎥 Carcass Grading Video｜Backfat & Lean',
+                'video_caption': 'Carcass grading · Backfat 1.8cm · Lean >68%',
+                'marbling_caption': 'IMF 3.2% · Rich marbling · Premium brand taste',
+                'roi_caption_new': '📊 1→12 · 4.2 days payback · +950g ADG · FCR 2.8→2.0',
+                'product_spec_title': '📋 Product Specs｜1kg/ton complete feed',
+                'spec_dosage_label': 'Inclusion',
+                'spec_dosage_note': 'Booster 1.5kg',
+                'spec_price_label': 'Price',
+                'spec_cost_label': 'Feed cost +',
+                'spec_stage_label': 'Stage',
+                'spec_stage_value': 'Finishing',
+                'spec_feed_label': 'Feed/head',
+                'spec_feed_note': 'FCR 2.0 basis',
+                'spec_addcost_label': 'Cost/head',
+                'testimonial1': '"I worried about overweight penalty, but Vitality pigs reached 143kg with 1.8cm backfat, +NTD4/kg, earned NTD2,500 more per head!"',
+                'testimonial1_author': 'Yunlin · Wu Shenghua',
+                'testimonial1_meta': '1,200-head farm · Jan 2026',
+                'testimonial2': '"Slaughterhouse in south signed contract +NTD3.5/kg, now all 1,800 heads go 140kg."',
+                'testimonial2_author': 'Pingtung · Chen Hsinan',
+                'testimonial2_meta': 'Contract grower · 3,500 head/year',
+                'cta_title': '🚀 Calculate Your Farm\'s 1102% ROI',
+                'cta_sub1': 'Extra profit/head × Your scale',
+                'cta_sub2': 'Industry highest · 4.2 days payback',
+                'cta_badges': '🐖 FCR<2.0｜🥩 Yield>80%｜📏 BF<2.0cm｜⚡ WT>140kg',
+                'cta_btn1': '📞 Free ROI Calculation｜20% off',
+                'cta_btn2': '📋 Get 140kg Trial Kit',
+                'cta_footnote': '* 500K+ heads, 23 slaughterhouses, money-back guarantee',
+                'footer_company': 'Shou Chih Co., Ltd.',
+                'footer_slogan': '140kg Finisher Solution · Slaughter Premium Leader',
+                'footer_copyright': '© 2026 Shou Chih · PubMed/NSTC cited · Actual photographs',
+                'home': 'Home',
+                'boar': 'Boar',
+                'preg_sow': 'Pregnant Sow',
+                'lact_sow': 'Lactating Sow',
+                'piglet': 'Piglet',
+                'finisher': 'Finisher',
+                'breeder': 'Breeder',
+                'layer': 'Layer',
+                'native': 'Native Chicken',
+                'broiler': 'Broiler',
+                'vitality_pro': 'Vitality Pro',
+                'footer_tagline': 'Precision Nutrition Solutions',
+                'contact_us': 'Contact Us',
+                'tech_hotline': 'Technical Hotline: +886-913-866-080',
+                'company_address': 'No. 33-28, Lane 195, Ziqiang Street, Chiayi City, Taiwan',
+                'tagline': 'Precision Nutrition · Advanced Biotechnology · Sustainable Agriculture',
+                'products_title': 'Product Plans',
+                'tilapia_solution_short': 'Tilapia',
+                'shrimp_solution_short': 'Shrimp'
+            }
+        };
+
+        const exchangeRates = {
+            'zh-TW': { rate: 1, symbol: 'NTD ', format: 'NTD {value}' },
+            'zh-CN': { rate: 0.2192, symbol: '¥', format: 'CNY {value}' },
+            'en':    { rate: 0.0320, symbol: '$', format: 'USD {value}' }
+        };
+        let currentLang = 'zh-TW';
+
+        function openLightbox(element) {
+            const img = element.querySelector('img');
+            if (!img) return;
+            const caption = element.querySelector('.img-title')?.innerText || '';
+            const lb = document.getElementById('lightbox');
+            const lbImg = document.getElementById('lightbox-img');
+            const lbCaption = document.getElementById('lightbox-caption');
+            lbImg.src = img.src;
+            lbCaption.innerText = caption;
+            lb.style.display = 'flex';
+        }
+
+        function updateCurrencyValues(lang) {
+            const rateInfo = exchangeRates[lang];
+            document.querySelectorAll('.currency').forEach(el => {
+                const base = el.getAttribute('data-base-value');
+                if (base) {
+                    let val = parseFloat(base);
+                    if (!isNaN(val)) {
+                        const converted = (val * rateInfo.rate).toFixed(2);
+                        el.textContent = rateInfo.format.replace('{value}', addThousandsSeparator(converted));
+                    }
+                }
+            });
+            document.querySelectorAll('.roi-percent').forEach(el => {
+                const base = el.getAttribute('data-base-value');
+                if (base) el.textContent = base + '%';
+            });
+        }
+
+        function addThousandsSeparator(numStr) {
+            let parts = numStr.split('.');
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return parts.join('.');
+        }
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+            document.documentElement.lang = lang;
+
+            const dict = translations[lang] || translations['zh-TW'];
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if (dict[key] !== undefined) {
+                    if (el.tagName === 'IMG' && el.hasAttribute('alt')) {
+                        el.alt = dict[key];
+                    } else {
+                        el.innerHTML = dict[key];
+                    }
+                }
+            });
+
+            updateCurrencyValues(lang);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    switchLanguage(this.getAttribute('data-lang'));
+                });
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+            switchLanguage('zh-TW');
+        });
+    </script>
+</body>
+</html>
+
+                <script>
+(function() {
+  // 原始連結 → 實際檔案名稱（請根據您的實際檔名調整）
+  const linkMap = {
+    "boar-semen-quality.html": "活力旺種公豬精液品質提升方案.html",
+    "pregnant-sow-optimization.html": "活力旺懷孕期母豬生產性能優化方案.html",
+    "nursing-sow-improvement.html": "活力旺哺乳母豬性能提升方案.html",
+    "piglet-milk-replacer.html": "活力旺仔豬人工乳性能提升方案.html",
+    "finisher-pig-fcr.html": "活力旺育肥豬FCR性能提升方案.html",
+    "breeder-chicken.html": "活力旺種雞性能提升方案.html",
+    "layer-chicken.html": "活力旺蛋雞性能提升方案.html",
+    "native-chicken.html": "活力旺土雞性能提升方案.html",
+    "broiler-fcr.html": "活力旺白肉雞FCR性能提升方案.html",
+    "tilapia-survival.html": "活力旺吳郭魚存活率提升方案.html",
+    "shrimp-survival.html": "活力旺白蝦存活率提升方案.html"
+  };
+
+  // 只修正頁尾 .footer-links 內的連結
+  document.querySelectorAll('.footer-links a').forEach(link => {
+    const href = link.getAttribute('href');
+    if (linkMap[href] && !href.startsWith('http')) {
+      link.href = linkMap[href];  // 替換為正確的中文檔名
+    }
+  });
+})();
+</script>
