@@ -1790,3 +1790,30 @@
     </script>
 </body>
 </html>
+
+<script>
+(function() {
+  // 原始連結 → 實際檔案名稱（請根據您的實際檔名調整）
+  const linkMap = {
+    "boar-semen-quality.html": "倍力素種公豬精液品質提升方案.html",
+    "pregnant-sow-optimization.html": "倍力素懷孕期母豬生產性能優化方案.html",
+    "nursing-sow-improvement.html": "倍力素哺乳母豬性能提升方案.html",
+    "piglet-milk-replacer.html": "倍力素仔豬人工乳性能提升方案.html",
+    "finisher-pig-fcr.html": "倍力素育肥豬FCR性能提升方案.html",
+    "breeder-chicken.html": "倍力素種雞性能提升方案.html",
+    "layer-chicken.html": "倍力素蛋雞性能提升方案.html",
+    "native-chicken.html": "倍力素土雞性能提升方案.html",
+    "broiler-fcr.html": "倍力素白肉雞FCR性能提升方案.html",
+    "tilapia-survival.html": "倍力素吳郭魚存活率提升方案.html",
+    "shrimp-survival.html": "倍力素白蝦存活率提升方案.html"
+  };
+
+  // 只修正頁尾 .footer-links 內的連結
+  document.querySelectorAll('.footer-links a').forEach(link => {
+    const href = link.getAttribute('href');
+    if (linkMap[href] && !href.startsWith('http')) {
+      link.href = linkMap[href];  // 替換為正確的中文檔名
+    }
+  });
+})();
+</script>
